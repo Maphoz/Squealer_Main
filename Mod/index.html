@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Routing </title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+<body>
+    <div id="content"></div>
+    <script>
+ $(document).ready(function() {
+    function handleRoute() {
+        var path = window.location.pathname;
+        var routeMap = {
+            '/mod/': 'login.html',
+            '/mod/utenti': 'users.html',
+            '/mod/canaliUfficiali': 'canaliUfficiali.html',
+            '/mod/canaliUtente': 'canaliUtente.html',
+            '/mod/canaliTemporanei': 'canaliTemporanei.html',
+            '/mod/creaCanale': 'createChannel.html',
+            '/mod/pubblica': 'pubblica.html',
+            '/mod/squeals': 'squeals.html',
+            '/mod/analisi': 'mainPage.html',
+        };
+
+        var fileName = routeMap[path];
+        if (fileName) {
+            window.location.href = fileName;
+            var cleanPath = path.replace('.html', '');
+            window.history.replaceState({}, '', cleanPath);
+            
+        } else {
+            $('#content').html('Pagina non trovata');
+        }
+    }
+
+    handleRoute();
+
+    $(window).on('popstate', function() {
+        handleRoute();
+    });
+});
+
+    </script>
+</body>
+</html>
+
+</body>
+</html>

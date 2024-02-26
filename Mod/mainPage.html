@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Main Page</title>
+  <!-- Includi il link a Tailwind CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <!-- Includi jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: white; /* Colore grigio chiaro di sfondo */
+      display: grid; /* Usa la disposizione a griglia per gestire le colonne */
+      grid-template-columns: 15% auto; /* Specifica due colonne, una per la colonna di navigazione e una per il contenuto */
+    }
+
+    /* Stili per la colonna di navigazione */
+    .navigation-column {
+      color: white;
+      background-color: black;
+      padding-right: 20px;
+      margin-top: 0px;
+      height: 100vh;
+      width: 120%;
+      /* Colore di sfondo leggermente scuro */
+    }
+
+    /* Stili per le etichette di sezione */
+    .section-label {
+      font-size: 1.8rem; /* Incrementa la dimensione del testo */
+      margin-left: 3%;
+    }
+
+    .titleContainer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    /* Stili per i bottoni di navigazione */
+    .navigation-button {
+      display: flex;
+      align-items: center;
+      padding: 12px; /* Aumenta il padding */
+      color: white; /* Grigio più scuro */
+      border: none;
+      border-radius: 10px; /* Arrotonda i bordi */
+      cursor: pointer;
+      transition: background-color 0.3s, color 0.3s; /* Aggiungi transizione per un effetto più fluido */
+      font-size: 20px;
+    }
+
+    .create-button {
+      display: flex;
+      align-items: center;
+      padding-top: 12px; /* Aumenta il padding */
+      padding-bottom: 12px;
+      margin-top: 10px;
+      margin-bottom: 15px;
+      padding-left: 25px;
+      padding-right: 25px; /* Aumenta la distanza tra i bottoni */
+      color: white; /* Grigio più scuro */
+      border: none;
+      border-radius: 25px; /* Arrotonda i bordi */
+      cursor: pointer;
+      font-size: 20px;
+      background-color: #3399FF;
+    }
+
+    .logout-button {
+      display: flex;
+      align-items: center;
+      padding-top: 12px; /* Aumenta il padding */
+      padding-bottom: 12px;
+      padding-left: 25px;
+      padding-right: 25px;
+      margin-bottom: 10%; /* Aumenta la distanza tra i bottoni */
+      color: white; /* Grigio più scuro */
+      border: none;
+      border-radius: 25px; /* Arrotonda i bordi */
+      cursor: pointer;
+      font-size: 20px;
+      background-color: red;
+    }
+    .new-container {
+      display: flex;
+      flex-direction: column;
+      margin-left: 5%;
+      width: 94%;
+      background-color: white;
+      border-radius: 10px;
+      height: 84vh;
+      margin-top: 5%;
+      position: relative; /* Aggiunto posizione relativa per posizionare gli elementi assoluti */
+      
+    }
+
+    .navigation-button:hover {
+      background-color: #3399FF;
+      color: white;
+    }
+
+    /* Stili per le immagini nei bottoni */
+    .navigation-icon {
+      width: 30px;
+      height: 30px;
+      margin-right: 10px;
+    }
+
+    .navButtons {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin-top: 20%;
+      margin-left: 5%;
+    }
+
+    /* Stili per la barra di benvenuto */
+    .welcome-bar {
+      color: black;
+      padding: 10px;
+      /* Colore di sfondo leggermente scuro */
+      position: fixed; /* Fissa la barra di benvenuto in cima alla pagina */
+      right: 0; /* Allinea la barra di benvenuto a destra */
+      top: 0; /* Allinea la barra di benvenuto in alto */
+      display: flex;
+      align-items: center;
+    }
+
+    /* Aggiunto un margine destro per separare il testo e l'immagine */
+    .welcome-bar img {
+      margin-right: 10px;
+    }
+
+    .title{
+        margin-left:40%;
+        margin-top: 10px;
+        font-size: 3rem;
+        color: #3399FF;
+        font: bold;
+    }
+    .chart-container-user {
+      display: flex;
+    flex-direction: row;
+    margin-left: 18%;
+    margin-top: 2%;
+    width: 40%;
+    height: 40%;
+    }
+
+    .chart-container {
+  display: flex;
+  flex-direction: row;
+
+  margin-left: 10%;
+  margin-top: 2%;
+  width: 40%;
+}
+
+.chart-container canvas {
+  width: 40%; /* Dividi il container in due colonne */
+}
+
+#squelsChart {
+  margin-right: 5%;
+}
+
+#channelsChart {
+  margin-left: 5%;
+}
+
+#userTypeChart {
+  margin-right: 22%;
+}
+
+#postTypeChart {
+  margin-left: 22%;
+}
+
+
+
+
+
+
+  </style>
+</head>
+<body>
+
+  <div class="navigation-column">
+    <div class="titleContainer">
+      <img src="./images/squealer_logo.png" alt="logo" style="height: 60px; width: 60px;">
+      <p class="text-2xl font-bold section-label mt-3">Squealer</p>
+    </div>
+    
+    <div class="navButtons">
+      <button id="btnAnalisi" class="navigation-button" onclick="redirectMainPage()" >
+        <img src="./images/trendw.png" alt="Analisi Icon" class="navigation-icon">
+        Analisi Dati
+      </button>
+      <button id="btnUtenti" class="navigation-button" onclick="redirectUser()">
+        <img src="./images/userw.png" alt="Utenti Icon" class="navigation-icon">
+        Utenti
+      </button>
+      <button id="btnCanaliUtente" class="navigation-button" onclick="handleUserChannels()">
+        <img src="./images/channelw.png" alt="Canali Icon" class="navigation-icon">
+        Canali Utente
+      </button>
+      <button id="btnCanliUfficiali" class="navigation-button" onclick="handleOfficialChannels()" >
+        <img src="./images/canaliufficialiw.png" alt="Crea Icon" class="navigation-icon">
+        Canali Ufficiali
+      </button>
+      <button id="btnCanliUfficiali" class="navigation-button" onclick="handleTemporaryChannels()" >
+        <img src="./images/temporaneiw.png" alt="Crea Icon" class="navigation-icon">
+        Canali Temporanei
+      </button>
+      <button id="btnSqueals" class="navigation-button" onclick="redirectSqueals()">
+        <img src="./images/messagew.png" alt="Squeals Icon" class="navigation-icon">
+        Squeals
+      </button>
+      <button id="btnSqueals" class="navigation-button" onclick="redirectPublish()">
+        <img src="./images/wirtew.png" alt="Squeals Icon" class="navigation-icon">
+        Pubblica
+      </button>
+      <button id="btnCrea" class="create-button mt-5" onclick="redirectCreateChannel()" >
+        <img src="./images/creacanalew.png" alt="Crea Icon" class="navigation-icon">
+        Crea canale
+      </button>
+      <button class="logout-button" onclick="logout()">
+        Logout
+      </button>
+
+    </div>
+  </div>
+
+
+  <div class="welcome-bar">
+    <p class="mr-2">Bentornato, </p>
+    <img src="./images/userbase.png" alt="User Image" class="w-8 h-8">
+  </div>
+  <div class="new-container ">
+    <h1 class="title">Analisi dati</h1>
+    <div class="chart-container-user">
+      <canvas id="userTypeChart" width="400" height="400"></canvas>
+      <canvas id="postTypeChart" width="400" height="200"></canvas>
+    </div>
+    <div class="chart-container">
+      <canvas id="squealsChart" width="400" height="200" ></canvas>
+      <canvas id="channelsChart" width="400" height="210"></canvas>
+    </div>
+    
+    
+    
+  
+</div>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+  <script>
+    function redirectUser() {
+      window.location.href = '/mod/utenti';
+    }
+
+    function redirectSqueals() {
+      window.location.href = '/mod/squeals';
+    }
+
+    function redirectCreateChannel() {
+      window.location.href = '/mod/creaCanale';
+    }
+
+    function handleOfficialChannels() {
+      window.location.href = '/mod/canaliUfficiali';
+    }
+
+    function handleUserChannels(){
+      window.location.href = '/mod/canaliUtente';
+    }
+
+    function handleTemporaryChannels(){
+      window.location.href = '/mod/canaliTemporanei';
+    }
+
+    function redirectPublish(){
+      window.location.href = '/mod/pubblica';
+    }
+
+    function redirectMainPage(){
+      window.location.href = '/mod/analisi';
+    }
+    function logout() {
+      $.removeCookie('AccessTokenMod');
+      window.location.href = '/mod/';
+    }
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+  fetch('https://site222344.tw.cs.unibo.it/graphql', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      query: `
+        query getNumberOfSquealsPerDay {
+          getNumberOfSquealsPerDay {
+            date
+            number
+          }
+        }
+      `,
+    }),
+  })
+  .then(response => response.json())
+  .then(data => {
+    var squealsData = data;
+    var dates = squealsData.data.getNumberOfSquealsPerDay.map(entry => entry.date);
+    var formattedDates = dates.map(dateString => new Date(dateString).toISOString().slice(0, 10));
+    var numbers = squealsData.data.getNumberOfSquealsPerDay.map(entry => entry.number);
+
+    // Crea un oggetto di contesto per il canvas
+    var ctx = document.getElementById("squealsChart").getContext("2d");
+
+    // Crea il grafico a linea
+    var myChart = new Chart(ctx, {
+      type: "line",
+      data: {
+        labels: formattedDates,
+        datasets: [
+          {
+            label: "Numero di Squeals",
+            data: numbers,
+            borderColor: "rgba(75, 192, 192, 1)",
+            borderWidth: 2,
+            fill: false
+          }
+        ]
+      },
+      options: {
+        scales: {
+          x: {
+            type: "time",
+            time: {
+              unit: "day"
+            }
+          },
+          y: {
+            beginAtZero: true,
+            ticks: {
+              beginAtZero: true,
+            }
+          }
+        },
+        plugins: {
+          title: {
+            display: true,
+            text: 'Analisi squeals postati'
+          }
+        }
+      }
+
+    });
+  })
+  .catch(error => console.error('Error:', error));
+});
+document.addEventListener("DOMContentLoaded", function () {
+  // Chiamata GraphQL per ottenere i dati del tipo di utente
+  fetch('https://site222344.tw.cs.unibo.it/graphql', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      query: `
+        query getAllUserType {
+          getAllUsersType {
+            userType
+            number
+          }
+        }
+      `,
+    }),
+  })
+  .then(response => response.json())
+  .then(data => {
+    var userData = data.data.getAllUsersType;
+
+    // Estrai i dati per il grafico a torta
+    var userTypes = userData.map(entry => entry.userType);
+    var userNumbers = userData.map(entry => entry.number);
+
+    // Crea un oggetto di contesto per il canvas del grafico a torta
+    var ctxPie = document.getElementById("userTypeChart").getContext("2d");
+
+    // Crea il grafico a torta
+    var myPieChart = new Chart(ctxPie, {
+      type: "pie",
+      data: {
+        labels: userTypes,
+        datasets: [
+          {
+            data: userNumbers,
+            backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0"], // Puoi personalizzare i colori
+          },
+        ],
+      },
+      options: {
+        plugins: {
+          title: {
+            display: true,
+            text: 'Tipo di utenti registrati'
+          }
+        },
+      },
+    });
+  })
+  .catch(error => console.error('Error:', error));
+});
+document.addEventListener("DOMContentLoaded", function () {
+  fetch('https://site222344.tw.cs.unibo.it/graphql', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      query: `
+        query getChannelsCreatedPerDay {
+          getChannelsCreatedPerDay {
+            date
+            number
+          }
+        }
+      `,
+    }),
+  })
+  .then(response => response.json())
+  .then(data => {
+    var channelsData = data.data.getChannelsCreatedPerDay;
+    var dates = channelsData.map(entry => entry.date);
+    var formattedDates = dates.map(dateString => new Date(dateString).toISOString().slice(0, 10));
+    var numbers = channelsData.map(entry => entry.number);
+
+    var ctxChannels = document.getElementById("channelsChart").getContext("2d");
+    var channelsChart = new Chart(ctxChannels, {
+      type: "line",
+      data: {
+        labels: formattedDates,
+        datasets: [
+          {
+            label: "Numero di Canali Creati",
+            data: numbers,
+            borderColor: "rgba(255, 99, 132, 1)",
+            borderWidth: 2,
+            fill: false,
+          }
+        ]
+      },
+      options: {
+        scales: {
+          x: {
+            type: "time",
+            time: {
+              unit: "day"
+            }
+          },
+          y: {
+            beginAtZero: true,
+            ticks: {
+              beginAtZero: true,
+            }
+          }
+        },
+        plugins: {
+          title: {
+            display: true,
+            text: 'Numero canali creati'
+          }
+        },
+      }
+    });
+  })
+  .catch(error => console.error('Error:', error));
+});
+
+
+document.addEventListener("DOMContentLoaded", function () {
+  fetch('https://site222344.tw.cs.unibo.it/graphql', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      query: `
+        query getNumberOfSquealsPerClassification{
+          getNumberOfSquealsPerClassification{
+            type
+            number
+          }
+        }
+      `,
+    }),
+  })
+  .then(response => response.json())
+  .then(data => {
+    var squealsTypeData = data.data.getNumberOfSquealsPerClassification;
+
+    // Estrai i dati per il nuovo grafico a torta
+    var postTypes = squealsTypeData.map(entry => entry.type);
+    var postNumbers = squealsTypeData.map(entry => entry.number);
+
+    // Crea un oggetto di contesto per il canvas del nuovo grafico a torta
+    var ctxPostPie = document.getElementById("postTypeChart").getContext("2d");
+
+    // Crea il nuovo grafico a torta
+    var postTypePieChart = new Chart(ctxPostPie, {
+      type: "pie",
+      data: {
+        labels: postTypes,
+        datasets: [
+          {
+            data: postNumbers,
+            backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0"],
+          },
+        ],
+      },
+      options: {
+        plugins: {
+          title: {
+            display: true,
+            text: 'Suddivisione squeals per tipo'
+          }
+        },
+      },
+    });
+  })
+  .catch(error => console.error('Error:', error));
+});
+
+
+
+
+
+    $(document).ready(function () {
+      function getMyAccount() {
+        $.ajax({
+          url: 'https://site222344.tw.cs.unibo.it/graphql', // Sostituisci con l'URL effettivo del tuo server GraphQL
+          type: 'POST',
+          contentType: 'application/json',
+          headers: {
+            Authorization: `Bearer ${$.cookie('AccessTokenMod')}`,
+          },
+          data: JSON.stringify({
+            query: `
+              query {
+                getMyAccount {
+                  __typename
+                  ...on SquealerUser {
+                    nome
+                    cognome
+                    email
+                    username
+                  }
+                }
+              }
+            `,
+          }),
+          success: function (response) {
+            // Puoi gestire i dati qui e aggiornare la tua interfaccia utente
+            $('.welcome-bar p').text('Bentornato, ' + response.data.getMyAccount.nome);
+          },
+          error: function (error) {
+            console.error('Errore durante la query:', error);
+          },
+        });
+      }
+      getMyAccount();
+    });
+  </script>
+
+</body>
+</html>
+
+
+

@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pubblica</title>
+  <!-- Includi il link a Tailwind CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.9.0/dist/css/bootstrap-datepicker.min.css">
+
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+  <style>
+  body {
+      margin: 0;
+      padding: 0;
+      background-color: white;
+      display: grid;
+      grid-template-columns: 15% auto;
+    }
+
+    /* Stili per la colonna di navigazione */
+    .navigation-column {
+      color: white;
+      background-color: black;
+      padding-right: 20px;
+      margin-top: 0px;
+      height: 100vh; /* Altezza fissa pari al massimo dello schermo */
+      width: 120%;
+      overflow: auto; /* Abilita lo scrolling verticale se necessario */
+    }
+
+    /* Stili per le etichette di sezione */
+    .section-label {
+      font-size: 1.8rem; /* Incrementa la dimensione del testo */
+      margin-left: 3%;
+    }
+
+    .titleContainer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .navigation-button {
+      display: flex;
+      align-items: center;
+      padding: 12px; /* Aumenta il padding */
+      color: white; /* Grigio più scuro */
+      border: none;
+      border-radius: 10px; /* Arrotonda i bordi */
+      cursor: pointer;
+      transition: background-color 0.3s, color 0.3s; /* Aggiungi transizione per un effetto più fluido */
+      font-size: 20px;
+    }
+
+    .create-button {
+      display: flex;
+      align-items: center;
+      padding-top: 12px; /* Aumenta il padding */
+      padding-bottom: 12px;
+      margin-top: 10px;
+      margin-bottom: 15px;
+      padding-left: 25px;
+      padding-right: 25px; /* Aumenta la distanza tra i bottoni */
+      color: white; /* Grigio più scuro */
+      border: none;
+      border-radius: 25px; /* Arrotonda i bordi */
+      cursor: pointer;
+      font-size: 20px;
+      background-color: #3399FF;
+    }
+
+    .logout-button {
+      display: flex;
+      align-items: center;
+      padding-top: 12px; /* Aumenta il padding */
+      padding-bottom: 12px;
+      padding-left: 25px;
+      padding-right: 25px;
+      margin-bottom: 10%; /* Aumenta la distanza tra i bottoni */
+      color: white; /* Grigio più scuro */
+      border: none;
+      border-radius: 25px; /* Arrotonda i bordi */
+      cursor: pointer;
+      font-size: 20px;
+      background-color: red;
+    }
+    .new-container {
+      display: flex;
+      flex-direction: column;
+      margin-left: 5%;
+      width: 92%;
+      background-color: white;
+      border-radius: 10px;
+      margin-top: 5%;
+      position: relative; /* Aggiunto posizione relativa per posizionare gli elementi assoluti */
+      
+      height: 89vh;
+    }
+
+    .navigation-button:hover {
+      background-color: #3399FF;
+      color: white;
+    }
+
+    /* Stili per le immagini nei bottoni */
+    .navigation-icon {
+      width: 30px;
+      height: 30px;
+      margin-right: 10px;
+    }
+
+    .navButtons {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin-top: 20%;
+      margin-left: 5%;
+    }
+
+    /* Stili per la barra di benvenuto */
+    .welcome-bar {
+      color: black;
+      padding: 10px;
+      /* Colore di sfondo leggermente scuro */
+      position: fixed; /* Fissa la barra di benvenuto in cima alla pagina */
+      right: 0; /* Allinea la barra di benvenuto a destra */
+      top: 0; /* Allinea la barra di benvenuto in alto */
+      display: flex;
+      align-items: center;
+    }
+
+    /* Aggiunto un margine destro per separare il testo e l'immagine */
+    .welcome-bar img {
+      margin-right: 10px;
+    }
+    .title{
+        margin-left:30%;
+        margin-top: 10px;
+        font-size: 3rem;
+        color: #3399FF;
+        font: bold;
+    }
+
+    .create-container{
+      margin-left: 26%;
+      margin-top: 1%;
+      width: 50%;
+      height: 20%;
+      background-color: white;
+      border: 1px solid #3399FF;
+      border-radius: 10px;
+    }
+
+    .text-container{
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      height: 60%;
+    }
+
+    .imgProfile{
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: 1px solid black;
+      margin-bottom: 5%;
+      margin-left: 5%;
+      margin-top: 3%;
+    }
+
+    #squealTextarea{
+      margin-left: 3%;
+      margin-top: 3%;
+      width: 85%;
+      max-height: 60%;
+      border: none;
+      resize: none;
+      font-size: 1.2rem;
+      outline: none;
+      overflow-y: auto;
+
+    }
+
+    .chooseContainer{
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      margin-left: 17%;
+      margin-top: 2%;
+      margin-bottom: 5%;
+    }
+
+    .imgChoose{
+      width: 25px;
+      height: 25px;
+      margin-right: 5%;
+    }
+
+    .squealButton {
+  background-color: #3399FF;
+  color: white;
+  border: 1px solid #3399FF;
+  border-radius: 5px; /* Bordi leggermente arrotondati */
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s; /* Effetto di transizione durante l'hover */
+  margin-left: 48%;
+
+  /* Aggiunto stile per l'hover */
+  &:hover {
+    background-color: white;
+    color: #3399FF;
+    border-color: #3399FF;
+  }
+}
+
+.secondo-titolo{
+  margin-top: 6%;
+  color: #3399FF;
+}
+
+.vertical-line {
+    border-left: 2px solid #ccc;
+    height: 100%;
+    margin-left: 2%;
+    margin-right: 2%;
+  }
+
+  /* Aggiungi stili per la lista Utenti e Canali */
+  .user-list-container,
+  .channel-list-container {
+    width: 45%;
+    overflow-y: auto;
+  }
+
+  /* Aggiungi stili per la barra di ricerca */
+  #searchUserInput,
+  #searchChannelInput {
+    width: 100%;
+      outline: none;
+      font-size: 18px;
+      padding: 10px 15px;
+      border: 2px solid black;
+      border-radius: 25px;
+      transition: border-color 0.3s ease, color 0.3s ease;
+      padding-left: 5%;
+      margin-right: 10px;
+      position: sticky;
+  }
+
+
+  .inputContainer{
+    width: 80%;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+    padding-left: 0.5rem;
+}
+
+.userChannelContainer{
+  display: flex;
+      flex-direction: row;
+      align-items: center;
+      margin-top: 2%;
+      margin-bottom: 5%;
+      max-height: 50vh;
+      overflow-y: auto;
+
+}
+
+
+.user-list-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+
+    }
+
+    .user-list-item img {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      margin-right: 20px;
+      border: 0.5px solid black;
+    }
+
+    .user-list-item:hover span {
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.user-list-container{
+  
+}
+.descriptionContainer{
+  display:flex;
+  flex-direction: column;
+  margin-right: 10%;
+}
+.searchBarContainer{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left:26%;
+  margin-top: 2%;
+}
+
+#userList, #channelList{
+  margin-left: -17%;
+  margin-top: 5%;
+
+  max-height:37vh;
+  overflow-y: auto;
+}
+
+.uploadedImage {
+  margin-left: 20%;
+  width: 150%;
+  height: 100%;
+  object-fit: cover;
+  margin-top: 5%;
+}
+
+#map{
+  margin-left: 2%;
+  width: 70%;
+  height: 100%;
+  object-fit: cover;
+  margin-top: 1%;
+  margin-bottom: 5%;
+}
+
+
+  </style>
+</head>
+<body>
+
+  <div class="navigation-column">
+    <div class="titleContainer">
+      <img src="./images/squealer_logo.png" alt="logo" style="height: 60px; width: 60px;">
+      <p class="text-2xl font-bold section-label mt-3">Squealer</p>
+    </div>
+    
+    <div class="navButtons">
+      <button id="btnAnalisi" class="navigation-button" onclick="redirectMainPage()" >
+        <img src="./images/trendw.png" alt="Analisi Icon" class="navigation-icon">
+        Analisi Dati
+      </button>
+      <button id="btnUtenti" class="navigation-button" onclick="redirectUser()">
+        <img src="./images/userw.png" alt="Utenti Icon" class="navigation-icon">
+        Utenti
+      </button>
+      <button id="btnCanaliUtente" class="navigation-button" onclick="handleUserChannels()">
+        <img src="./images/channelw.png" alt="Canali Icon" class="navigation-icon">
+        Canali Utente
+      </button>
+      <button id="btnCanliUfficiali" class="navigation-button" onclick="handleOfficialChannels()" >
+        <img src="./images/canaliufficialiw.png" alt="Crea Icon" class="navigation-icon">
+        Canali Ufficiali
+      </button>
+      <button id="btnCanliUfficiali" class="navigation-button" onclick="handleTemporaryChannels()" >
+        <img src="./images/temporaneiw.png" alt="Crea Icon" class="navigation-icon">
+        Canali Temporanei
+      </button>
+      <button id="btnSqueals" class="navigation-button" onclick="redirectSqueals()">
+        <img src="./images/messagew.png" alt="Squeals Icon" class="navigation-icon">
+        Squeals
+      </button>
+      <button id="btnSqueals" class="navigation-button" onclick="redirectPublish()">
+        <img src="./images/wirtew.png" alt="Squeals Icon" class="navigation-icon">
+        Pubblica
+      </button>
+      <button id="btnCrea" class="create-button mt-3" onclick="redirectCreateChannel()" >
+        <img src="./images/creacanalew.png" alt="Crea Icon" class="navigation-icon">
+        Crea canale
+      </button>
+      <button class="logout-button" onclick="logout()">
+        Logout
+      </button>
+
+    </div>
+  </div>
+
+
+  <div class="welcome-bar">
+    <p class="mr-2">Bentornato, </p>
+    <img src="./images/userbase.png" alt="User Image" class="w-8 h-8">
+  </div>
+  <div class="new-container ">
+    <h1 class="title">Posta un nuovo squeal</h2> 
+    <div class="create-container">
+      <div class="text-container">
+        <img class="imgProfile" src="./images/squealer_logo.png" alt="Profile Image" >
+        <textarea id="squealTextarea" placeholder="A cosa stai pensando?"></textarea>
+        
+        <!-- Nuovo div per visualizzare immagine o video -->
+        <div id="mediaContainer">
+          
+        </div>
+        <div id="map" style="display: none;" ></div>
+      </div>
+      <div class="chooseContainer">
+        <img class="imgChoose" src="./images/fotocamera.png" alt="Choose Image" onclick="openFileInput('fileInput')" >
+        <img class="imgChoose" src="./images/video.png" alt="Choose Image" onclick="openFileInput('fileInput')">
+         
+        <img class="imgChoose" src="./images/posizione.png" alt="Choose Image" onclick="getGeolocation()">
+        <button class="squealButton" onclick="postSqueal()">Squeal</button>
+      </div>
+    </div>
+    <h2 class="text-center secondo-titolo mt-5">Seleziona destinatari</h2>
+    <div class="searchBarContainer">
+      <div class="descriptionContainer">
+        <input type="text" id="searchUserInput" class="inputContainer" placeholder="Cerca utenti...">
+        <ul id="userList" class="user-list mt-3"></ul>
+      </div>
+      <div class="descriptionContainer">
+        <input type="text" id="searchChannelInput" class="inputContainer" placeholder="Cerca canali...">
+        <ul id="channelList" class="user-list mt-3"></ul>
+      </div>
+    </div>
+  </div>
+
+  <input type="file" id="fileInput" style="display: none" onchange="displayUploadedFile()">
+
+
+ 
+
+  <script
+  src="https://code.jquery.com/jquery-3.6.4.min.js"
+  integrity="sha384-UG8ao2jwOWB7/oDdObZc6ItJmwUkR/PfMyt9Qs5AwX7PsnYn1CRKCTWyncPTWvaS"
+  crossorigin="anonymous"
+></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+  <script>
+     function openFileInput(inputId) {
+       document.getElementById(inputId).click();
+      }
+      function redirectUser() {
+      window.location.href = '/mod/utenti';
+    }
+
+    function redirectSqueals() {
+      window.location.href = '/mod/squeals';
+    }
+
+    function redirectCreateChannel() {
+      window.location.href = '/mod/creaCanale';
+    }
+
+    function handleOfficialChannels() {
+      window.location.href = '/mod/canaliUfficiali';
+    }
+
+    function handleUserChannels(){
+      window.location.href = '/mod/canaliUtente';
+    }
+
+    function handleTemporaryChannels(){
+      window.location.href = '/mod/canaliTemporanei';
+    }
+
+    function redirectPublish(){
+      window.location.href = '/mod/pubblica';
+    }
+
+    function redirectMainPage(){
+      window.location.href = '/mod/analisi';
+    }
+    function logout() {
+      $.removeCookie('AccessTokenMod');
+      window.location.href = '/mod/';
+    }
+
+
+    let lat = null;
+    let lng = null;
+
+    function getGeolocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      function (position) {
+        lat = position.coords.latitude;
+        lng = position.coords.longitude;
+        displayMapWithMarker(lat, lng);
+      },
+      function (error) {
+        console.error('Errore durante l\'ottenimento della posizione:', error);
+        toastr.error('Impossibile ottenere la posizione attuale.');
+      }
+    );
+  } else {
+    console.error('Geolocalizzazione non supportata dal browser.');
+    toastr.error('Geolocalizzazione non supportata dal browser.');
+  }
+}
+
+  function displayUploadedFile() {
+    const fileInput = document.getElementById('fileInput');
+    const mediaContainer = document.getElementById('mediaContainer');
+    const squealTextarea = document.getElementById('squealTextarea');
+
+    const file = fileInput.files[0];
+
+    if (file) {
+        const fileType = file.type.split('/')[0];
+
+        if (fileType === 'image' || fileType === 'video') {
+            // Nascondi la textarea
+            squealTextarea.style.display = 'none';
+
+            // Visualizza l'immagine o il video e mostra il pulsante "x" per eliminarli
+            if (fileType === 'image') {
+                mediaContainer.innerHTML = `
+                    <img src="${URL.createObjectURL(file)}" alt="Uploaded Image" class="uploadedImage" id="image">
+                    <button id="removeMediaBtn" class="imgChoose" onclick="removeUploadedMedia()">X</button>
+                `;
+            } else if (fileType === 'video') {
+                mediaContainer.innerHTML = `
+                    <video src="${URL.createObjectURL(file)}" class="uploadedImage" id="image" controls ></video>
+                    <button id="removeMediaBtn" class="imgChoose" onclick="removeUploadedMedia()">X</button>
+                `;
+            } 
+
+            // Mostra il div media-container
+            mediaContainer.style.display = 'flex';
+        } 
+    } 
+
+}
+
+
+function displayMapWithMarker(lat, lng) {
+            // Create a Leaflet map centered at the specified coordinates
+            const squealTextarea = document.getElementById('squealTextarea');
+            squealTextarea.style.display = 'none';
+            const mapContainer = document.getElementById('map');
+            mapContainer.style.display = 'block';
+            var map = L.map('map').setView([lat, lng], 12);
+            //remove the mapContainer innerHTML
+            
+            
+            // Add the OpenStreetMap tile layer
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; OpenStreetMap contributors'
+            }).addTo(map);
+            
+            // Add a marker at the specified coordinates
+            L.marker([lat, lng]).addTo(map);
+           
+            //aggiungi  pulsante per eliminare la posizione fuori dalla mappa a destra
+            mediaContainer.innerHTML = `
+                    <button id="removeMediaBtn" class="imgChoose" onclick="removeUploadedMedia()">X</button>
+                `;
+     
+        }
+
+
+
+function removeUploadedMedia() {
+    // Nascondi il div media-container e reimposta lo stile dell'input del file
+    const mediaContainer = document.getElementById('mediaContainer');
+    const fileInput = document.getElementById('fileInput');
+    const squealTextarea = document.getElementById('squealTextarea');
+    const mapContainer = document.getElementById('map');
+    mapContainer.style.display = 'none';
+    mapContainer.innerHTML = '';
+    fileInput.value = '';
+    lat = null;
+    lng = null;
+
+    mediaContainer.style.display = 'none';
+    mediaContainer.innerHTML = '';
+    fileInput.value = '';  // Resettare il valore dell'input file
+
+    // Mostra la textarea
+    squealTextarea.style.display = 'block';
+}
+
+function postSqueal() {
+    const squealText = $('#squealTextarea').val();
+    const fileInput = document.getElementById('fileInput');
+    let file = null;
+    let typeOfUpload = null;
+
+    if (fileInput && fileInput.files.length > 0) {
+        file = fileInput.files[0];
+        typeOfUpload = file.type.startsWith('image') ? 'image' : 'video';
+    }
+
+    if (!squealText.trim() && !file && !lat && !lng) {
+        toastr.warning('Il testo dello squeal non può essere vuoto.');
+        return;
+    }
+
+    if (!destinationUser.length && !destinationChannel.length) {
+        toastr.warning('Seleziona almeno un utente o un canale.');
+        return;
+    }
+
+    if (!file) {
+        // Chiamata senza file
+        $.ajax({
+            url: 'https://site222344.tw.cs.unibo.it/graphql',
+            type: 'POST',
+            contentType: 'application/json',
+            headers: {
+                Authorization: `Bearer ${$.cookie('AccessTokenMod')}`,
+            },
+            data: JSON.stringify({
+                query: `
+                    mutation createSqueal($squealInput: CreateSquealInput!, $file: Upload){
+                        createSqueal(squealInput: $squealInput, file: $file)
+                    }
+                `,
+                variables: {
+                    squealInput: {
+                        text: squealText,
+                        destinationUserIds: destinationUser,
+                        destinationChannels: destinationChannel,
+                        typeOfUpload: null,
+                        lat: lat,
+                        lng: lng,
+                        keyword: null,
+                        charactersCost: null,
+                    },
+                    file: null,
+                },
+            }),
+            success: function (response) {
+                handleSquealResponse(response);
+            },
+            error: function (error) {
+                console.error('Errore durante l\'invio dello squeal:', error);
+                toastr.error('Si è verificato un errore durante l\'invio dello squeal.');
+            },
+        });
+    } else {
+        // Chiamata con file
+        const formData = new FormData();
+        formData.append(
+            'operations',
+            JSON.stringify({
+                query: `
+                    mutation createSqueal($squealInput: CreateSquealInput!, $file: Upload){
+                        createSqueal(squealInput: $squealInput, file: $file)
+                    }
+                `,
+                variables: {
+                    squealInput: {
+                        text: squealText,
+                        destinationUserIds: destinationUser,
+                        destinationChannels: destinationChannel,
+                        typeOfUpload: typeOfUpload,
+                        lat: null,
+                        lng: null,
+                        keyword: null,
+                        charactersCost: null,
+                    },
+                    file: file || null,
+                },
+            })
+        );
+
+        formData.append('map', JSON.stringify({ '0': ['variables.file'] }));
+        formData.append('0', file, file.name);
+
+        $.ajax({
+            url: 'https://site222344.tw.cs.unibo.it/graphql',
+            type: 'POST',
+            headers: {
+                Authorization: `Bearer ${$.cookie('AccessTokenMod')}`,
+            },
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                handleSquealResponse(response);
+            },
+            error: function (error) {
+                console.error('Errore durante l\'invio dello squeal:', error);
+                toastr.error('Si è verificato un errore durante l\'invio dello squeal.');
+            },
+        });
+    }
+}
+
+function handleSquealResponse(response) {
+    if (response.errors) {
+        toastr.error('Si è verificato un errore durante l\'invio dello squeal.');
+    } else {
+        toastr.success('Squeal inviato con successo!');
+        // Pulisci il testo dello squeal
+        $('#squealTextarea').val('');
+        // Deseleziona tutti gli utenti e i canali
+        $('.user-list-item input').prop('checked', false);
+        // Svuota le liste degli utenti e dei canali di destinazione
+        destinationUser = [];
+        destinationChannel = [];
+        lat = null;
+        lng = null;
+        const mapContainer = document.getElementById('map');  
+        mapContainer.style.display = 'none';
+        const textArea = document.getElementById('squealTextarea');
+        textArea.style.display = 'block';
+        const mediaContainer = document.getElementById('mediaContainer');
+        mediaContainer.style.display = 'none';
+    }
+}
+
+function displayUsers(users, userListId, isChannel = false) {
+    const userList = $(`#${userListId}`);
+
+    userList.empty();
+  
+    users.forEach((user, index) => {
+        //if the user is in the 'destinatariInizialiUsers' don't display it
+
+        const listItem = $('<li class="user-list-item ml-6" ></li>');
+        listItem.attr('id', user._id);
+
+        const imgElement = $(`<img src="${isChannel ? user.channelImage || './images/channel.jpeg' : user.profileImage || './images/user_image.jpg'}" alt="${isChannel ? user.name : user.username}">`);
+        imgElement.css({
+            'width': '35px',
+            'height': '35px',
+            'border-radius': '50%',
+            'margin-right': '20px',
+            'border': '0.5px solid black'
+        });
+
+        const spanElement = $(`<span>${isChannel ? user.name : user.username}</span>`);
+
+        // Aggiungi una casella di controllo per selezionare l'utente/canale
+        const selectCheckboxId = `${userListId}_checkbox_${index}`;
+        const selectCheckbox = $(`<input class="form-check-input" type="checkbox" id="${selectCheckboxId}" value="" aria-label="..." >`);
+        selectCheckbox.css({
+            'margin-left': 'auto',
+            'margin-right': '7%',
+            'border': '2px solid #0D6EFD',
+        });
+        //check if the user is in the 'destinatariInizialiUsers' array
+       
+        listItem.append(imgElement);
+        listItem.append(spanElement);
+        listItem.append(selectCheckbox);
+
+        // Aggiungi gli stili per il cambio di stile al passaggio del mouse
+        listItem.hover(
+            function () {
+                spanElement.css({
+                    'font-weight': 'bold',
+                    'cursor': 'pointer'
+                });
+            },
+            function () {
+                spanElement.css({
+                    'font-weight': 'normal',
+                    'cursor': 'default'
+                });
+            }
+        );
+
+        // Gestisci il clic sulla casella di controllo per selezionare/deselezionare l'utente/canale
+        selectCheckbox.click(function () {
+            const userId = user._id;
+            const channelId = isChannel ? user._id : null;
+
+            // Verifica se la casella di controllo è selezionata o deselezionata
+            if ($(this).prop('checked')) {
+                // Casella di controllo selezionata
+                if (isChannel) {
+                    // È un canale, aggiungi l'id alla lista dei canali di destinazione
+                    destinationChannel.push(channelId);
+                } else {
+                    // È un utente, aggiungi l'utente alla lista degli utenti di destinazione
+                    destinationUser.push(userId);
+                }
+            } else {
+                // Casella di controllo deselezionata
+                if (isChannel) {
+                    // È un canale, rimuovi l'id dalla lista dei canali di destinazione
+                    destinationChannel = destinationChannel.filter(id => id !== channelId);
+                } else {
+                    // È un utente, rimuovi l'utente dalla lista degli utenti di destinazione
+                    destinationUser = destinationUser.filter(u => u !== userId);
+                }
+            }
+
+        });
+
+
+        userList.append(listItem);
+    });
+}
+
+
+let allUsers = [];
+let allChannels = [];
+let destinationUser = [];
+let destinationChannel = [];
+
+function getAllUsers() {
+        $.ajax({
+          url: 'https://site222344.tw.cs.unibo.it/graphql',
+          type: 'POST',
+          contentType: 'application/json',
+          data: JSON.stringify({
+            query: `
+              query {
+                getAllBasicUsers {
+                    _id
+                  nome
+                  cognome
+                  username
+                  profileImage
+                }
+                getAllSMMUsers {
+                    _id
+                  nome
+                  cognome
+                  username
+                }
+                getAllSquealerUsers {
+                    _id
+                  nome
+                  cognome
+                  username
+                }
+              }
+            `,
+          }),
+          success: function (response) {
+            allUsers = response.data.getAllBasicUsers;
+            displayUsers(allUsers, 'userList');
+            
+            
+          },
+          error: function (error) {
+            console.error('Errore durante la query:', error);
+          },
+        });
+
+      }
+
+      function getAllChannels() {
+    $.ajax({
+        url: 'https://site222344.tw.cs.unibo.it/graphql',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({
+            query: `
+            query getAllOfficialChannels {
+                getAllOfficialChannels {
+                    _id
+                  channelImage
+                  name
+                  description
+                }
+              }
+            `,
+        }),
+        success: function (response) {
+            const channelDocuments = response.data.getAllOfficialChannels;
+            allChannels = channelDocuments;
+          displayUsers(allChannels, 'channelList', true);
+        },
+        error: function (error) {
+            console.error('Errore durante la query getChannels:', error);
+        },
+    });
+}
+
+
+  
+
+
+
+    $(document).ready(function () {
+      function getMyAccount() {
+        $.ajax({
+          url: 'https://site222344.tw.cs.unibo.it/graphql',
+          type: 'POST',
+          contentType: 'application/json',
+          headers: {
+            Authorization: `Bearer ${$.cookie('AccessTokenMod')}`,
+          },
+          data: JSON.stringify({
+            query: `
+              query {
+                getMyAccount {
+                  __typename
+                  ...on SquealerUser {
+                    nome
+                    cognome
+                    email
+                    username
+                  }
+                }
+              }
+            `,
+          }),
+          success: function (response) {
+            $('.welcome-bar p').text('Bentornato, ' + response.data.getMyAccount.nome);
+          },
+          error: function (error) {
+            console.error('Errore durante la query:', error);
+          },
+        });
+      }
+    $("#searchUserInput").on("input", function () {
+      const searchTerm = $(this).val().toLowerCase();
+      const filteredUsers = allUsers.filter(user => user.username.toLowerCase().includes(searchTerm));
+      displayUsers(filteredUsers, 'userList');
+    });
+
+    // Funzione per filtrare la lista di Canali in base alla barra di ricerca
+    $("#searchChannelInput").on("input", function () {
+      const searchTerm = $(this).val().toLowerCase();
+      const filteredChannels = allChannels.filter(channel => channel.name.toLowerCase().includes(searchTerm));
+      displayUsers(filteredChannels, 'channelList', true); // true indica che si tratta di canali
+    });
+
+    // Carica tutti gli Utenti e Canali
+    getAllUsers();
+    getAllChannels();
+
+      getMyAccount();
+    });
+  </script>
+
+</body>
+</html>

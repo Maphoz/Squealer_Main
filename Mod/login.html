@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Page</title>
+  <!-- Includi il link a Tailwind CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <!-- Includi jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <style>
+    /* Stili personalizzati per la pagina di login */
+
+
+    .page-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+
+    .login-div {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      margin-top: 20px; /* Regola la distanza tra il titolo e il form di login */
+      margin-left: 10%;
+    }
+
+    .image-div {
+      margin-top: 20px; /* Regola la distanza tra il titolo e l'immagine */
+    }
+
+    .image-div img {
+      width: 400px; /* Riduci le dimensioni dell'immagine per adattarla al layout */
+      height: 400px;
+     
+
+    }
+
+    .font-squealer {
+      color: #3399FF; /* Colore personalizzato per 'SQUEALER' */
+    }
+
+    .title {
+      font-family: 'Horizon';
+      font-size: 100px;
+      font-weight: 800;
+      margin-top: 100px;
+      margin-bottom: 50px;
+    }
+
+    .subtitle {
+      color: black;
+      font-size: 25px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      margin-top: -20px;
+    }
+
+    .button-row {
+      width: 100%;
+    }
+
+
+    .row-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      margin-right: 10%;
+
+     
+    }
+        /* Modifiche per input e button */
+        input[type="text"],
+    input[type="password"] {
+      width: 150%; 
+      padding: 10px;
+      margin-top: 8px;
+      margin-bottom: 8px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      box-sizing: border-box;
+    }
+
+    button {
+      width: 150%; 
+      padding: 10px;
+      background-color: #3399FF;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #2779bd;
+    }
+    .error-message {
+      color: red;
+      margin-top: 10px;
+      display: none; 
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page-container">
+    <div class="font-squealer text-main-color text-4xl font-bold title">
+      Squealer
+    </div>
+    <div class="text-black text-2xl font-semibold mb-6 subtitle">
+      <i>Moderator page login</i>
+    </div>
+    <div class="row-container">
+    <div class="image-div">
+      <img src="images/squealer_logo.png" alt="Logo" style="width: 400px; height: 400px;">
+    </div>
+    <div>
+        <div class="login-div ">
+            <!-- Form di login -->
+            <form id="loginForm" class="space-y-4">
+              <!-- Campi del modulo -->
+              <div class="error-message" id="errorMessage">Nome utente o password errati</div>
+              <div class="mb-4">
+                <label for="username" class="block text-sm font-medium text-gray-600">Username</label>
+                <input type="text" id="username" name="username" placeholder="Username" class="border rounded">
+              </div>
+              <div class="mb-4">
+                <label for="password" class="block text-sm font-medium text-gray-600">Password</label>
+                <input type="password" id="password" name="password" placeholder="Password" class="border rounded">
+              </div>
+              <!-- Pulsanti del modulo -->
+              <div class="button-row">
+                <button type="button" id="loginBtn">Accedi</button>
+              </div>
+              
+            </form>
+          </div>
+        </div>
+      
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+  <script>
+$(document).ready(function() {
+  $('#loginBtn').on('click', function() {
+    const username = $('#username').val();
+    const password = $('#password').val();
+
+    $.ajax({
+      url: 'https://site222344.tw.cs.unibo.it/graphql',
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify({
+        query: `
+          mutation {
+            login(loginUserInput: { username: "${username}", password: "${password}" }) {
+              accessToken
+              user {
+                _id
+              }
+            }
+          }
+        `,
+      }),
+      success: function(response) {
+        if (response.errors && response.errors.length > 0) {
+          const errorMessage = response.errors[0].message;
+          $('#errorMessage').fadeToggle();
+        } else {
+          // Una volta effettuato l'accesso con successo, esegui la redirezione
+          const token = response.data.login.accessToken;
+          $.cookie('AccessTokenMod', token, { path: '/' });
+          window.location.href = '/mod/analisi';
+          
+          //salva il token nell'authotization header
+          $.ajaxSetup({
+            beforeSend: function(xhr) {
+              xhr.setRequestHeader('Authorization', 'Bearer ' + token);
+            
+            }
+          });
+          
+          
+        }
+      },
+      error: function(error) {
+        console.error('Login error:', error);
+        $('#errorMessage').show();
+      },
+    });
+  });
+});
+
+
+  </script>
+
+</body>
+</html>

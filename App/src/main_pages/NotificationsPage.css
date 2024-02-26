@@ -1,0 +1,134 @@
+.customTransition{
+  margin: 10px 0px 0px 0px;
+  display: flex;
+  flex-direction: row;
+  flex: 1 1 1;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.customList{
+  width: 100%;
+}
+
+@media(max-width:576px){
+  .disappearing{
+    display: none;
+  }
+}
+
+.navigationWare{
+  display: flex;
+  justify-content: space-around;
+  background-color: white;
+  border-bottom: 2px solid #00B359;
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+.tabCustomWare{
+  color: black;
+  padding: 0px 0px 6px 0px;
+  font-size: 1.1em;
+}
+
+.brWare{
+  border-right: 1px solid #00B359;
+  border-bottom-right-radius: 10px;
+}
+
+.blWare{
+  border-left: 1px solid #00B359;
+  border-bottom-left-radius: 10px;
+
+}
+
+.warehouseTab{
+  background-color: white;
+  color: black;
+  font-weight: 600;
+  position: relative;
+}
+
+.notwarehouseTab .spanContainer{
+  position: relative;
+}
+
+@keyframes notUnderlineAnimation {
+  to {
+    width: 0; /* Set the final width */
+  }
+}
+
+.notwarehouseTab .spanContainer::after{
+  content: "";
+  position: absolute;
+  width: 80%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #00B359;
+  height: 2px;
+  border-radius: 30px;
+  bottom: -2px; /* Adjusted to align the underline properly */
+  animation: notUnderlineAnimation 0.2s ease-in forwards;
+}
+
+.warehouseTab .spanContainer{
+  position: relative;
+}
+
+@keyframes underlineAnimation {
+  to {
+    width: 80%; /* Set the final width */
+  }
+}
+
+.warehouseTab span::after{
+  content: "";
+  position: absolute;
+  width: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #00B359;
+  height: 2px;
+  border-radius: 30px;
+  bottom: -2px; /* Adjusted to align the underline properly */
+  animation: underlineAnimation 0.3s ease-in forwards;
+}
+
+.tabCustomWare:focus {
+  outline: none;
+}
+
+.warehouseTab:focus {
+  outline: none;
+}
+
+.tabCustomWare:active {
+  outline: none;
+}
+
+.warehouseTab:active {
+  outline: none;
+}
+
+.radioWarehouse{
+  display: flex;
+  color: white;
+  flex-wrap: wrap;
+}
+
+.individualPanel{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+@media(max-width: 576px) {
+  .individualPanel {
+    padding-bottom: 80px;
+  }
+}

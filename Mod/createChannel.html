@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Page</title>
+  <!-- Includi il link a Tailwind CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <!-- Includi jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: white; /* Colore grigio chiaro di sfondo */
+      display: grid; /* Usa la disposizione a griglia per gestire le colonne */
+      grid-template-columns: 15% auto; /* Specifica due colonne, una per la colonna di navigazione e una per il contenuto */
+    }
+
+    /* Stili per la colonna di navigazione */
+    .navigation-column {
+      color: white;
+      background-color: black;
+      padding-right: 20px;
+      margin-top: 0px;
+      height: 100vh;
+      width: 120%;
+      /* Colore di sfondo leggermente scuro */
+    }
+
+
+    /* Stili per le etichette di sezione */
+    .section-label {
+      font-size: 1.8rem; /* Incrementa la dimensione del testo */
+      margin-left: 3%;
+    }
+
+    .titleContainer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    /* Stili per i bottoni di navigazione */
+    .navigation-button {
+      display: flex;
+      align-items: center;
+      padding: 12px; /* Aumenta il padding */
+      color: white; /* Grigio più scuro */
+      border: none;
+      border-radius: 10px; /* Arrotonda i bordi */
+      cursor: pointer;
+      transition: background-color 0.3s, color 0.3s; /* Aggiungi transizione per un effetto più fluido */
+      font-size: 20px;
+    }
+
+ 
+    .new-container {
+      display: flex;
+      flex-direction: column;
+      margin-left: 5%;
+      width: 94%;
+      background-color: white;
+      border-radius: 10px;
+      height: 84vh;
+      margin-top: 5%;
+      position: relative; /* Aggiunto posizione relativa per posizionare gli elementi assoluti */
+      
+      height: 84vh;
+    }
+    .create-button {
+      display: flex;
+      align-items: center;
+      padding-top: 12px; /* Aumenta il padding */
+      padding-bottom: 12px;
+      margin-top: 10px;
+      margin-bottom: 15px;
+      padding-left: 25px;
+      padding-right: 25px; /* Aumenta la distanza tra i bottoni */
+      color: white; /* Grigio più scuro */
+      border: none;
+      border-radius: 25px; /* Arrotonda i bordi */
+      cursor: pointer;
+      font-size: 20px;
+      background-color: #3399FF;
+    }
+
+    .logout-button {
+      display: flex;
+      align-items: center;
+      padding-top: 12px; /* Aumenta il padding */
+      padding-bottom: 12px;
+      padding-left: 25px;
+      padding-right: 25px;
+      margin-bottom: 10%; /* Aumenta la distanza tra i bottoni */
+      color: white; /* Grigio più scuro */
+      border: none;
+      border-radius: 25px; /* Arrotonda i bordi */
+      cursor: pointer;
+      font-size: 20px;
+      background-color: red;
+    }
+
+    .navigation-button:hover {
+      background-color: #3399FF;
+      color: white;
+    }
+
+    /* Stili per le immagini nei bottoni */
+    .navigation-icon {
+      width: 30px;
+      height: 30px;
+      margin-right: 10px;
+    }
+
+    .navButtons {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin-top: 20%;
+      margin-left: 5%;
+    }
+
+    /* Stili per la barra di benvenuto */
+    .welcome-bar {
+      color: black;
+      padding: 10px;
+      /* Colore di sfondo leggermente scuro */
+      position: fixed; /* Fissa la barra di benvenuto in cima alla pagina */
+      right: 0; /* Allinea la barra di benvenuto a destra */
+      top: 0; /* Allinea la barra di benvenuto in alto */
+      display: flex;
+      align-items: center;
+    }
+
+    /* Aggiunto un margine destro per separare il testo e l'immagine */
+    .welcome-bar img {
+      margin-right: 10px;
+    }
+
+    .new-container {
+      display: flex;
+      flex-direction: column;
+      margin-left: 5%;
+      width: 94%;
+      background-color: white;
+      border-radius: 10px;
+      height: 84vh;
+      margin-top: 5%;
+      position: relative; /* Aggiunto posizione relativa per posizionare gli elementi assoluti */
+      
+      height: 85%;
+    }
+
+    .title{
+        margin-left:39%;
+        margin-top: 10px;
+        font-size: 3rem;
+        color: #3399FF;
+        font: bold;
+    }
+
+    .customForm{
+        width: 100%;
+        padding-inline: 20%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .imageContainer{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    .imageContainer img{
+        width: 130px;
+        height: 130px;
+        border: 1px solid #3399FF;
+        border-radius: 50%;
+        margin-bottom: 20px;
+    }
+
+    .nameContainer{
+        width: 70%;
+        padding: 10px;
+        margin-top: 10px;
+        margin-bottom: 8px;
+        border: 1px solid #3399FF;
+        font-size: 20px;
+        border-radius: 10px;
+    }
+
+    .nameContainer input{
+        outline: none;
+    }
+ 
+
+    .biographyContainer{
+        width: 70%;
+        padding: 10px;
+        margin-top: 10px;
+        margin-bottom: 8px;
+        border: 1px solid #3399FF;
+        font-size: 20px;
+        border-radius: 10px;
+        height: 40%;
+    }
+
+    .biographyContainer textarea{
+        outline: none;
+    }
+
+    .smallTitleNome{
+        color: black;
+        font-weight: 500;
+        font-size: 20px;
+        margin-right: 53%;
+        margin-top: 20px;
+    }
+
+    .smallTitleDescrizione{
+        color: black;
+        font-weight: 500;
+        font-size: 20px;
+        margin-right: 45%;
+        margin-top: 30px;
+    }
+
+    .buttonStyled{
+        background-color: #3399FF;
+        color: white;
+        color: white;
+        padding: 10px 20px;
+        font-size: 20px;
+        font: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        width: 70%;
+        margin-top: 40px
+    }
+
+  
+    
+
+
+  </style>
+</head>
+<body>
+
+  <div class="navigation-column">
+    <div class="titleContainer">
+      <img src="./images/squealer_logo.png" alt="logo" style="height: 60px; width: 60px;">
+      <p class="text-2xl font-bold section-label mt-3">Squealer</p>
+    </div>
+    
+
+    <div class="navButtons">
+      <button id="btnAnalisi" class="navigation-button" onclick="redirectMainPage()" >
+        <img src="./images/trendw.png" alt="Analisi Icon" class="navigation-icon">
+        Analisi Dati
+      </button>
+      <button id="btnUtenti" class="navigation-button" onclick="redirectUser()">
+        <img src="./images/userw.png" alt="Utenti Icon" class="navigation-icon">
+        Utenti
+      </button>
+      <button id="btnCanaliUtente" class="navigation-button" onclick="handleUserChannels()">
+        <img src="./images/channelw.png" alt="Canali Icon" class="navigation-icon">
+        Canali Utente
+      </button>
+      <button id="btnCanliUfficiali" class="navigation-button" onclick="handleOfficialChannels()" >
+        <img src="./images/canaliufficialiw.png" alt="Crea Icon" class="navigation-icon">
+        Canali Ufficiali
+      </button>
+      <button id="btnCanliUfficiali" class="navigation-button" onclick="handleTemporaryChannels()" >
+        <img src="./images/temporaneiw.png" alt="Crea Icon" class="navigation-icon">
+        Canali Temporanei
+      </button>
+      <button id="btnSqueals" class="navigation-button" onclick="redirectSqueals()">
+        <img src="./images/messagew.png" alt="Squeals Icon" class="navigation-icon">
+        Squeals
+      </button>
+      <button id="btnSqueals" class="navigation-button" onclick="redirectPublish()">
+        <img src="./images/wirtew.png" alt="Squeals Icon" class="navigation-icon">
+        Pubblica
+      </button>
+      <button id="btnCrea" class="create-button mt-5" onclick="redirectCreateChannel()" >
+        <img src="./images/creacanalew.png" alt="Crea Icon" class="navigation-icon">
+        Crea canale
+      </button>
+      <button class="logout-button" onclick="logout()">
+        Logout
+      </button>
+
+    </div>
+  </div>
+
+
+  <div class="welcome-bar">
+    <p class="mr-2">Bentornato, </p>
+    <img src="./images/userbase.png" alt="User Image" class="w-8 h-8">
+  </div>
+  <div class="new-container ">
+    <h1 class="title mb-4">Crea canale</h2>
+    <div class="customForm">
+        <div class="imageContainer">
+            <img src="./images/squealer_logo.png" alt="Logo">
+    </div>
+    <p class="smallTitleNome">Scegli nome</p>
+    <div class="nameContainer">
+         <input type="text" placeholder="Inserisci il nome del canale..." style="width: 100%;">
+    </div>
+    <p class="smallTitleDescrizione">Scegli descrizione</p>
+    <div class="biographyContainer">
+        <textarea placeholder="Inserisci la descrizione del canale..." style="width: 100%;"></textarea>
+    </div>
+    <button class="buttonStyled" id="btnCrea" onclick="createChannel()">Crea canale</button>
+</div>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+  <script>
+    function redirectUser() {
+      window.location.href = '/mod/utenti';
+    }
+
+    function redirectSqueals() {
+      window.location.href = '/mod/squeals';
+    }
+
+    function redirectCreateChannel() {
+      window.location.href = '/mod/creaCanale';
+    }
+
+    function handleOfficialChannels() {
+      window.location.href = '/mod/canaliUfficiali';
+    }
+
+    function handleUserChannels(){
+      window.location.href = '/mod/canaliUtente';
+    }
+
+    function handleTemporaryChannels(){
+      window.location.href = '/mod/canaliTemporanei';
+    }
+
+    function redirectPublish(){
+      window.location.href = '/mod/pubblica';
+    }
+
+    function redirectMainPage(){
+      window.location.href = '/mod/analisi';
+    }
+    function logout() {
+      $.removeCookie('AccessTokenMod');
+      window.location.href = '/mod/';
+    }
+
+
+    $(document).ready(function () {
+      function getMyAccount() {
+        $.ajax({
+          url: 'https://site222344.tw.cs.unibo.it/graphql', // Sostituisci con l'URL effettivo del tuo server GraphQL
+          type: 'POST',
+          contentType: 'application/json',
+          headers: {
+            Authorization: `Bearer ${$.cookie('AccessTokenMod')}`,
+          },
+          data: JSON.stringify({
+            query: `
+              query {
+                getMyAccount {
+                  __typename
+                  ...on SquealerUser {
+                    nome
+                    cognome
+                    email
+                    username
+                  }
+                }
+              }
+            `,
+          }),
+          success: function (response) {
+            // Puoi gestire i dati qui e aggiornare la tua interfaccia utente
+            $('.welcome-bar p').text('Bentornato, ' + response.data.getMyAccount.nome);
+          },
+          error: function (error) {
+            console.error('Errore durante la query:', error);
+          },
+        });
+      }
+
+  
+      getMyAccount();
+    });
+    function createChannel() {
+        var channelName = $('.nameContainer input').val();
+        var description = $('.biographyContainer textarea').val();
+
+        // Controlli sulla lunghezza del nome e della descrizione
+        if (channelName.length > 20) {
+          toastr.error('Il nome del canale non può superare i 20 caratteri.');
+          return;
+        }
+
+        if (!/^[A-Z]+$/.test(channelName)) {
+          toastr.error('Il nome del canale deve contenere solo lettere maiuscole.');
+          return;
+        }
+
+        if (description.length > 200) {
+          toastr.error('La descrizione del canale non può superare i 200 caratteri.');
+          return;
+        }
+
+        // Chiamata alla mutazione GraphQL
+        $.ajax({
+          url: 'https://site222344.tw.cs.unibo.it/graphql',
+          type: 'POST',
+          contentType: 'application/json',
+          headers: {
+            Authorization: `Bearer ${$.cookie('AccessTokenMod')}`,
+          },
+          data: JSON.stringify({
+            query: `
+              mutation createChannel($channelInfo: NewChannelArgs!, $file: Upload) {
+                createChannel(channelInfo: $channelInfo, file: $file) {
+                  _id
+                  description
+                }
+              }
+            `,
+            variables: {
+              channelInfo: {
+                name: channelName,
+                description: description,
+                channelType: "CANALE_SQUEALER"
+              },
+              file: null
+            },
+          }),
+          success: function (response) {
+            if(response.errors && response.errors.length > 0) {
+              const errorMessage = response.errors[0].message;
+              toastr.error('Nome già usato');
+              return;
+            }
+            toastr.success('Canale creato con successo!');
+            
+          },
+          error: function (error) {
+            console.error('Errore durante la mutazione:', error);
+            toastr.error('Si è verificato un errore durante la creazione del canale.');
+          },
+        });
+       //CHANGE THE text of the name and description
+         $('.nameContainer input').val('');
+         $('.biographyContainer textarea').val('');
+        
+      }
+    $('#btnCrea').on('click', function () {
+        createChannel();
+      });
+  </script>
+
+</body>
+</html>
+

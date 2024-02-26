@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Page</title>
+  <!-- Includi il link a Tailwind CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.9.0/dist/css/bootstrap-datepicker.min.css">
+
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+  <style>
+  body {
+      margin: 0;
+      padding: 0;
+      background-color: white;
+      display: grid;
+      grid-template-columns: 15% auto;
+    }
+
+    /* Stili per la colonna di navigazione */
+    .navigation-column {
+      color: white;
+      background-color: black;
+      padding-right: 20px;
+      margin-top: 0px;
+      height: 100vh; /* Altezza fissa pari al massimo dello schermo */
+      width: 120%;
+      overflow: auto; /* Abilita lo scrolling verticale se necessario */
+    }
+
+    /* Stili per le etichette di sezione */
+    .section-label {
+      font-size: 1.8rem; /* Incrementa la dimensione del testo */
+      margin-left: 3%;
+    }
+
+    .titleContainer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    /* Stili per i bottoni di navigazione */
+    .navigation-button {
+      display: flex;
+      align-items: center;
+      padding: 12px; /* Aumenta il padding */
+      color: white; /* Grigio più scuro */
+      border: none;
+      border-radius: 10px; /* Arrotonda i bordi */
+      cursor: pointer;
+      transition: background-color 0.3s, color 0.3s; /* Aggiungi transizione per un effetto più fluido */
+      font-size: 20px;
+    }
+
+    .create-button {
+      display: flex;
+      align-items: center;
+      padding-top: 12px; /* Aumenta il padding */
+      padding-bottom: 12px;
+      margin-top: 10px;
+      margin-bottom: 15px;
+      padding-left: 25px;
+      padding-right: 25px; /* Aumenta la distanza tra i bottoni */
+      color: white; /* Grigio più scuro */
+      border: none;
+      border-radius: 25px; /* Arrotonda i bordi */
+      cursor: pointer;
+      font-size: 20px;
+      background-color: #3399FF;
+    }
+
+    .logout-button {
+      display: flex;
+      align-items: center;
+      padding-top: 12px; /* Aumenta il padding */
+      padding-bottom: 12px;
+      padding-left: 25px;
+      padding-right: 25px;
+      margin-bottom: 10%; /* Aumenta la distanza tra i bottoni */
+      color: white; /* Grigio più scuro */
+      border: none;
+      border-radius: 25px; /* Arrotonda i bordi */
+      cursor: pointer;
+      font-size: 20px;
+      background-color: red;
+    }
+    .new-container {
+      display: flex;
+      flex-direction: column;
+      margin-left: 5%;
+      width: 92%;
+      background-color: white;
+      border-radius: 10px;
+      margin-top: 5%;
+      position: relative; /* Aggiunto posizione relativa per posizionare gli elementi assoluti */
+      
+      height: 89vh;
+    }
+
+    .navigation-button:hover {
+      background-color: #3399FF;
+      color: white;
+    }
+
+    /* Stili per le immagini nei bottoni */
+    .navigation-icon {
+      width: 30px;
+      height: 30px;
+      margin-right: 10px;
+    }
+
+    .navButtons {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin-top: 20%;
+      margin-left: 5%;
+    }
+
+    /* Stili per la barra di benvenuto */
+    .welcome-bar {
+      color: black;
+      padding: 10px;
+      /* Colore di sfondo leggermente scuro */
+      position: fixed; /* Fissa la barra di benvenuto in cima alla pagina */
+      right: 0; /* Allinea la barra di benvenuto a destra */
+      top: 0; /* Allinea la barra di benvenuto in alto */
+      display: flex;
+      align-items: center;
+    }
+
+    /* Aggiunto un margine destro per separare il testo e l'immagine */
+    .welcome-bar img {
+      margin-right: 10px;
+    }
+    .title{
+        margin-left:33%;
+        margin-top: 10px;
+        font-size: 3rem;
+        color: #3399FF;
+        font: bold;
+    }
+    .search-bar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 10px;
+      position: relative;
+      width: 50%;
+      margin-left: 28%;
+      margin-bottom: 1%;
+      margin-top: 20px ;
+    }
+
+    #searchInput {
+      width: 100%;
+      outline: none;
+      font-size: 18px;
+      padding: 10px 15px;
+      border: 2px solid #3399FF;
+      border-radius: 25px;
+      transition: border-color 0.3s ease, color 0.3s ease;
+      padding-left: 5%;
+      margin-right: 10px;
+    }
+    .squeals-container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      width: 95%;
+      margin-top: 30px;
+      max-height: 70vh; /* Altezza massima del container */
+      overflow-y: auto; /* Aggiunto overflow-y per abilitare lo scrolling verticale */
+      margin-left:8%;
+    }
+
+    .squeal-container {
+      background-color: white;
+      border: 1px solid #3399FF;
+      border-radius: 10px;
+      padding-left: 20px;
+      padding-top: 10px;
+      margin-bottom: 10px;
+      width: 60%; 
+      transition: transform 0.3s;
+      margin-right: 30%;
+      margin-left: 26%;
+      cursor: pointer;
+    }
+
+    .squeal-container:hover {
+      transform: scale(1.05);
+    }
+
+    .squeal-container img {
+      width: 65px;
+      height: 65px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+
+
+
+    .channel-info {
+      display: flex;
+      align-items: center;
+      margin-top: 2%;
+      margin-left: 20%;
+    }
+
+    .channel-info h3 {
+      margin-top: 0;
+      font-size: 1.4rem;
+      font-weight: bold;
+    }
+
+    .channel-description{
+        width: 100%;
+        margin-left: 0%;
+        margin-bottom: 20px;
+    }
+    
+
+    
+    .squeal-container-message {
+      background-color: white;
+      border: 1px solid #3399FF;
+      border-radius: 10px;
+      padding-left: 20px;
+      padding-top: 10px;
+      margin-bottom: 10px;
+      width: 100%; 
+      transition: transform 0.3s;
+      cursor: pointer;
+    }
+
+    .squeal-container-message:hover {
+      transform: scale(1.05);
+    }
+
+    .squeal-container-message img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+
+    .user-info {
+        display: flex;
+        align-items: center;
+        margin-top: 2%;
+        }
+
+        .user-info img {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        margin-right: 10px;
+        }
+
+        .user-info p {
+        margin: 0;
+        }
+    .squeal-text {
+      
+      margin-top: 5px;
+      margin-left: 10%;
+    }
+
+    .biographyContainer{
+        width: 100%;
+        padding: 10px;
+        margin-top: 10px;
+        margin-bottom: 8px;
+        border: 1px solid #3399FF;
+        font-size: 20px;
+        border-radius: 10px;
+        height: 40%;
+    }
+
+    .biographyContainer textarea{
+        outline: none;
+    }
+
+    .smallTitleNome{
+        color: black;
+        font-weight: 500;
+        font-size: 20px;
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .smallTitleDescrizione{
+        color: black;
+        font-weight: 500;
+        font-size: 20px;
+        text-align: center;
+        margin-top: 30px;
+    }
+
+    .buttonStyledSqueals{
+        background-color: #3399FF;
+        color: white;
+        color: white;
+        padding: 10px 20px;
+        font-size: 20px;
+        font: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        width: 60%;
+        margin-left: 19%;
+
+    }
+
+    .buttonStyledDelete{
+        background-color: red;
+        color: white;
+        color: white;
+        padding: 10px 20px;
+        font-size: 20px;
+        font: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        width: 60%;
+        margin-top: 40px;
+        margin-left: 19%;
+
+    }
+
+
+    .buttonStyled{
+        background-color: #3399FF;
+        color: white;
+        color: white;
+        padding: 10px 20px;
+        font-size: 20px;
+        font: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        width: 70%;
+        margin-top: 40px
+    }
+
+
+    .iconsContainer{
+        display: flex;
+        width: 100%;
+        margin-top: 20px;
+        padding-left: 50px;
+    }
+
+    .squeal-text img {
+      width: 120px;
+      height: 100px;
+      border-radius: 0;
+    }
+
+
+  </style>
+</head>
+<body>
+
+  <div class="navigation-column">
+    <div class="titleContainer">
+      <img src="./images/squealer_logo.png" alt="logo" style="height: 60px; width: 60px;">
+      <p class="text-2xl font-bold section-label mt-3">Squealer</p>
+    </div>
+    
+    <div class="navButtons">
+      <button id="btnAnalisi" class="navigation-button" onclick="redirectMainPage()" >
+        <img src="./images/trendw.png" alt="Analisi Icon" class="navigation-icon">
+        Analisi Dati
+      </button>
+      <button id="btnUtenti" class="navigation-button" onclick="redirectUser()">
+        <img src="./images/userw.png" alt="Utenti Icon" class="navigation-icon">
+        Utenti
+      </button>
+      <button id="btnCanaliUtente" class="navigation-button" onclick="handleUserChannels()">
+        <img src="./images/channelw.png" alt="Canali Icon" class="navigation-icon">
+        Canali Utente
+      </button>
+      <button id="btnCanliUfficiali" class="navigation-button" onclick="handleOfficialChannels()" >
+        <img src="./images/canaliufficialiw.png" alt="Crea Icon" class="navigation-icon">
+        Canali Ufficiali
+      </button>
+      <button id="btnCanliUfficiali" class="navigation-button" onclick="handleTemporaryChannels()" >
+        <img src="./images/temporaneiw.png" alt="Crea Icon" class="navigation-icon">
+        Canali Temporanei
+      </button>
+      <button id="btnSqueals" class="navigation-button" onclick="redirectSqueals()">
+        <img src="./images/messagew.png" alt="Squeals Icon" class="navigation-icon">
+        Squeals
+      </button>
+      <button id="btnSqueals" class="navigation-button" onclick="redirectPublish()">
+        <img src="./images/wirtew.png" alt="Squeals Icon" class="navigation-icon">
+        Pubblica
+      </button>
+      <button id="btnCrea" class="create-button mt-3" onclick="redirectCreateChannel()" >
+        <img src="./images/creacanalew.png" alt="Crea Icon" class="navigation-icon">
+        Crea canale
+      </button>
+      <button class="logout-button" onclick="logout()">
+        Logout
+      </button>
+
+    </div>
+  </div>
+
+
+  <div class="welcome-bar">
+    <p class="mr-2">Bentornato, </p>
+    <img src="./images/userbase.png" alt="User Image" class="w-8 h-8">
+  </div>
+  <div class="new-container ">
+    <h1 class="title">Gestisci canali ufficiali</h2> 
+    <div class="search-bar">
+     <input type="text" id="searchInput" placeholder="Cerca canali...">
+    </div>
+    <div class="squeals-container" id="officialChannelsContainer">
+        <!-- Qui verranno aggiunti dinamicamente gli elementi dei canali ufficiali -->
+      </div>    
+  </div>
+
+  <div class="modal fade" id="squealsModal" tabindex="-1" role="dialog" aria-labelledby="squealsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+            <div class="squeals-container-message">
+            	<!-- Qui verranno aggiunti dinamicamente gli elementi degli Squeals -->
+          <div id="squeal-container-message"></div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="channelModal" tabindex="-1" role="dialog" aria-labelledby="channelModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-center text-2xl" id="channelModalLabel">Modifica Canale</h5>
+        </div>
+        <div class="modal-body">
+           <p class="smallTitleDescrizione">Modifica descrizione</p>
+           <div class="biographyContainer">
+               <textarea placeholder="Modifica la descrizione del canale..." style="width: 100%;"></textarea>
+           </div>
+           <p class="smallTitleNome">Gesisci squeals</p>
+           <button class="buttonStyledSqueals" id="viewSqueals">Visualizza squeals</button>
+              <button class="buttonStyledDelete" id="deleteChannel">Elimina canale</button>
+        </div>
+        <div class="modal-footer" style="height: 60px;"> <!-- Imposta l'altezza del footer -->
+            <button type="button" class="btn btn-secondary" id="closeModal">Chiudi</button>
+            <button type="button" class="btn btn-primary" id="saveChanges">Salva</button>
+        </div>
+    </div>
+  </div>
+
+ 
+  
+  <script
+  src="https://code.jquery.com/jquery-3.6.4.min.js"
+  integrity="sha384-UG8ao2jwOWB7/oDdObZc6ItJmwUkR/PfMyt9Qs5AwX7PsnYn1CRKCTWyncPTWvaS"
+  crossorigin="anonymous"
+></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+ <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+ <script>
+
+    let currentChannelId = null;
+    function redirectUser() {
+      window.location.href = '/mod/utenti';
+    }
+
+    function redirectSqueals() {
+      window.location.href = '/mod/squeals';
+    }
+
+    function redirectCreateChannel() {
+      window.location.href = '/mod/creaCanale';
+    }
+
+    function handleOfficialChannels() {
+      window.location.href = '/mod/canaliUfficiali';
+    }
+
+    function handleUserChannels(){
+      window.location.href = '/mod/canaliUtente';
+    }
+
+    function handleTemporaryChannels(){
+      window.location.href = '/mod/canaliTemporanei';
+    }
+
+    function redirectPublish(){
+      window.location.href = '/mod/pubblica';
+    }
+
+    function redirectMainPage(){
+      window.location.href = '/mod/analisi';
+    }
+    function logout() {
+      $.removeCookie('AccessTokenMod');
+      window.location.href = '/mod/';
+    }
+
+
+
+
+    function loadSqueals(channelId) {
+  // Esegui la chiamata GraphQL per ottenere gli Squeals del canale
+  $.ajax({
+    url: 'https://site222344.tw.cs.unibo.it/graphql',
+    type: 'POST',
+    contentType: 'application/json',
+    data: JSON.stringify({
+      query: `
+        query getSquealsByChannel($channelId: String!){
+          getSquealsByChannel(channelId: $channelId){
+            __typename 
+            squeal{
+            _id
+              text
+              reactions{
+                type
+              }
+              views
+              comments{
+                text
+              }
+              publicationDate
+              uploadedFile
+                      typeOfUpload
+                      geolocation{
+                latitude
+                longitude
+              }
+            }
+            user {
+              username
+              profileImage
+              nome
+              cognome
+            }
+          }
+        }
+      `,
+      variables: {
+        channelId: channelId,
+      },
+    }),
+    success: function (response) {
+
+      if(response.data.getSquealsByChannel.length === 0) {
+        toastr.info('Non ci sono squeals da visualizzare');
+      } else {
+
+        updateSquealsUI(response.data.getSquealsByChannel);
+        //clean the squeal modal
+        $('#squealsModal').modal('show');
+      }
+    
+      
+      // Visualizza gli Squeals nel modal
+      
+     
+    },
+    error: function (error) {
+      console.error('Errore durante la query degli Squeals:', error);
+    },
+  });
+}
+function updateSquealsUI(squeals) {
+  const squealsContainer = $('.squeals-container-message');
+  squealsContainer.empty(); // Svuota il contenuto precedente
+
+  squeals.forEach((squeal) => {
+    const squealContainer = $('<div class="squeal-container-message" data-squeal-id="' + squeal.squeal._id + '"></div>');
+
+    const userInfo = $('<div class="user-info"></div>'); 
+    const profileImage = $('<img class="profile-image">').attr('src', squeal.user.profileImage || './images/user_image.jpg');
+    userInfo.append(profileImage);
+
+    const nameSurname = $('<p class="name-surname"></p>');
+    nameSurname.append(`<span class="font-bold">${squeal.user.nome} ${squeal.user.cognome}</span>`);
+    nameSurname.append(` <span style="color: grey;">@${squeal.user.username}</span>`);
+    
+    const removeSqueal = $('<img src="./images/removeSqueal.png" style="width: 20px; height: 20px; margin-left: auto; margin-right:15px; cursor: pointer;">');
+    removeSqueal.click(function () {
+    
+      removeSquealMutation(squeal.squeal._id, currentChannelId);
+    });
+    userInfo.append(nameSurname);
+    userInfo.append(removeSqueal);
+
+    squealContainer.append(userInfo);
+
+    const squealText = $('<div class="squeal-text"></div>');
+    let typeOfUpload = squeal.squeal.typeOfUpload;
+    if(typeOfUpload == "image" && squeal.squeal.uploadedFile){
+      squealText.append(`<img src="${squeal.squeal.uploadedFile}"  margin-bottom: 10px;">`);
+    } else if(typeOfUpload == "video" && squeal.squeal.uploadedFile){
+      squealText.append(`<video width="320" height="240" controls>
+      <source src="${squeal.squeal.uploadedFile}" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>`);
+    } else if(squeal.squeal.geolocation){
+
+const mapId = 'map' + Math.floor(Math.random() * 1000000);
+squealText.empty().append(`<div id="${mapId}" style="height: 200px; width: 80%;"></div>`);
+setTimeout(function() {
+  var map = L.map(mapId).setView([squeal.squeal.geolocation.latitude, squeal.squeal.geolocation.longitude], 15);
+          
+  // Add the OpenStreetMap tile layer
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map);
+          
+  // Add a marker at the specified coordinates
+  L.marker([squeal.squeal.geolocation.latitude, squeal.squeal.geolocation.longitude]).addTo(map);
+}, 100);
+    }
+    else if(squeal.squeal.text){
+      squealText.append(`<p style="margin-left: 0%">${squeal.squeal.text}</p>`);
+    }
+    squealContainer.append(squealText);
+
+    let posReaction = 0;
+    let negReaction = 0;
+
+    for (let i = 0; i < squeal.squeal.reactions.length; i++) {
+      if (squeal.squeal.reactions[i].type === 'agree' || squeal.squeal.reactions[i].type === 'emotional' || squeal.squeal.reactions[i].type === 'like' || squeal.squeal.reactions[i].type === 'laugh') {
+        posReaction++;
+      } else {
+        negReaction++;
+      }
+    }
+
+    const iconsContainer = $('<div class="iconsContainer"></div>');
+
+    const reactionsIcon = $('<img class="reactions-icon" style="width:20px; height:20px;">').attr('src', './images/like.png');
+    iconsContainer.append(reactionsIcon);
+    iconsContainer.append(`<p style="margin-right: 20px;">${posReaction}</p>`);
+    
+
+    const negReactionsIcon = $('<img class="reactions-icon" style="width:25px; height:25px">').attr('src', './images/dislike.png');
+    iconsContainer.append(negReactionsIcon);
+    iconsContainer.append(`<p style="margin-right: 20px;">${negReaction}</p>`);
+    
+
+    const commentsIcon = $('<img class="reactions-icon" style="width:25px; height:25px">').attr('src', './images/comment.png');
+    iconsContainer.append(commentsIcon);
+    iconsContainer.append(`<p style="margin-right: 20px;">${squeal.squeal.comments.length}</p>`);
+    
+
+    const viewsIcon = $('<img class="reactions-icon" style="width:25px; height:25px">').attr('src', './images/views.png');
+    iconsContainer.append(viewsIcon);
+    iconsContainer.append(`<p style="margin-right: 20px;">${squeal.squeal.views || 0}</p>`);
+    
+
+    squealContainer.append(iconsContainer);
+    squealsContainer.append(squealContainer);
+  });
+}
+
+
+function removeSquealMutation(squealId, channelId) {
+  // Esegui la chiamata GraphQL per rimuovere lo Squeal dal canale
+  $.ajax({
+    url: 'https://site222344.tw.cs.unibo.it/graphql',
+    type: 'POST',
+    contentType: 'application/json',
+    data: JSON.stringify({
+      query: `
+        mutation removeSquealFromChannel($squealId: String!, $channelId: String!){
+          removeSquealFromChannel(squealId: $squealId, channelId: $channelId)
+        }
+      `,
+      variables: {
+        squealId: squealId,
+        channelId: channelId,
+      },
+    }),
+    success: function (response) {
+      toastr.success('Squeal rimosso con successo');
+    //wait 1 second before reloading the page
+    setTimeout(function(){ location.reload(); }, 1000);
+    
+    },
+    error: function (error) {
+      console.error('Errore durante la rimozione dello Squeal:', error);
+    },
+  });
+}
+
+$('#viewSqueals').click(function () {
+  $('#channelModal').modal('hide');
+  loadSqueals(currentChannelId);
+});
+
+    function updateChannelUI(channelsData) {
+      // Aggiungi gli elementi dei canali al container
+      const officialChannelsContainer = $('#officialChannelsContainer');
+      officialChannelsContainer.empty();
+      channelsData.forEach(channel => {
+        const channelElement = `
+          <div class="squeal-container" id="${channel._id}">
+            <!-- Contenuto del canale ufficiale -->
+            <div class="channel-info">
+              <img src="./images/squealer_logo.png" alt="Channel Image" class="channel-image">
+              <h3 class="channel-name">${channel.name}</h3>
+            </div>
+            <p class="channel-description">${channel.description}</p>
+          </div>
+        `;
+        officialChannelsContainer.append(channelElement);
+      });
+    }
+    
+    $(document).ready(function () {
+    $('#closeModal').click(function () {
+      $('#channelModal').modal('hide');
+    });
+
+    $('#deleteChannel').click(function () {
+      // Chiedi conferma prima di eliminare il canale
+      if (confirm('Sei sicuro di voler eliminare il canale?')) {
+        // Ottieni l'ID del canale
+        const channelId = currentChannelId;
+
+
+        $.ajax({
+          url: 'https://site222344.tw.cs.unibo.it/graphql',
+          type: 'POST',
+          contentType: 'application/json',
+          headers: {
+            Authorization: `Bearer ${$.cookie('accessToken')}`,
+          },
+          data: JSON.stringify({
+            query: `
+            mutation deleteChannel($channelId: String!){
+                deleteChannel(_id: $channelId)
+                }
+            `,
+            variables: {
+                channelId: channelId,
+            },
+          }),
+          success: function (response) {
+
+
+            // Mostra il messaggio di successo
+            toastr.success('Canale eliminato con successo');
+
+            // Chiudi il modal
+            $('#channelModal').modal('hide');
+            location.reload();
+          },
+          error: function (error) {
+            console.error('Errore durante la query:', error);
+            toastr.error('Errore durante l\'eliminazione del canale');
+          },
+        });
+      }
+    });
+
+    $('#saveChanges').click(function () {
+      // Ottieni i nuovi dati dalla descrizione del canale
+      const newDescription = $('.biographyContainer textarea').val();
+       // get the element id
+       const channelId = currentChannelId;
+
+
+
+      if(!newDescription) {
+        toastr.error('Inserisci una descrizione valida');
+        return;
+      }
+      if(newDescription.length > 200) {
+        toastr.error('La descrizione inserita è troppo lunga');
+        return;
+      }
+
+      // Esegui la chiamata GraphQL per cambiare la descrizione del canale
+      $.ajax({
+        url: 'https://site222344.tw.cs.unibo.it/graphql',
+        type: 'POST',
+        contentType: 'application/json',
+        headers: {
+          Authorization: `Bearer ${$.cookie('accessToken')}`,
+        },
+        data: JSON.stringify({
+          query: `
+            mutation changeChannelDescription($channelId: String!, $newDescription: String!) {
+              changeChannelDescription(channelId: $channelId, newDescription: $newDescription) {
+                description
+              }
+            }
+          `,
+          variables: {
+            channelId: channelId,
+            newDescription: newDescription,
+          },
+        }),
+        success: function (response) {
+
+          // Mostra il messaggio di successo
+          toastr.success('Canale creato con successo!');
+
+          // Chiudi il modal
+          $('#channelModal').modal('hide');
+        },
+        error: function (error) {
+          console.error('Errore durante la modifica della descrizione del canale:', error);
+          // Mostra un messaggio di errore
+          toastr.error('Errore durante la modifica della descrizione del canale');
+        },
+      });
+    });
+
+
+
+
+
+    $(document).on('click', '.squeal-container', function () {
+        // Ottieni l'ID del canale su cui hai cliccato
+        currentChannelId = $(this).attr('id');
+
+        // Ottieni i dettagli del canale dal container
+        const channelName = $(this).find('.channel-name').text();
+        const channelDescription = $(this).find('.channel-description').text();
+
+        // Popola il modal con i dettagli del canale
+        $('#channelName').val(channelName);
+        $('#channelDescription').val(channelDescription);
+
+        // Mostra il modal
+        $('#channelModal').modal('show');
+        });
+
+    // Gestisci la chiusura del modal
+    $('#closeModal').click(function () {
+      $('#channelModal').css('display', 'none');
+    });
+
+    $('#deleteChannel').click(function () {
+      // Aggiungi la logica per eliminare il canale
+    
+    });
+
+    // Chiudi il modal se l'utente clicca fuori da esso
+    $(window).click(function (e) {
+      if (e.target.id === 'channelModal') {
+        $('#channelModal').css('display', 'none');
+      }
+    });
+
+      function getOfficialChannels(searchText = "") {
+        $.ajax({
+          url: 'https://site222344.tw.cs.unibo.it/graphql',
+          type: 'POST',
+          contentType: 'application/json',
+          data: JSON.stringify({
+            query: `
+              query getAllOfficialChannels {
+                getAllOfficialChannels {
+                    _id
+                  channelImage
+                  name
+                  description
+                }
+              }
+            `,
+          }),
+          success: function (response) {
+            // Aggiungi gli elementi dei canali ufficiali al container
+            const filteredChannels = response.data.getAllOfficialChannels.filter(channel => {
+              return channel.name.toLowerCase().includes(searchText.toLowerCase());
+            });
+            updateChannelUI(filteredChannels);
+          },
+          error: function (error) {
+            console.error('Errore durante la query:', error);
+          },
+        });
+      }
+      $('#searchInput').on('input', function () {
+            const searchTerm = $(this).val();
+            getOfficialChannels(searchTerm);
+        });
+
+
+      // Esegui la funzione per ottenere e visualizzare i canali ufficiali
+      getOfficialChannels();
+
+      function getMyAccount() {
+        $.ajax({
+          url: 'https://site222344.tw.cs.unibo.it/graphql',
+          type: 'POST',
+          contentType: 'application/json',
+          headers: {
+            Authorization: `Bearer ${$.cookie('AccessTokenMod')}`,
+          },
+          data: JSON.stringify({
+            query: `
+              query {
+                getMyAccount {
+                  __typename
+                  ...on SquealerUser {
+		   _id
+                    nome
+                    cognome
+                    email
+                    username
+                  }
+                }
+              }
+            `,
+          }),
+          success: function (response) {
+            $('.welcome-bar p').text('Bentornato, ' + response.data.getMyAccount.nome);
+          },
+          error: function (error) {
+            console.error('Errore durante la query:', error);
+          },
+        });
+      }
+
+      getMyAccount();
+    });
+  </script>
+
+</body>
+</html>
+

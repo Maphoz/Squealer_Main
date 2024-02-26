@@ -1,0 +1,1504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>users</title>
+  <!-- Includi il link a Tailwind CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <!-- Includi bootsrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"><script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <!-- Includi jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: white; /* Colore grigio chiaro di sfondo */
+    }
+
+/* Stili per la barra di benvenuto */
+.welcome-bar {
+      color: black;
+      padding: 10px;
+      /* Colore di sfondo leggermente scuro */
+      position: fixed; /* Fissa la barra di benvenuto in cima alla pagina */
+      right: 0; /* Allinea la barra di benvenuto a destra */
+      top: 0; /* Allinea la barra di benvenuto in alto */
+      display: flex;
+      align-items: center;
+    }
+#addCharactersModal .modal-content {
+        border: none;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+        color: #333;
+    }
+
+    #addCharactersModal .modal-header {
+        border: none;
+    }
+
+    #addCharactersModal .modal-title {
+        font-size: 20px;
+        font-weight: bold;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 10px;
+    }
+
+    #addCharactersModal .modal-body {
+        padding: 20px;
+    }
+
+    #addCharactersModal .form-group {
+        margin-bottom: 15px;
+    }
+
+    #addCharactersModal #operationType #confirmAddCharacters {
+        font-size: 14px;
+        font-weight: bold;
+        color: #555;
+    }
+
+    #addCharactersModal .form-check-input {
+        margin-top: 5px;
+    }
+
+    #addCharactersModal .form-check-label {
+        font-size: 12px;
+        color: #555;
+    }
+
+    #addCharactersModal .form-control {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 14px;
+    }
+
+    #addCharactersModal .modal-footer {
+        border: none;
+        padding-top: 10px; /* Adjusted padding */
+    }
+
+    #addCharactersModal #confirmAddCharacters {
+        background-color: #007bff;
+        color: #fff;
+        border: 1px solid #007bff;
+    }
+
+    #addCharactersModal #confirmAddCharacters:hover {
+        background-color: #0056b3;
+        border: 1px solid #0056b3;
+    }
+
+
+/* Aggiunto un margine destro per separare il testo e l'immagine */
+.welcome-bar img {
+      margin-right: 10px;
+    }
+
+    /* Stili per la colonna di navigazione */
+    .navigation-column {
+      display: flex;
+      flex-direction: column;
+      color: white;
+      padding: 10px;
+      width: 18%; /* Larghezza della colonna di navigazione */
+      height: 100vh;
+      background-color: black;
+      /* Colore di sfondo leggermente scuro */
+        
+    }
+
+    /* Stili per le etichette di sezione */
+    .section-label {
+      font-size: 1.8rem; /* Incrementa la dimensione del testo */
+    }
+
+    .titleContainer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+
+
+    /* Stili per i bottoni di navigazione */
+    .navigation-button {
+      display: flex;
+      align-items: center;
+      padding: 12px; /* Aumenta il padding */
+      color: white; /* Grigio più scuro */
+      border: none;
+      border-radius: 10px; /* Arrotonda i bordi */
+      cursor: pointer;
+      transition: background-color 0.3s, color 0.3s; /* Aggiungi transizione per un effetto più fluido */
+      font-size: 20px;
+    }
+
+
+    .navigation-button:hover {
+      background-color: #3399FF;
+      color: white;
+    }
+
+    /* Stili per le immagini nei bottoni */
+    .navigation-icon {
+      width: 30px;
+      height: 30px;
+      margin-right: 10px;
+    }
+
+    .navButtons{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 1%;
+        margin-left: 5%;
+
+    }
+
+    .flex-container {
+    display: flex;
+    align-items: center;
+  }
+
+  .search-icon, .filter-icon, .goBack-icon {
+    width: 25px;
+    height: 25px;
+    border-radius: 25%;
+    cursor: pointer;
+  }
+
+
+
+
+
+    /* Stili per il nuovo container */
+    .new-container {
+  display: flex;
+  flex-direction: row;
+  margin-left: 22%;
+  width: 78%;
+  background-color: white;
+  border-radius: 10px;
+  height: 83vh;
+  position: relative;
+}
+
+.itemContainer{
+    padding: 1rem;
+    border-radius: 0.75rem;
+    background-color: white;
+    max-height: 100%;
+    overflow-y: auto;
+    border: 1px solid #3399FF;
+    border-radius: 10px;
+}
+
+.particularUserContainer{
+    padding: 1rem;
+    border-radius: 0.75rem;
+    background-color: white;
+    overflow-y: auto;
+    border: 1px solid #3399FF;
+    border-radius: 10px;
+    max-height: 100%;
+}
+
+.inputContainer{
+    width: 70%;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+    padding-left: 0.5rem;
+    
+
+}
+
+.user-list {
+      list-style: none;
+       margin-top: 5%;
+       margin-left: 7%;
+    }
+
+    .user-list-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+
+    }
+
+    .user-list-item img {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      margin-right: 20px;
+      border: 0.5px solid black;
+    }
+
+    .user-list-item:hover span {
+  font-weight: bold;
+  cursor: pointer;
+}
+.user-details {
+  padding: 1rem;
+  border-radius: 0.75rem;
+  background-color: white;
+  margin-top: 20px;
+}
+.alert{
+    margin-top: -13%;
+}
+
+.item-list{
+    list-style: none;
+    margin-top: 5%;
+    margin-left: -2%;
+}
+
+.medal-container {
+  margin-right: 5px; /* Aggiungi margine destro per separare la medaglia dall'immagine del profilo */
+}
+
+
+.first-place {
+  font-size: 1em;
+  font-weight: bold;
+}
+
+.second-place {
+  font-size: 0.9em;
+}
+
+.third-place {
+  font-size: 0.8em;
+}
+
+.medal {
+  margin-right: 10px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.gold {
+  background-color: gold;
+  color: black;
+}
+
+.silver {
+  background-color: silver;
+  color: black;
+}
+
+.bronze {
+  background-color: #cd7f32;
+  color: black;
+}
+
+.item-list-container{
+    display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+        margin-left: -8%;
+      
+}
+.item-list-container img {
+      border-radius: 50%;
+      margin-right: 15px;
+      width: 25px;
+      height: 25px;
+    }
+
+    .profile-image-large {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  margin-right: 15px;
+}
+
+.item-list-container:hover span {
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.profile-image-medium {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 15px;
+}
+
+.profile-image-small {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  margin-right: 15px;
+}
+
+.bold-text {
+  font-weight: bold;
+}
+.gold-medal {
+    width: 35px;
+  height: 35px;
+}
+
+.silver-medal {
+    width: 28px;
+  height: 28px;
+}
+
+.item-list-container:first-child span {
+  font-size: 15px;
+}
+
+
+.item-list-container:first-child:hover span {
+  font-size: 17px;
+}
+.title {
+  text-align: center;
+  font-size: 3rem;
+  color: #3399FF;
+  font-weight: bold;
+  margin-left: 16%;
+}
+
+.wrapper{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top:-50%;
+}
+
+.create-button {
+      display: flex;
+      align-items: center;
+      padding-top: 12px; /* Aumenta il padding */
+      padding-bottom: 12px;
+      margin-top: 10px;
+      margin-bottom: 15px;
+      padding-left: 25px;
+      padding-right: 25px; /* Aumenta la distanza tra i bottoni */
+      color: white; /* Grigio più scuro */
+      border: none;
+      border-radius: 25px; /* Arrotonda i bordi */
+      cursor: pointer;
+      font-size: 20px;
+      background-color: #3399FF;
+    }
+
+    .logout-button {
+      display: flex;
+      align-items: center;
+      padding-top: 12px; /* Aumenta il padding */
+      padding-bottom: 12px;
+      padding-left: 25px;
+      padding-right: 25px;
+      margin-bottom: 10%; /* Aumenta la distanza tra i bottoni */
+      color: white; /* Grigio più scuro */
+      border: none;
+      border-radius: 25px; /* Arrotonda i bordi */
+      cursor: pointer;
+      font-size: 20px;
+      background-color: red;
+    }
+
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+  
+</head>
+<body>
+  <div class="navigation-column">
+    <div class="titleContainer">
+      <img src="./images/squealer_logo.png" alt="logo" style="height: 60px; width: 60px;">
+      <p class="text-2xl font-bold section-label mt-3">Squealer</p>
+    </div>
+    
+    
+    <div class="navButtons">
+      <button id="btnAnalisi" class="navigation-button" onclick="redirectMainPage()" >
+        <img src="./images/trendw.png" alt="Analisi Icon" class="navigation-icon">
+        Analisi Dati
+      </button>
+      <button id="btnUtenti" class="navigation-button" onclick="redirectUser()">
+        <img src="./images/userw.png" alt="Utenti Icon" class="navigation-icon">
+        Utenti
+      </button>
+      <button id="btnCanaliUtente" class="navigation-button" onclick="handleUserChannels()">
+        <img src="./images/channelw.png" alt="Canali Icon" class="navigation-icon">
+        Canali Utente
+      </button>
+      <button id="btnCanliUfficiali" class="navigation-button" onclick="handleOfficialChannels()" >
+        <img src="./images/canaliufficialiw.png" alt="Crea Icon" class="navigation-icon">
+        Canali Ufficiali
+      </button>
+      <button id="btnCanliUfficiali" class="navigation-button" onclick="handleTemporaryChannels()" >
+        <img src="./images/temporaneiw.png" alt="Crea Icon" class="navigation-icon">
+        Canali Temporanei
+      </button>
+      <button id="btnSqueals" class="navigation-button" onclick="redirectSqueals()">
+        <img src="./images/messagew.png" alt="Squeals Icon" class="navigation-icon">
+        Squeals
+      </button>
+      <button id="btnSqueals" class="navigation-button" onclick="redirectPublish()">
+        <img src="./images/wirtew.png" alt="Squeals Icon" class="navigation-icon">
+        Pubblica
+      </button>
+      <button id="btnCrea" class="create-button mt-5" onclick="redirectCreateChannel()" >
+        <img src="./images/creacanalew.png" alt="Crea Icon" class="navigation-icon">
+        Crea canale
+      </button>
+      <button class="logout-button" onclick="logout()">
+        Logout
+      </button>
+
+    </div>
+  </div>
+
+    <div class="welcome-bar">
+    <p class="mr-2 ">Bentornato, </p>
+    <img src="./images/userbase.png" alt="User Image" class="w-8 h-8">
+  </div>
+
+  <div class="wrapper">
+    <h1 class="title ">Gestisci Utenti</h1>
+    <div class="new-container ">
+        <!-- Div a sinistra con lista di utenti -->
+       
+        <div class="w-1/2 pr-4 ml-3 m-5">
+            <div id="error-message" class="alert alert-primary alert " style="display: none;"></div>
+
+              
+            <div class="itemContainer">
+              <h2 class="text-xl font-bold mb-4 text-center">Cerca Utenti</h2>
+              <div class="flex items-center ml-4">
+                <img src="./images/goBack.png" alt="Go Back Icon" class="w-6 h-6 mr-2 goBack-icon" id="goBackIcon">
+                <input type="text" id="searchInput" class="inputContainer" placeholder="Cerca utenti...">
+                <img src="./images/search.png" alt="Search Icon" class="search-icon ml-2" id="searchIcon">
+                <img src="./images/filtro2.png" alt="Filter Icon" class="filter-icon ml-2" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            </div>
+            <div class="collapse" id="collapseExample">
+                <div class="card card-body  w-82 mt-1 ml-4 ">
+                    <p class="text-sm font-bold text-gray-400">Scegli i filtri da applicare:</p>
+                    <div class="row">
+                        <!-- Div per il tipo di utente -->
+                        <div class="col">
+                            <p class="text-sm text-gray-400">Tipo di utente:</p>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="userType" id="userTypeBase" value="userTypeBase">
+                                <label class="form-check-label text-sm text-gray-400" for="userTypeBase">Utente Base</label>
+                            </div>
+                            <!-- Aggiunti stili alle form-check per renderle più compatte -->
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="userType" id="userTypeVip" value="userTypeVip">
+                                <label class="form-check-label text-sm text-gray-400" for="userTypeVip">Vip</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="userType" id="userTypeSMM" value="userTypeSMM">
+                                <label class="form-check-label text-sm text-gray-400" for="userTypeSMM">Social Media Manager</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="userType" id="userTypeSquealer" value="userTypeSquealer">
+                                <label class="form-check-label text-sm text-gray-400" for="userTypeSquealer">Moderator</label>
+                            </div>
+                        </div>
+            
+                        <!-- Div per la popolarità -->
+                        <div class="col">
+                            <p class="text-sm text-gray-400">Popolarità:</p>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="popularity" id="popularityLow" value="bassa">
+                                <label class="form-check-label text-sm text-gray-400" for="popularityLow">Bassa</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="popularity" id="popularityMedium" value="media">
+                                <label class="form-check-label text-sm text-gray-400" for="popularityMedium">Media</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="popularity" id="popularityHigh" value="alta">
+                                <label class="form-check-label text-sm text-gray-400" for="popularityHigh">Alta</label>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-sm btn-danger mt-2" id="resetFilters">Azzera filtri</button>
+                </div>
+            </div>
+            
+            
+            
+            
+            <ul id="userList" class="user-list"></ul>
+            </div>
+            
+          </div>
+          
+      
+          <div class="flex flex-col lg:flex-row w-full mt-5">
+            <!-- Prima colonna -->
+            <div class="flex flex-col lg:w-72 mt-4 mb-5 ml-2">
+                <!-- Top Users -->
+                <div class="mb-4">
+                    <div class="particularUserContainer">
+                        <div class="flex items-center mb-2">
+                            <h2 class="text-xl font-bold mt-2">Utenti popolari</h2>
+                            <img src="./images/top.png" alt="Popular Icon" class="ml-2 w-8 h-8">
+                        </div>
+                        <ul id="mostPopularUserList" class="item-list">
+                            <!-- Aggiungi qui il tuo contenuto Utenti Attivi -->
+                        </ul>
+                    </div>
+                </div>
+        
+                <!-- Utenti Attivi -->
+                <div>
+                    <!-- Aggiungi stili Container con Tailwind -->
+                    <div class="particularUserContainer mt-4">
+                        <!-- Contenuto Utenti Attivi -->
+                        <div class="flex items-center mb-2">
+                            <h2 class="text-xl font-bold mt-2">Utenti più attivi</h2>
+                            <img src="./images/trending.png" alt="Trending Icon" class="ml-2 w-8 h-8">
+                        </div>
+                        <ul id="mostActiveUsersList" class="item-list">
+                            <!-- Aggiungi qui il tuo contenuto Utenti Attivi -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- Seconda colonna -->
+            <div class="flex flex-col lg:w-72  mt-4 mb-5 ml-10">
+                <!-- Altri due itemContainer per la seconda riga -->
+                <!-- Aggiungi stili Container con Tailwind -->
+                <div class="mb-4">
+                    <div class="particularUserContainer">
+                        <div class="flex items-center mb-2">
+                            <h2 class="text-xl font-bold mt-2">Più amici</h2>
+                            <img src="./images/friends.png" alt="Down Icon" class="ml-2 w-8 h-8">
+                        </div>
+                        <ul id="mostFriendsUserList" class="item-list">
+                            <!-- Aggiungi qui il tuo contenuto Utenti Attivi -->
+                        </ul>
+                    </div>
+                </div>
+        
+                <!-- Aggiungi stili Container con Tailwind -->
+                <div>
+                    <div class="particularUserContainer mt-4">
+                        <div class="flex items-center mb-2 ">
+                            <h2 class="text-xl font-bold mt-2">Utenti impopolari</h2>
+                            <img src="./images/down.png" alt="Down Icon" class="ml-2 w-8 h-8">
+                        </div>
+                       <ul id="mostUnpopularUserList" class="item-list">
+                    </div>
+                </div>
+            </div>
+        </div>
+  </div>
+  </div>
+  <div id="userModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Scheda utente</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Il contenuto del modale sarà inserito qui dalla funzione modalUpdate -->
+        </div>
+       
+      </div>
+    </div>
+  </div>
+    
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js" ></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+    <script>
+    function redirectUser() {
+      window.location.href = '/mod/utenti';
+    }
+
+    function redirectSqueals() {
+      window.location.href = '/mod/squeals';
+    }
+
+    function redirectCreateChannel() {
+      window.location.href = '/mod/creaCanale';
+    }
+
+    function handleOfficialChannels() {
+      window.location.href = '/mod/canaliUfficiali';
+    }
+
+    function handleUserChannels(){
+      window.location.href = '/mod/canaliUtente';
+    }
+
+    function handleTemporaryChannels(){
+      window.location.href = '/mod/canaliTemporanei';
+    }
+
+    function redirectPublish(){
+      window.location.href = '/mod/pubblica';
+    }
+
+    function redirectMainPage(){
+      window.location.href = '/mod/analisi';
+    }
+    function logout() {
+      $.removeCookie('AccessTokenMod');
+      window.location.href = '/mod/';
+    }
+
+
+          function handleBlockUserClick(id, isBlocked) {
+                        const userId = id;
+                        const mutationName = isBlocked ? 'unblockUser' : 'blockUser';
+
+                        $.ajax({
+                            url: 'https://site222344.tw.cs.unibo.it/graphql',
+                            type: 'POST',
+                            contentType: 'application/json',
+                            data: JSON.stringify({
+                                query: `
+                                    mutation ${mutationName}($_id: String!) {
+                                        ${mutationName}(id: $_id)
+                                    }
+                                `,
+                                variables: {
+                                    _id: userId,
+                                },
+                            }),
+                            success: function (response) {
+                                if (isBlocked){
+                                  toastr.success('Utente sbloccato con successo!');
+                                } else {
+                                  toastr.success('Utente bloccato con successo!');
+                                }
+                                
+                                $('#userModal').modal('hide');
+
+                                
+                            },
+                            error: function (error) {
+                                console.error('Errore durante la mutazione:', error);
+                                toastr.error('Errore !');
+                            },
+                        });
+                    }
+      $(document).ready(function () {
+        let allUsers = [];
+        getMostActiveUsers();    
+        getMostPopularUsers();
+        getMostUnpopularUser();
+        getMostFriends();
+        function getMostFriends(){
+            $.ajax({
+            url: 'https://site222344.tw.cs.unibo.it/graphql',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
+              query: `
+                query getMostFriends{
+                        getMostFriends{
+                            _id
+                            username
+                            profileImage
+                        }
+                }
+              `,
+            }),
+            success: function (response) {
+              const mostFriends = response.data.getMostFriends;
+              mostFriends.splice(3);
+              displayMostActiveUsers(mostFriends, 'friends');
+            },
+            error: function (error) {
+              console.error('Errore durante la query:', error);
+            },
+          });
+        }
+
+function getMostActiveUsers() {
+  $.ajax({
+    url: 'https://site222344.tw.cs.unibo.it/graphql',
+    type: 'POST',
+    contentType: 'application/json',
+    data: JSON.stringify({
+      query: `
+        query getMostActiveUsers {
+          getMostActiveUsers {
+            _id
+            username
+            profileImage
+          }
+        }
+      `,
+    }),
+    success: function (response) {
+      const mostActiveUsers = response.data.getMostActiveUsers;
+      mostActiveUsers.splice(3);
+      displayMostActiveUsers(mostActiveUsers, 'active');
+    },
+    error: function (error) {
+      console.error('Errore durante la query:', error);
+    },
+  });
+}
+
+ function getMostUnpopularUser(){
+    $.ajax({
+    url: 'https://site222344.tw.cs.unibo.it/graphql',
+    type: 'POST',
+    contentType: 'application/json',
+    data: JSON.stringify({
+      query: `
+        query getMostUnpopularUser{
+            getMostUnpopularUser{
+                _id
+                username
+                profileImage
+            }
+            }  `,
+    }),
+    success: function (response) {
+      const unpopularUsers = response.data.getMostUnpopularUser;
+      //take only the first three
+        unpopularUsers.splice(3);
+      displayMostActiveUsers(unpopularUsers, 'unpopular');
+    },
+    error: function (error) {
+      console.error('Errore durante la query:', error);
+    },
+  });
+}
+
+ function getMostPopularUsers() {
+  $.ajax({
+    url: 'https://site222344.tw.cs.unibo.it/graphql',
+    type: 'POST',
+    contentType: 'application/json',
+    data: JSON.stringify({
+      query: `
+      query getMostPopularUsers {
+            getMostPopularUsers {
+            __typename
+            ... on BasicUser {
+                _id
+                profileImage
+                username
+            }
+            }
+        }  `,
+    }),
+    success: function (response) {
+      const mostPopularUsers = response.data.getMostPopularUsers;
+      //take only the first three
+        mostPopularUsers.splice(3);
+      displayMostActiveUsers(mostPopularUsers, 'popular');
+    },
+    error: function (error) {
+      console.error('Errore durante la query:', error);
+    },
+  });
+}
+
+function displayMostActiveUsers(users, type) {
+let mostActiveUsersLit = undefined;
+let first_image = undefined;
+let second_image = undefined;
+let third_image = undefined;
+if(type == 'active'){
+    mostActiveUsersList = $('#mostActiveUsersList');
+    first_image = './images/first.png'
+    second_image = './images/second.png'
+    third_image = './images/third.png'
+} else if(type == 'popular'){
+    mostActiveUsersList = $('#mostPopularUserList');
+    first_image = './images/first.png'
+    second_image = './images/second.png'
+    third_image = './images/third.png'
+} else if(type == 'unpopular'){
+    mostActiveUsersList = $('#mostUnpopularUserList'); 
+    first_image = './images/arrabbiato.png'
+    second_image = './images/disagree.png'
+    third_image = './images/last_disagree.png'
+} else if(type == 'friends'){
+    mostActiveUsersList = $('#mostFriendsUserList');
+    first_image = './images/first.png'
+    second_image = './images/second.png'
+    third_image = './images/third.png'
+
+}
+mostActiveUsersList.empty();
+
+  users.forEach((user, index) => {
+    const listItem = $('<li class="item-list-container"></li>');
+    
+    // Add a div for the medal
+    const medalDiv = $('<div class="medal-container"></div>');
+
+    // Add medal image based on user's rank
+    if (index === 0) {
+        medalDiv.append(`<img src="${first_image}" alt="Gold Medal" class="medal gold-medal">`);
+    } else if (index === 1) {
+      medalDiv.append(`<img src="${second_image}" alt="Silver Medal" class="medal silver-medal">`);
+    } else if (index === 2) {
+      medalDiv.append(`<img src="${third_image}" alt="Bronze Medal" class="medal bronze-medal">`);
+    }
+
+    // Append medal div to the list item
+    listItem.append(medalDiv);
+
+    // Append user profile image and username with dynamic classes
+    const imageSizeClass = (index === 0) ? 'profile-image-large' : ((index === 1) ? 'profile-image-medium' : 'profile-image-small');
+    const usernameClass = (index <= 2) ? 'bold-text' : '';
+
+    listItem.append(`<img src="${user.profileImage || './images/user_image.jpg'}" alt="${user.username}" class="${imageSizeClass}">`);
+    listItem.append(`<span class="${usernameClass}">${user.username}</span>`);
+
+    listItem.on('click', function () {
+      openUserProfile(user._id);
+    });
+
+    mostActiveUsersList.append(listItem);
+  });
+}
+
+
+    function handleRemoveCharactersClick(userId, charactersToRemove, typeOfCharacters) {
+        $.ajax({
+            url: 'https://site222344.tw.cs.unibo.it/graphql',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                query: `
+                    mutation removeCharacter($toAdd: Float!, $type: String!, $id: String!){
+                        removeCharacter(toAdd: $toAdd, type: $type, id: $id)
+                    }
+                `,
+                variables: {
+                    toAdd: charactersToRemove,
+                    type: typeOfCharacters,
+                    id: userId,
+                },
+            }),
+            success: function (response) {
+                toastr.success('Caratteri rimossi con successo!');
+            },
+            error: function (error) {
+                console.error('Errore durante la mutazione:', error);
+            },
+        });
+    }
+            function handleAddCharactersClick(userId, charactersToAdd, typeOfCharacters) {
+                $.ajax({
+                    url: 'https://site222344.tw.cs.unibo.it/graphql',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        query: `
+                        mutation addCharacter($toAdd: Float!, $type: String!, $id: String!){
+                            addCharacter(toAdd: $toAdd, type: $type, id: $id)
+                         }
+                        `,
+                        variables: {
+                            toAdd: charactersToAdd,
+                            type: typeOfCharacters,
+                            id: userId,  
+                        },
+                    }),
+                    success: function (response) {
+                        toastr.success('Caratteri aggiunti con successo!');
+                    },
+                    error: function (error) {
+                        console.error('Errore durante la mutazione:', error);
+                    },
+                });
+            }
+
+   
+        
+                    function openUserProfile(userId) {
+                            $.ajax({
+                                url: 'https://site222344.tw.cs.unibo.it/graphql',
+                                type: 'POST',
+                                contentType: 'application/json',
+                                data: JSON.stringify({
+                                query: `
+                                query GetUserById($_id: String!) {
+                                    getUserById(_id: $_id) {
+                                        __typename
+                                        ...on BasicUser {
+                                            _id
+                                            nome
+                                            cognome
+                                            username
+                                            email
+                                            profileImage
+                                            userType
+                                            squeals
+                                            friends
+                                            channels
+                                            caratteri_giornalieri_rimanenti
+                                            caratteri_settimanali_rimanenti
+                                            caratteri_mensili_rimanenti
+                                            isBlocked
+                                            social_media_manager_id
+                                            popularityIndex
+                                             bio
+                                                }
+                                            }
+                                            }
+                                        `,
+                                        variables: {
+                                            _id: userId,
+                                        },
+                                        }),
+                                        success: function (response) {
+                                        const userDetails = response.data.getUserById;
+                                        // Apri la scheda del profilo con le informazioni ottenute
+                                        modalUpdate(userDetails);
+                                        },
+                                        error: function (error) {
+                                        console.error('Errore durante la query:', error);
+                                        },
+                                    });
+                                    }
+
+                function modalUpdate(userDetails){
+                    // Aggiorna il corpo del modale con le informazioni dell'utente
+                    const modalBody = $('#userModal .modal-body');
+                    modalBody.html(`
+                    <div class="d-flex justify-center">
+                    <img src="${userDetails.profileImage || './images/user_image.jpg'}" alt="${userDetails.username}" class=" rounded-circle" style="width: 15vh; height: 15vh">
+                    </div>
+
+                    <table class="table mt-3">
+                    <tbody>
+                    <tr>
+                    <th scope="row">Nome:</th>
+                    <td>${userDetails.nome}</td>
+                    </tr>
+                    <tr>
+                    <th scope="row">Cognome:</th>
+                    <td>${userDetails.cognome}</td>
+                    </tr>
+                    <tr>
+                    <th scope="row">Email:</th>
+                    <td>${userDetails.email || 'N/A'}</td>
+                    </tr>
+                    <tr>
+                    <th scope="row">Indice di popolarità:</th>
+                    <td>${userDetails.popularityIndex}</td>
+                    </tr>
+                    <tr>
+                    <th scope="row">Caratteri giornalieri rimanenti:</th>
+                    <td>${userDetails.caratteri_giornalieri_rimanenti || 'N/A'}</td>
+                    </tr>
+                    <tr>
+                    <th scope="row">Caratteri settimanali rimanenti:</th>
+                    <td>${userDetails.caratteri_settimanali_rimanenti || 'N/A'}</td>
+                    </tr>
+                    <tr>
+                    <th scope="row">Caratteri mensili rimanenti:</th>
+                    <td>${userDetails.caratteri_mensili_rimanenti || 'N/A'}</td>
+                    </tr>
+                    <tr>
+                    <th scope="row">Utente bloccato:</th>
+                    <td>${userDetails.isBlocked ? 'Sì' : 'No'}</td>
+                    </tr>
+                    <tr>
+                    <th scope="row">Bio:</th>
+                    <td>${userDetails.bio || 'N/A'}</td>
+                    </tr>
+                    </tbody>
+                    </table>
+                    <div class="d-flex justify-center mt-3">
+                    <button id="blockUserBtn" class="btn btn-danger" onclick="handleBlockUserClick('${userDetails._id}', ${userDetails.isBlocked})">
+                    ${userDetails.isBlocked ? 'Sblocca Utente' : 'Blocca Utente'}
+                    </button>
+                    <button id="modifyCharactersBtn" class="btn btn-primary ml-3" data-user-id="${userDetails._id}">Modifica Caratteri</button>
+                    </div>
+                    `);
+                    $('#userModal').modal('show');
+                    $('#modifyCharactersBtn').on('click', function () {
+                        const userId = $(this).data('user-id');
+                        $('#userModal').modal('hide');
+                        $('#addCharactersModal').modal('hide');
+                        const addCharactersModal = `
+                        <div class="modal" id="addCharactersModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modifica caratteri</h5>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                    <label for="addOperation">Tipo di operazione da effettuare:</label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="operationType" id="addOperation" value="add" checked>
+                        <label class="form-check-label" for="addOperation">Aggiunta di caratteri</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="operationType" id="removeOperation" value="remove">
+                        <label class="form-check-label" for="removeOperation">Rimozione di caratteri</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="charactersToAdd">Numero di Caratteri:</label>
+                    <input type="number" class="form-control" id="charactersToAdd" placeholder="Inserisci il numero di caratteri">
+                </div>
+                <div class="form-group">
+                    <label for="typeOfCharacters">Tipo di Caratteri:</label>
+                    <select class="form-control" id="typeOfCharacters">
+                        <option value="GIORNALIERI">Giornalieri</option>
+                        <option value="SETTIMANALI">Settimanali</option>
+                        <option value="MENSILI">Mensili</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="confirmAddCharacters">Modifica</button>
+            </div>
+        </div>
+    </div>
+</div>
+                        `;
+
+                        // Inserisci il modale nel corpo del documento
+                        $(document.body).append(addCharactersModal);
+
+                // Mostri il modale
+                $('#addCharactersModal').modal('show');
+                        // Aggiungi l'evento click per il bottone di conferma dell'aggiunta di caratteri
+                        $('#confirmAddCharacters').on('click', function () {
+                            const charactersToModify = $('#charactersToAdd').val();
+                            const typeOfCharactersToModify = $('#typeOfCharacters').val();
+                            const operationType = $('input[name="operationType"]:checked').val();
+                            if (charactersToModify && typeOfCharactersToModify) {
+                                if (operationType === 'remove' && charactersToModify > userDetails[`caratteri_${typeOfCharactersToModify.toLowerCase()}_rimanenti`]) {
+                                    toastr.error('Impossibile rimuovere più caratteri di quanti l\'utente ne ha a disposizione.');
+                                } else {
+                                    if (operationType === 'remove') {
+                                        handleRemoveCharactersClick(userId, parseInt(charactersToModify), typeOfCharactersToModify.toUpperCase());
+                                    } else {
+                                        handleAddCharactersClick(userId, parseInt(charactersToModify), typeOfCharactersToModify.toUpperCase());
+                                    }
+                                    $('#addCharactersModal').modal('hide');
+                                }
+                            } else {
+                                toastr.error('Inserisci un numero valido e il tipo di caratteri.');
+                            }
+                        });
+    });   
+            }
+
+
+            $(document.body).on('hidden.bs.modal', '#addCharactersModal', function (e) {
+                $(this).remove();
+            });
+
+        function validateFilters() {
+            const userTypeChecked = $('input[name="userType"]:checked').length > 0;
+            const popularityChecked = $('input[name="popularity"]:checked').length > 0;
+
+            return userTypeChecked || popularityChecked;
+        }
+
+        function getAllUsers() {
+        $.ajax({
+          url: 'https://site222344.tw.cs.unibo.it/graphql',
+          type: 'POST',
+          contentType: 'application/json',
+          data: JSON.stringify({
+            query: `
+              query {
+                getAllBasicUsers {
+                    _id
+                  nome
+                  cognome
+                  username
+                  profileImage
+                }
+                getAllSMMUsers {
+                    _id
+                  nome
+                  cognome
+                  username
+                }
+                getAllSquealerUsers {
+                    _id
+                  nome
+                  cognome
+                  username
+                }
+              }
+            `,
+          }),
+          success: function (response) {
+
+            allUsers = [
+              ...response.data.getAllBasicUsers,
+              ...response.data.getAllSMMUsers,
+              ...response.data.getAllSquealerUsers,
+            ];
+
+            const userList = $('#userList');
+            userList.empty();
+
+            allUsers.forEach((user, index) => {
+              const listItem = $('<li class="user-list-item"></li>');
+              listItem.append(`<img src="${user.profileImage || './images/user_image.jpg'}" alt="${user.username}">`);
+              listItem.append(`<span>${user.username}</span>`);
+
+              userList.append(listItem);
+            });
+          },
+          error: function (error) {
+            console.error('Errore durante la query:', error);
+          },
+        });
+
+      }
+        function filterUsers(keyword) {
+            const filteredUsers = allUsers.filter(user => user.username.toLowerCase().includes(keyword.toLowerCase()));
+            allUsers = filteredUsers;
+            displayUsers(filteredUsers);
+        }
+
+        function displayUsers(users) {
+            const userList = $('#userList');
+            userList.empty();
+
+            users.forEach((user, index) => {
+                const listItem = $('<li class="item-list-container"></li>');
+                
+                listItem.append(`<img src="${user.profileImage || './images/user_image.jpg'}" alt="${user.username}">`);
+                listItem.append(`<span>${user.username}</span>`);
+                listItem.on('click', function () {
+                    openUserProfile(user._id);
+                });
+                userList.append(listItem);
+            });
+        }
+
+    function makeBackendCall(userType, popularityIndex) {
+        const backendURL = 'https://site222344.tw.cs.unibo.it/graphql';
+
+        if(popularityIndex === undefined){
+            popularityIndex = 0;
+        } else if(popularityIndex === "bassa"){
+            popularityIndex = 9;
+        } else if(popularityIndex === "media"){
+            popularityIndex = 28;
+        } else if(popularityIndex === "alta"){
+            popularityIndex = 31;
+        }
+
+        switch (userType) {
+            case 'userTypeBase':
+                // Chiamata al backend per Utenti Base
+                $.ajax({
+                    url: backendURL,
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        query: `
+                            query {
+                                getAllNonVipUsers(popularityIndex:${popularityIndex}) {
+                                    _id
+                                    nome
+                                    cognome
+                                    username
+                                    profileImage
+                                }
+                            }
+                        `,
+                    }),
+                    success: function (response) {
+                        allUsers = response.data.getAllNonVipUsers;
+                        displayUsers(allUsers);
+                    },
+                    error: function (error) {
+                        console.error('Errore durante la query:', error);
+                    },
+                });
+                break;
+
+            case 'userTypeVip':
+                $.ajax({
+                    url: backendURL,
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        query: `
+                            query {
+                                getAllVipUsers(popularityIndex:${popularityIndex}) {
+                                    _id
+                                    nome
+                                    cognome
+                                    username
+                                }
+                            }
+                        `,
+                    }),
+                    success: function (response) {
+                       allUsers = response.data.getAllVipUsers;
+                       displayUsers(allUsers)
+                    },
+                    error: function (error) {
+                        console.error('Errore durante la query:', error);
+                    },
+                });
+                break;
+
+            case 'userTypeSMM':
+                // Chiamata al backend per Utenti SMM
+                $.ajax({
+                    url: backendURL,
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        query: `
+                            query {
+                                getAllSMMUsers {
+                                    _id
+                                    nome
+                                    cognome
+                                    username
+                                }
+                            }
+                        `,
+                    }),
+                    success: function (response) {
+                        allUsers = response.data.getAllSMMUsers;
+                        displayUsers(allUsers)
+                    },
+                    error: function (error) {
+                        console.error('Errore durante la query:', error);
+                    },
+                });
+                break;
+
+            case 'userTypeSquealer':
+                $.ajax({
+                    url: backendURL,
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        query: `
+                            query {
+                                getAllSquealerUsers {
+                                    _id
+                                    nome
+                                    cognome
+                                    username
+                                }
+                            }
+                        `,
+                    }),
+                    success: function (response) {
+                        allUsers = response.data.getAllSquealerUsers;
+                        displayUsers(allUsers)
+                    },
+                    error: function (error) {
+                        console.error('Errore durante la query:', error);
+                    },
+                });
+                break;
+            case null:
+               toastr.error('Seleziona Il tipo di utente  prima di effettuare la ricerca.');
+                break;
+
+            default:
+
+                break;
+        }
+    }
+
+    function displayCustomAlert(message, isError) {
+    const alertElement = $('#error-message');
+
+        if (isError) {
+            alertElement.text(message);
+            alertElement.fadeIn();
+
+            // Nascondi l'alert dopo qualche secondo (ad esempio, 3 secondi)
+            setTimeout(function () {
+                alertElement.fadeOut();
+            }, 3000);
+        } else {
+            alertElement.hide();
+        }
+}
+
+        function getMyAccount() {
+          $.ajax({
+            url: 'https://site222344.tw.cs.unibo.it/graphql', // Sostituisci con l'URL effettivo del tuo server GraphQL
+            type: 'POST',
+            contentType: 'application/json',
+            headers: {
+              Authorization: `Bearer ${$.cookie('AccessTokenMod')}`,
+            },
+            data: JSON.stringify({
+              query: `
+                query {
+                  getMyAccount {
+                    __typename
+                    ...on SquealerUser {
+                        _id
+                      nome
+                      cognome
+                      email
+                      username
+                    }
+                  }
+                }
+              `,
+            }),
+            success: function (response) {
+              // Puoi gestire i dati qui e aggiornare la tua interfaccia utente
+              $('.welcome-bar p').text('Bentornato, ' + response.data.getMyAccount.nome);
+            },
+            error: function (error) {
+              console.error('Errore durante la query:', error);
+            },
+          });
+        }
+        getMyAccount();
+        getAllUsers();
+        $('#searchInput').on('input', function () {
+            const keyword = $(this).val();
+            filterUsers(keyword);
+        });
+        $('#userList').on('click', '.user-list-item', function () {
+            // Aggiorna il codice per aprire il modale
+            const clickedUser = allUsers[$(this).index()];
+            $('#userModal .modal-body').html(`
+               
+               
+            `);
+            $('#userModal').modal('show');
+        });
+        $('#resetFilters').on('click', function () {
+            $('input[type="radio"]').prop('checked', false);
+            
+         });
+         $('#searchIcon').on('click', function () {
+                const areFiltersSelected = validateFilters();
+
+                if (!areFiltersSelected) {
+                    // Mostriamo un messaggio di errore se nessun filtro è selezionato
+                    toastr.error('Seleziona almeno un filtro prima di effettuare la ricerca.');
+                    return;
+                }
+
+                const userType = $('input[name="userType"]:checked').val() || null;
+                const popularityIndex = $('input[name="popularity"]:checked').val();
+
+                if((userType === 'userTypeSMM' || userType === 'userTypeSquealer') && popularityIndex !== undefined){
+                  toastr.error('Non è possibile applicare il filtro di popolarità agli utenti SMM e Squealer.')
+                  return;
+                }
+                makeBackendCall(userType, popularityIndex);
+            });
+
+            $('#goBackIcon').on('click', function () {
+                getAllUsers();
+            });
+
+
+            $('#userList').on('click', '.user-list-item', function () {
+                    const clickedUser = allUsers[$(this).index()];
+                    
+                    
+                    $.ajax({
+                        url: 'https://site222344.tw.cs.unibo.it/graphql',
+                        type: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify({
+                            query: `
+                                query GetUserByUsername($username: String!) {
+                                    getByUsername(username: $username) {
+                                        __typename
+                                        ... on BasicUser {
+                                            _id
+                                            nome
+                                            cognome
+                                            username
+                                            email
+                                            profileImage
+                                            userType
+                                            squeals
+                                            friends
+                                            channels
+                                            caratteri_giornalieri_rimanenti
+                                            caratteri_settimanali_rimanenti
+                                            caratteri_mensili_rimanenti
+                                            isBlocked
+                                            social_media_manager_id
+                                            popularityIndex
+                                            bio
+                                        }
+                                        ... on SMMUser {
+                                            _id
+                                            email
+                                            username
+                                            nome
+                                            cognome
+                                            typeOfUser
+                                            assistedList
+                                            isBlocked
+                                        }
+                                        ... on SquealerUser {
+                                            _id
+                                            email
+                                            nome
+                                            username
+                                            cognome
+                                        }
+                                    }
+                                }
+                            `,
+                            variables: {
+                                username: clickedUser.username
+                            }
+                        }),
+                        success: function (response) {
+                            const userDetails = response.data.getByUsername;
+                            modalUpdate(userDetails)
+                           
+                        },
+                        error: function (error) {
+                            console.error('Errore durante la query:', error);
+                        },
+    });
+    
+});
+
+
+    });
+
+    
+
+    </script>
+  
+  </body>
+  </html>

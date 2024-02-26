@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<!-- saved from url=(0029)http://localhost:8000/graphql -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, minimal-ui">
+    <link href="./Playground - http___localhost_8000_graphql_files/css" rel="stylesheet">
+    <title>Playground - http://localhost:8000/graphql</title>
+    
+    <link rel="stylesheet" href="./Playground - http___localhost_8000_graphql_files/index.css">
+    
+    <link rel="shortcut icon" href="http://cdn.jsdelivr.net/npm/@apollographql/graphql-playground-react@1.7.42/build/favicon.png">
+    <script src="./Playground - http___localhost_8000_graphql_files/middleware.js"></script><style data-styled="" data-styled-version="4.4.1"></style>
+
+  </head>
+  <body>
+    <style type="text/css">
+      html {
+        font-family: "Open Sans", sans-serif;
+        overflow: hidden;
+      }
+  
+      body {
+        margin: 0;
+        background: #172a3a;
+      }
+  
+      .playgroundIn {
+        -webkit-animation: playgroundIn 0.5s ease-out forwards;
+        animation: playgroundIn 0.5s ease-out forwards;
+      }
+  
+      @-webkit-keyframes playgroundIn {
+        from {
+          opacity: 0;
+          -webkit-transform: translateY(10px);
+          -ms-transform: translateY(10px);
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          -webkit-transform: translateY(0);
+          -ms-transform: translateY(0);
+          transform: translateY(0);
+        }
+      }
+  
+      @keyframes playgroundIn {
+        from {
+          opacity: 0;
+          -webkit-transform: translateY(10px);
+          -ms-transform: translateY(10px);
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          -webkit-transform: translateY(0);
+          -ms-transform: translateY(0);
+          transform: translateY(0);
+        }
+      }
+    </style>
+    
+<style type="text/css">
+.fadeOut {
+  -webkit-animation: fadeOut 0.5s ease-out forwards;
+  animation: fadeOut 0.5s ease-out forwards;
+}
+
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+    -webkit-transform: translateY(-10px);
+    -ms-transform: translateY(-10px);
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    -ms-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    -webkit-transform: translateY(-10px);
+    -ms-transform: translateY(-10px);
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    -ms-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+
+@-webkit-keyframes fadeOut {
+  from {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    -ms-transform: translateY(0);
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    -webkit-transform: translateY(-10px);
+    -ms-transform: translateY(-10px);
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    -ms-transform: translateY(0);
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    -webkit-transform: translateY(-10px);
+    -ms-transform: translateY(-10px);
+    transform: translateY(-10px);
+  }
+}
+
+@-webkit-keyframes appearIn {
+  from {
+    opacity: 0;
+    -webkit-transform: translateY(0px);
+    -ms-transform: translateY(0px);
+    transform: translateY(0px);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    -ms-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+
+@keyframes appearIn {
+  from {
+    opacity: 0;
+    -webkit-transform: translateY(0px);
+    -ms-transform: translateY(0px);
+    transform: translateY(0px);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    -ms-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+
+@-webkit-keyframes scaleIn {
+  from {
+    -webkit-transform: scale(0);
+    -ms-transform: scale(0);
+    transform: scale(0);
+  }
+  to {
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    -webkit-transform: scale(0);
+    -ms-transform: scale(0);
+    transform: scale(0);
+  }
+  to {
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+  }
+}
+
+@-webkit-keyframes innerDrawIn {
+  0% {
+    stroke-dashoffset: 70;
+  }
+  50% {
+    stroke-dashoffset: 140;
+  }
+  100% {
+    stroke-dashoffset: 210;
+  }
+}
+
+@keyframes innerDrawIn {
+  0% {
+    stroke-dashoffset: 70;
+  }
+  50% {
+    stroke-dashoffset: 140;
+  }
+  100% {
+    stroke-dashoffset: 210;
+  }
+}
+
+@-webkit-keyframes outerDrawIn {
+  0% {
+    stroke-dashoffset: 76;
+  }
+  100% {
+    stroke-dashoffset: 152;
+  }
+}
+
+@keyframes outerDrawIn {
+  0% {
+    stroke-dashoffset: 76;
+  }
+  100% {
+    stroke-dashoffset: 152;
+  }
+}
+
+.hHWjkv {
+  -webkit-transform-origin: 0px 0px;
+  -ms-transform-origin: 0px 0px;
+  transform-origin: 0px 0px;
+  -webkit-transform: scale(0);
+  -ms-transform: scale(0);
+  transform: scale(0);
+  -webkit-animation: scaleIn 0.25s linear forwards 0.2222222222222222s;
+  animation: scaleIn 0.25s linear forwards 0.2222222222222222s;
+}
+
+.gCDOzd {
+  -webkit-transform-origin: 0px 0px;
+  -ms-transform-origin: 0px 0px;
+  transform-origin: 0px 0px;
+  -webkit-transform: scale(0);
+  -ms-transform: scale(0);
+  transform: scale(0);
+  -webkit-animation: scaleIn 0.25s linear forwards 0.4222222222222222s;
+  animation: scaleIn 0.25s linear forwards 0.4222222222222222s;
+}
+
+.hmCcxi {
+  -webkit-transform-origin: 0px 0px;
+  -ms-transform-origin: 0px 0px;
+  transform-origin: 0px 0px;
+  -webkit-transform: scale(0);
+  -ms-transform: scale(0);
+  transform: scale(0);
+  -webkit-animation: scaleIn 0.25s linear forwards 0.6222222222222222s;
+  animation: scaleIn 0.25s linear forwards 0.6222222222222222s;
+}
+
+.eHamQi {
+  -webkit-transform-origin: 0px 0px;
+  -ms-transform-origin: 0px 0px;
+  transform-origin: 0px 0px;
+  -webkit-transform: scale(0);
+  -ms-transform: scale(0);
+  transform: scale(0);
+  -webkit-animation: scaleIn 0.25s linear forwards 0.8222222222222223s;
+  animation: scaleIn 0.25s linear forwards 0.8222222222222223s;
+}
+
+.byhgGu {
+  -webkit-transform-origin: 0px 0px;
+  -ms-transform-origin: 0px 0px;
+  transform-origin: 0px 0px;
+  -webkit-transform: scale(0);
+  -ms-transform: scale(0);
+  transform: scale(0);
+  -webkit-animation: scaleIn 0.25s linear forwards 1.0222222222222221s;
+  animation: scaleIn 0.25s linear forwards 1.0222222222222221s;
+}
+
+.llAKP {
+  -webkit-transform-origin: 0px 0px;
+  -ms-transform-origin: 0px 0px;
+  transform-origin: 0px 0px;
+  -webkit-transform: scale(0);
+  -ms-transform: scale(0);
+  transform: scale(0);
+  -webkit-animation: scaleIn 0.25s linear forwards 1.2222222222222223s;
+  animation: scaleIn 0.25s linear forwards 1.2222222222222223s;
+}
+
+.bglIGM {
+  -webkit-transform-origin: 64px 28px;
+  -ms-transform-origin: 64px 28px;
+  transform-origin: 64px 28px;
+  -webkit-transform: scale(0);
+  -ms-transform: scale(0);
+  transform: scale(0);
+  -webkit-animation: scaleIn 0.25s linear forwards 0.2222222222222222s;
+  animation: scaleIn 0.25s linear forwards 0.2222222222222222s;
+}
+
+.ksxRII {
+  -webkit-transform-origin: 95.98500061035156px 46.510000228881836px;
+  -ms-transform-origin: 95.98500061035156px 46.510000228881836px;
+  transform-origin: 95.98500061035156px 46.510000228881836px;
+  -webkit-transform: scale(0);
+  -ms-transform: scale(0);
+  transform: scale(0);
+  -webkit-animation: scaleIn 0.25s linear forwards 0.4222222222222222s;
+  animation: scaleIn 0.25s linear forwards 0.4222222222222222s;
+}
+
+.cWrBmb {
+  -webkit-transform-origin: 95.97162628173828px 83.4900016784668px;
+  -ms-transform-origin: 95.97162628173828px 83.4900016784668px;
+  transform-origin: 95.97162628173828px 83.4900016784668px;
+  -webkit-transform: scale(0);
+  -ms-transform: scale(0);
+  transform: scale(0);
+  -webkit-animation: scaleIn 0.25s linear forwards 0.6222222222222222s;
+  animation: scaleIn 0.25s linear forwards 0.6222222222222222s;
+}
+
+.Wnusb {
+  -webkit-transform-origin: 64px 101.97999572753906px;
+  -ms-transform-origin: 64px 101.97999572753906px;
+  transform-origin: 64px 101.97999572753906px;
+  -webkit-transform: scale(0);
+  -ms-transform: scale(0);
+  transform: scale(0);
+  -webkit-animation: scaleIn 0.25s linear forwards 0.8222222222222223s;
+  animation: scaleIn 0.25s linear forwards 0.8222222222222223s;
+}
+
+.bfPqf {
+  -webkit-transform-origin: 32.03982162475586px 83.4900016784668px;
+  -ms-transform-origin: 32.03982162475586px 83.4900016784668px;
+  transform-origin: 32.03982162475586px 83.4900016784668px;
+  -webkit-transform: scale(0);
+  -ms-transform: scale(0);
+  transform: scale(0);
+  -webkit-animation: scaleIn 0.25s linear forwards 1.0222222222222221s;
+  animation: scaleIn 0.25s linear forwards 1.0222222222222221s;
+}
+
+.edRCTN {
+  -webkit-transform-origin: 32.033552169799805px 46.510000228881836px;
+  -ms-transform-origin: 32.033552169799805px 46.510000228881836px;
+  transform-origin: 32.033552169799805px 46.510000228881836px;
+  -webkit-transform: scale(0);
+  -ms-transform: scale(0);
+  transform: scale(0);
+  -webkit-animation: scaleIn 0.25s linear forwards 1.2222222222222223s;
+  animation: scaleIn 0.25s linear forwards 1.2222222222222223s;
+}
+
+.iEGVWn {
+  opacity: 0;
+  stroke-dasharray: 76;
+  -webkit-animation: outerDrawIn 0.5s ease-out forwards 0.3333333333333333s, appearIn 0.1s ease-out forwards 0.3333333333333333s;
+  animation: outerDrawIn 0.5s ease-out forwards 0.3333333333333333s, appearIn 0.1s ease-out forwards 0.3333333333333333s;
+  -webkit-animation-iteration-count: 1, 1;
+  animation-iteration-count: 1, 1;
+}
+
+.bsocdx {
+  opacity: 0;
+  stroke-dasharray: 76;
+  -webkit-animation: outerDrawIn 0.5s ease-out forwards 0.5333333333333333s, appearIn 0.1s ease-out forwards 0.5333333333333333s;
+  animation: outerDrawIn 0.5s ease-out forwards 0.5333333333333333s, appearIn 0.1s ease-out forwards 0.5333333333333333s;
+  -webkit-animation-iteration-count: 1, 1;
+  animation-iteration-count: 1, 1;
+}
+
+.jAZXmP {
+  opacity: 0;
+  stroke-dasharray: 76;
+  -webkit-animation: outerDrawIn 0.5s ease-out forwards 0.7333333333333334s, appearIn 0.1s ease-out forwards 0.7333333333333334s;
+  animation: outerDrawIn 0.5s ease-out forwards 0.7333333333333334s, appearIn 0.1s ease-out forwards 0.7333333333333334s;
+  -webkit-animation-iteration-count: 1, 1;
+  animation-iteration-count: 1, 1;
+}
+
+.hSeArx {
+  opacity: 0;
+  stroke-dasharray: 76;
+  -webkit-animation: outerDrawIn 0.5s ease-out forwards 0.9333333333333333s, appearIn 0.1s ease-out forwards 0.9333333333333333s;
+  animation: outerDrawIn 0.5s ease-out forwards 0.9333333333333333s, appearIn 0.1s ease-out forwards 0.9333333333333333s;
+  -webkit-animation-iteration-count: 1, 1;
+  animation-iteration-count: 1, 1;
+}
+
+.bVgqGk {
+  opacity: 0;
+  stroke-dasharray: 76;
+  -webkit-animation: outerDrawIn 0.5s ease-out forwards 1.1333333333333333s, appearIn 0.1s ease-out forwards 1.1333333333333333s;
+  animation: outerDrawIn 0.5s ease-out forwards 1.1333333333333333s, appearIn 0.1s ease-out forwards 1.1333333333333333s;
+  -webkit-animation-iteration-count: 1, 1;
+  animation-iteration-count: 1, 1;
+}
+
+.hEFqBt {
+  opacity: 0;
+  stroke-dasharray: 76;
+  -webkit-animation: outerDrawIn 0.5s ease-out forwards 1.3333333333333333s, appearIn 0.1s ease-out forwards 1.3333333333333333s;
+  animation: outerDrawIn 0.5s ease-out forwards 1.3333333333333333s, appearIn 0.1s ease-out forwards 1.3333333333333333s;
+  -webkit-animation-iteration-count: 1, 1;
+  animation-iteration-count: 1, 1;
+}
+
+.dzEKCM {
+  opacity: 0;
+  stroke-dasharray: 70;
+  -webkit-animation: innerDrawIn 1s ease-in-out forwards 1.3666666666666667s, appearIn 0.1s linear forwards 1.3666666666666667s;
+  animation: innerDrawIn 1s ease-in-out forwards 1.3666666666666667s, appearIn 0.1s linear forwards 1.3666666666666667s;
+  -webkit-animation-iteration-count: infinite, 1;
+  animation-iteration-count: infinite, 1;
+}
+
+.DYnPx {
+  opacity: 0;
+  stroke-dasharray: 70;
+  -webkit-animation: innerDrawIn 1s ease-in-out forwards 1.5333333333333332s, appearIn 0.1s linear forwards 1.5333333333333332s;
+  animation: innerDrawIn 1s ease-in-out forwards 1.5333333333333332s, appearIn 0.1s linear forwards 1.5333333333333332s;
+  -webkit-animation-iteration-count: infinite, 1;
+  animation-iteration-count: infinite, 1;
+}
+
+.hjPEAQ {
+  opacity: 0;
+  stroke-dasharray: 70;
+  -webkit-animation: innerDrawIn 1s ease-in-out forwards 1.7000000000000002s, appearIn 0.1s linear forwards 1.7000000000000002s;
+  animation: innerDrawIn 1s ease-in-out forwards 1.7000000000000002s, appearIn 0.1s linear forwards 1.7000000000000002s;
+  -webkit-animation-iteration-count: infinite, 1;
+  animation-iteration-count: infinite, 1;
+}
+
+#loading-wrapper {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.logo {
+  width: 75px;
+  height: 75px;
+  margin-bottom: 20px;
+  opacity: 0;
+  -webkit-animation: fadeIn 0.5s ease-out forwards;
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.text {
+  font-size: 32px;
+  font-weight: 200;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.6);
+  opacity: 0;
+  -webkit-animation: fadeIn 0.5s ease-out forwards;
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.dGfHfc {
+  font-weight: 400;
+}
+</style>
+
+
+    <div id="playground-config" style="display: none;">{"version":"1.7.42","canSaveConfig":false}</div>
+    <div id="root" class=""><div><div class="sc-jKVCRD fBHvJi"><div class="sc-ipXKqB faNKMm playground"><div class="sc-lkqHmb bmhMQH"><div class="sc-eLExRp kTcax"><div class="sc-cLQEGU bQaOzJ"><div class="sc-bMVAic lgTbjQ"><div class="sc-bAeIUo oQBRu"><div class="sc-iujRgT sc-GMQeP bdtZTb">Q</div></div></div><div class="sc-gqPbQI WaFMO">getImage</div><div class="sc-bXGyLb gYSkkW close"><svg width="12" height="11" stroke-width="7" viewBox="0 0 50 50"><title>Close Tab</title><line x1="4" y1="4" x2="46" y2="46"></line><line x1="46" y1="4" x2="4" y2="46"></line></svg></div></div><div class="sc-cLQEGU bQaOzJ"><div class="sc-bMVAic lgTbjQ"><div class="sc-bAeIUo oQBRu"><div class="sc-iujRgT sc-GMQeP bdtZTb">Q</div></div></div><div class="sc-gqPbQI WaFMO">getUserById</div><div class="sc-bXGyLb gYSkkW close"><svg width="12" height="11" stroke-width="7" viewBox="0 0 50 50"><title>Close Tab</title><line x1="4" y1="4" x2="46" y2="46"></line><line x1="46" y1="4" x2="4" y2="46"></line></svg></div></div><div class="sc-cLQEGU bQaOzJ"><div class="sc-bMVAic lgTbjQ"><div class="sc-bAeIUo oQBRu"></div></div><div class="sc-gqPbQI WaFMO">New Tab</div><div class="sc-bXGyLb gYSkkW close"><svg width="12" height="11" stroke-width="7" viewBox="0 0 50 50"><title>Close Tab</title><line x1="4" y1="4" x2="46" y2="46"></line><line x1="46" y1="4" x2="4" y2="46"></line></svg></div></div><div class="sc-cLQEGU bQaOzJ"><div class="sc-bMVAic lgTbjQ"><div class="sc-bAeIUo oQBRu"><div class="sc-iujRgT sc-exAgwC hJgwtd">M</div></div></div><div class="sc-gqPbQI WaFMO">createUser</div><div class="sc-bXGyLb gYSkkW close"><svg width="12" height="11" stroke-width="7" viewBox="0 0 50 50"><title>Close Tab</title><line x1="4" y1="4" x2="46" y2="46"></line><line x1="46" y1="4" x2="4" y2="46"></line></svg></div></div><div class="sc-cLQEGU evlONy"><div class="sc-bMVAic clfAgV"><div class="sc-bAeIUo oQBRu"><div class="sc-iujRgT sc-exAgwC hJgwtd">M</div></div></div><div class="sc-gqPbQI ftufVS">login</div><div class="sc-bXGyLb gwNKXH close"><svg width="12" height="11" stroke-width="7" viewBox="0 0 50 50"><title>Close Tab</title><line x1="4" y1="4" x2="46" y2="46"></line><line x1="46" y1="4" x2="4" y2="46"></line></svg></div></div><div class="sc-cbkKFq brByJJ"><svg width="34" height="34" stroke-width="4" viewBox="0 0 50 50"><title>Opens a New Tab</title><line x1="25" y1="13.1" x2="25" y2="36.9"></line><line x1="36.9" y1="25" x2="13.1" y2="25"></line></svg></div></div></div><div class="sc-hmXxxW uilwa"><div class="sc-cqCuEk jzRola graphiql-wrapper active"><div class="sc-EHOje cIypmL"><div class="sc-ifAKCX cEPVvT"><div class="sc-cvbbAY kOflzg"><button class="sc-eHgmQL dvmgwq">Prettify</button><button class="sc-eHgmQL dvmgwq">History</button><div class="sc-brqgnP kOowTR"><input class="sc-jWBwVP cljqcK" value="http://localhost:8000/graphql"><div style="display: flex; flex-direction: row; align-items: center; position: absolute; left: 6px;"><div title="Polling Schema" class="sc-jKJlTe sc-iAyFgw cVhxIQ"><div class="sc-hSdWYo vFglF"></div></div></div></div><button class="sc-eHgmQL dvmgwq">Copy CURL</button></div><div class="sc-iQKALj gxDOey"><div class="sc-esOvli Qycux"><div class="sc-ifAKCX cEPVvT"><div class="sc-bZQynM imcoIY"><div class="CodeMirror cm-s-graphiql"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 42.4px; left: 203.758px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-vscrollbar" tabindex="-1" cm-not-content="true" style="width: 18px; pointer-events: none;"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-hscrollbar" tabindex="-1" cm-not-content="true" style="right: 0px; left: 39px; height: 18px; pointer-events: none;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1" draggable="false"><div class="CodeMirror-sizer" style="margin-left: 39px; margin-bottom: 0px; border-right-width: 50px; min-height: 219px; min-width: 364.273px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors" style=""><div class="CodeMirror-cursor" style="left: 164.758px; top: 22.4px; height: 22.3984px;">&nbsp;</div></div><div class="CodeMirror-code" role="presentation" style=""><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -39px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">1</div><div class="CodeMirror-gutter-elt" style="left: 29px; width: 10px;"><div class="CodeMirror-foldgutter-open CodeMirror-guttermarker-subtle"></div></div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">mutation</span><span class="cm-ws"> </span><span class="cm-def">login</span><span class="cm-punctuation">(</span><span class="cm-variable">$input</span><span class="cm-punctuation">:</span><span class="cm-ws"> </span><span class="cm-atom">LoginUserInput</span><span class="cm-punctuation">!){</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -39px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">2</div><div class="CodeMirror-gutter-elt" style="left: 29px; width: 10px;"><div class="CodeMirror-foldgutter-open CodeMirror-guttermarker-subtle"></div></div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-ws">  </span><span class="cm-property">login</span><span class="cm-punctuation">(</span><span class="cm-attribute">loginUserInput</span><span class="cm-punctuation">:</span><span class="cm-ws"> </span><span class="cm-variable">$input</span><span class="cm-punctuation">){</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -39px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">3</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-ws">    </span><span class="cm-property">user</span><span class="cm-punctuation">{</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -39px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">4</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-ws">      </span><span class="cm-property">username</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -39px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">5</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-ws">    </span><span class="cm-punctuation">}</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -39px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">6</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-ws">    </span><span class="cm-property">accessToken</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -39px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">7</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-ws">  </span><span class="cm-punctuation">}</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -39px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">8</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-punctuation">}</span></span></pre></div><div style="position: relative; display: none;"><div class="CodeMirror-gutter-wrapper" style="left: -39px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">9</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-punctuation">}</span></span></pre></div></div></div></div></div></div><div style="position: absolute; height: 50px; width: 1px; border-bottom: 0px solid transparent; top: 219px;"></div><div class="CodeMirror-gutters" style="height: 269px; left: 0px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 29px;"></div><div class="CodeMirror-gutter CodeMirror-foldgutter"></div></div></div></div></div></div><div height="200" class="sc-hXRMBi sc-iQNlJl fsatwj"><div class="sc-epnACN jfQKSU sc-bsbRJL bjElqa"><button class="sc-iuJeZd ibKVQZ">Query Variables</button><button class="sc-iuJeZd fXfgDJ">HTTP Headers (1)</button></div><div class="sc-gPEVay ihtVGC"><div class="CodeMirror cm-s-graphiql CodeMirror-focused"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 33.3px; left: 234.578px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-vscrollbar" tabindex="-1" cm-not-content="true" style="width: 18px; pointer-events: none; display: block; bottom: 0px;"><div style="min-width: 1px; height: 244px;"></div></div><div class="CodeMirror-hscrollbar" tabindex="-1" cm-not-content="true" style="height: 18px; pointer-events: none;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 39px; margin-bottom: 0px; border-right-width: 50px; min-height: 187px; min-width: 230.281px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre class="CodeMirror-line-like"><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors" style="visibility: hidden;"><div class="CodeMirror-cursor" style="left: 191.578px; top: 44.8px; height: 22.3984px;">&nbsp;</div></div><div class="CodeMirror-code" role="presentation"><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -39px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">1</div><div class="CodeMirror-gutter-elt" style="left: 29px; width: 10px;"><div class="CodeMirror-foldgutter-open CodeMirror-guttermarker-subtle"></div></div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-punctuation">{</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -39px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">2</div><div class="CodeMirror-gutter-elt" style="left: 29px; width: 10px;"><div class="CodeMirror-foldgutter-open CodeMirror-guttermarker-subtle"></div></div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-ws">  </span><span class="cm-variable">"input"</span><span class="cm-punctuation">:</span><span class="cm-ws"> </span><span class="cm-punctuation">{</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -39px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">3</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-ws">    </span><span class="cm-attribute">"value"</span><span class="cm-ws"> </span><span class="cm-punctuation">:</span><span class="cm-ws"> </span><span class="cm-string">"test"</span><span class="cm-punctuation">,</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -39px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">4</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-ws">    </span><span class="cm-attribute">"password"</span><span class="cm-punctuation">:</span><span class="cm-string">"test"</span><span class="cm-punctuation">,</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -39px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">5</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-ws">    </span><span class="cm-attribute">"typeOfValue"</span><span class="cm-punctuation">:</span><span class="cm-ws"> </span><span class="cm-string">"test"</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -39px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">6</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-ws">  </span><span class="cm-punctuation">}</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -39px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">7</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-punctuation">}</span></span></pre></div></div></div></div></div></div><div style="position: absolute; height: 50px; width: 1px; border-bottom: 0px solid transparent; top: 187px;"></div><div class="CodeMirror-gutters" style="height: 237px; left: 0px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 29px;"></div><div class="CodeMirror-gutter CodeMirror-foldgutter"></div></div></div></div></div></div><div class="sc-hrWEMg sc-eTuwsz jbaOPs"></div></div><div class="sc-bwCtUz eGAbDE"><div class="sc-hrWEMg sc-gwVKww LLZgg"></div><div class="sc-bdVaJa bFURGJ"><div title="Execute Query (Ctrl-Enter)" class="sc-bwzfXH kJytub"><svg width="35" height="35" viewBox="3.5,4.5,24,24"><path d="M 11 9 L 24 16 L 11 23 z"></path></svg></div></div><div class="sc-csuQGl jqqEqQ"><div class="sc-Rmtcm izeTTo"><div class="sc-jhAzac czBwBS"><div class="sc-gipzik hbIoet"><div class="CodeMirror cm-s-graphiql CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 20px; left: 55px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" readonly="" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-vscrollbar" tabindex="-1" cm-not-content="true" style="display: block; bottom: 0px;"><div style="min-width: 1px; height: 2514px;"></div></div><div class="CodeMirror-hscrollbar" tabindex="-1" cm-not-content="true"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 13px; margin-bottom: -7px; border-right-width: 43px; min-height: 2464px; padding-right: 7px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre class="CodeMirror-line-like"><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors"><div class="CodeMirror-cursor" style="left: 4px; top: 0px; height: 22.3984px;">&nbsp;</div></div><div class="CodeMirror-code" role="presentation" style=""><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -13px;"><div class="CodeMirror-gutter-elt" style="left: 0px; width: 13px;"><div class="CodeMirror-foldgutter-open CodeMirror-guttermarker-subtle"></div></div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-punctuation">{</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -13px;"><div class="CodeMirror-gutter-elt" style="left: 0px; width: 13px;"><div class="CodeMirror-foldgutter-open CodeMirror-guttermarker-subtle"></div></div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-ws"> &nbsp;</span><span class="cm-def">"errors"</span><span class="cm-punctuation">:</span><span class="cm-ws"> </span><span class="cm-punctuation">[</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -13px;"><div class="CodeMirror-gutter-elt" style="left: 0px; width: 13px;"><div class="CodeMirror-foldgutter-open CodeMirror-guttermarker-subtle"></div></div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-ws"> &nbsp; &nbsp;</span><span class="cm-punctuation">{</span></span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-ws"> &nbsp; &nbsp; &nbsp;</span><span class="cm-property">"message"</span><span class="cm-punctuation">:</span><span class="cm-ws"> </span><span class="cm-string">"Variable \"$input\" of required type \"LoginUserInput!\" was not provided."</span><span class="cm-punctuation">,</span></span></pre><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -13px;"><div class="CodeMirror-gutter-elt" style="left: 0px; width: 13px;"><div class="CodeMirror-foldgutter-open CodeMirror-guttermarker-subtle"></div></div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-ws"> &nbsp; &nbsp; &nbsp;</span><span class="cm-property">"locations"</span><span class="cm-punctuation">:</span><span class="cm-ws"> </span><span class="cm-punctuation">[</span></span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-ws"> &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="cm-punctuation">{</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-ws"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="cm-property">"line"</span><span class="cm-punctuation">:</span><span class="cm-ws"> </span><span class="cm-number">1</span><span class="cm-punctuation">,</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-ws"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="cm-property">"column"</span><span class="cm-punctuation">:</span><span class="cm-ws"> </span><span class="cm-number">16</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-ws"> &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="cm-punctuation">}</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-ws"> &nbsp; &nbsp; &nbsp;</span><span class="cm-punctuation">],</span></span></pre><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -13px;"><div class="CodeMirror-gutter-elt" style="left: 0px; width: 13px;"><div class="CodeMirror-foldgutter-open CodeMirror-guttermarker-subtle"></div></div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-ws"> &nbsp; &nbsp; &nbsp;</span><span class="cm-property">"extensions"</span><span class="cm-punctuation">:</span><span class="cm-ws"> </span><span class="cm-punctuation">{</span></span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-ws"> &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="cm-property">"code"</span><span class="cm-punctuation">:</span><span class="cm-ws"> </span><span class="cm-string">"BAD_USER_INPUT"</span><span class="cm-punctuation">,</span></span></pre><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -13px;"><div class="CodeMirror-gutter-elt" style="left: 0px; width: 13px;"><div class="CodeMirror-foldgutter-open CodeMirror-guttermarker-subtle"></div></div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-ws"> &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="cm-property">"stacktrace"</span><span class="cm-punctuation">:</span><span class="cm-ws"> </span><span class="cm-punctuation">[</span></span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-ws"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="cm-string">"GraphQLError: Variable \"$input\" of required type \"LoginUserInput!\" was not provided."</span><span class="cm-punctuation">,</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-ws"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="cm-string">" &nbsp;  at coerceVariableValues (/Users/conocirone/Desktop/techweb-squealer/Squealer/node_modules/graphql/execution/values.js:105:11)"</span><span class="cm-punctuation">,</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-ws"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="cm-string">" &nbsp;  at getVariableValues (/Users/conocirone/Desktop/techweb-squealer/Squealer/node_modules/graphql/execution/values.js:45:21)"</span><span class="cm-punctuation">,</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-ws"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="cm-string">" &nbsp;  at buildExecutionContext (/Users/conocirone/Desktop/techweb-squealer/Squealer/node_modules/graphql/execution/execute.js:280:63)"</span><span class="cm-punctuation">,</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-ws"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="cm-string">" &nbsp;  at execute (/Users/conocirone/Desktop/techweb-squealer/Squealer/node_modules/graphql/execution/execute.js:116:22)"</span><span class="cm-punctuation">,</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-ws"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="cm-string">" &nbsp;  at executeIncrementally (/Users/conocirone/Desktop/techweb-squealer/Squealer/node_modules/@apollo/server/src/incrementalDeliveryPolyfill.ts:114:17)"</span><span class="cm-punctuation">,</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-ws"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="cm-string">" &nbsp;  at processTicksAndRejections (node:internal/process/task_queues:95:5)"</span><span class="cm-punctuation">,</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-ws"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="cm-string">" &nbsp;  at execute (/Users/conocirone/Desktop/techweb-squealer/Squealer/node_modules/@apollo/server/src/requestPipeline.ts:545:31)"</span><span class="cm-punctuation">,</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-ws"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="cm-string">" &nbsp;  at processGraphQLRequest (/Users/conocirone/Desktop/techweb-squealer/Squealer/node_modules/@apollo/server/src/requestPipeline.ts:431:26)"</span><span class="cm-punctuation">,</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-ws"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="cm-string">" &nbsp;  at internalExecuteOperation (/Users/conocirone/Desktop/techweb-squealer/Squealer/node_modules/@apollo/server/src/ApolloServer.ts:1308:12)"</span><span class="cm-punctuation">,</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-ws"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="cm-string">" &nbsp;  at runHttpQuery (/Users/conocirone/Desktop/techweb-squealer/Squealer/node_modules/@apollo/server/src/runHttpQuery.ts:232:27)"</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-ws"> &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="cm-punctuation">]</span></span></pre><pre class=" CodeMirror-line " role="presentation" style="display: none;"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-ws"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="cm-string">" &nbsp;  at processGraphQLRequest (/Users/conocirone/Desktop/techweb-squealer/Squealer/node_modules/@apollo/server/src/requestPipeline.ts:246:38)"</span><span class="cm-punctuation">,</span></span></pre></div></div></div></div></div><div style="position: absolute; height: 43px; width: 1px; border-bottom: 0px solid transparent; top: 2464px;"></div><div class="CodeMirror-gutters" style="height: 2507px; left: 0px;"><div class="CodeMirror-gutter CodeMirror-foldgutter"></div></div></div></div></div></div></div></div><div height="300" class="sc-hXRMBi sc-hZSUBg kwgcNW"><div class="sc-epnACN jfQKSU sc-cMhqgX eXhPMv"><button class="sc-iuJeZd ibKVQZ">Tracing</button><button class="sc-iuJeZd fXfgDJ">Query Plan</button></div><div class="sc-kgAjT bMPZxF">This GraphQL server either doesn't support Apollo Federation, or the query plan extensions is disabled. See the <a target="_blank" rel="noopener noreferrer" href="https://www.apollographql.com/docs/apollo-server/federation/introduction">docs</a> for setting up query plan viewing with Apollo Federation.</div></div></div></div></div><div class="sc-ksYbfQ kZixBo" style="width: 0px;"><div class="sc-kvZOFW daelbc"><div class="sc-cJSrbW KzivH">Docs</div><div class="sc-cJSrbW dcNxcw">Schema</div></div><div class="sc-frDJqD dccpJW"></div><div class="sc-hqyNC jYyKHh"></div><div class="sc-hmzhuo kQoVDR"></div></div></div></div></div><div class="sc-eMigcr dWQiKc"><div class="sc-fzsDOv icMryM"><svg width="23" height="23" viewBox="0 0 50 50"><title>Settings</title><path d="M48,21h-5.71c-0.4-1.58-0.91-3.33-1.56-4.66l4.06-4.06c0.19-0.19,0.29-0.44,0.29-0.71 c0-0.27-0.11-0.52-0.29-0.71L39.14,5.2c-0.39-0.39-1.02-0.39-1.41,0l-4.06,4.06C32.33,8.62,30.58,8.11,29,7.71V2c0-0.55-0.45-1-1-1 h-6c-0.55,0-1,0.45-1,1v5.71c-1.58,0.4-3.33,0.91-4.66,1.55L12.27,5.2c-0.39-0.39-1.02-0.39-1.41,0L5.2,10.86 c-0.39,0.39-0.39,1.02,0,1.41l4.07,4.07C8.62,17.66,8.11,19.42,7.71,21H2c-0.55,0-1,0.45-1,1v6c0,0.55,0.45,1,1,1h5.71 c0.4,1.58,0.91,3.34,1.56,4.66L5.2,37.73c-0.19,0.19-0.29,0.44-0.29,0.71s0.11,0.52,0.29,0.71l5.66,5.66c0.38,0.38,1.04,0.38,1.41,0 l4.07-4.06c1.32,0.65,3.08,1.15,4.66,1.56V48c0,0.55,0.45,1,1,1h6c0.55,0,1-0.45,1-1v-5.71c1.58-0.4,3.34-0.91,4.66-1.56l4.07,4.06 c0.39,0.39,1.02,0.39,1.41,0l5.66-5.66c0.39-0.39,0.39-1.02,0-1.41l-4.06-4.07c0.65-1.33,1.16-3.08,1.56-4.66H48c0.55,0,1-0.45,1-1 v-6C49,21.45,48.55,21,48,21 M25,33c-4.41,0-8-3.59-8-8s3.59-8,8-8s8,3.59,8,8S29.41,33,25,33"></path></svg></div></div></div></div></div></div></body></html>

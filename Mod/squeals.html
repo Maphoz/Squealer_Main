@@ -1,0 +1,2107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Page</title>
+  <!-- Includi il link a Tailwind CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.9.0/dist/css/bootstrap-datepicker.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+  <!-- Includi jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: white; /* Colore grigio chiaro di sfondo */
+      display: grid; /* Usa la disposizione a griglia per gestire le colonne */
+      grid-template-columns: 15% auto; /* Specifica due colonne, una per la colonna di navigazione e una per il contenuto */
+    }
+
+    /* Stili per la colonna di navigazione */
+    .navigation-column {
+      color: white;
+      background-color: black;
+      padding-right: 20px;
+      margin-top: 0px;
+      height: 100vh;
+      width: 120%;
+      /* Colore di sfondo leggermente scuro */
+    }
+
+    /* Stili per le etichette di sezione */
+    .section-label {
+      font-size: 1.8rem; /* Incrementa la dimensione del testo */
+      margin-left: 3%;
+    }
+
+    .titleContainer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    /* Stili per i bottoni di navigazione */
+    .navigation-button {
+      display: flex;
+      align-items: center;
+      padding: 12px; /* Aumenta il padding */
+      color: white; /* Grigio più scuro */
+      border: none;
+      border-radius: 10px; /* Arrotonda i bordi */
+      cursor: pointer;
+      transition: background-color 0.3s, color 0.3s; /* Aggiungi transizione per un effetto più fluido */
+      font-size: 20px;
+    }
+
+    .create-button {
+      display: flex;
+      align-items: center;
+      padding-top: 12px; /* Aumenta il padding */
+      padding-bottom: 12px;
+      margin-top: 10px;
+      margin-bottom: 15px;
+      padding-left: 25px;
+      padding-right: 25px; /* Aumenta la distanza tra i bottoni */
+      color: white; /* Grigio più scuro */
+      border: none;
+      border-radius: 25px; /* Arrotonda i bordi */
+      cursor: pointer;
+      font-size: 20px;
+      background-color: #3399FF;
+    }
+
+    .logout-button {
+      display: flex;
+      align-items: center;
+      padding-top: 12px; /* Aumenta il padding */
+      padding-bottom: 12px;
+      padding-left: 25px;
+      padding-right: 25px;
+      margin-bottom: 10%; /* Aumenta la distanza tra i bottoni */
+      color: white; /* Grigio più scuro */
+      border: none;
+      border-radius: 25px; /* Arrotonda i bordi */
+      cursor: pointer;
+      font-size: 20px;
+      background-color: red;
+    }
+    .navigation-button:hover {
+      background-color: #3399FF;
+      color: white;
+    }
+
+    /* Stili per le immagini nei bottoni */
+    .navigation-icon {
+      width: 30px;
+      height: 30px;
+      margin-right: 10px;
+    }
+
+    .navButtons {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin-top: 20%;
+      margin-left: 5%;
+    }
+
+    /* Stili per la barra di benvenuto */
+    .welcome-bar {
+      color: black;
+      padding: 10px;
+      /* Colore di sfondo leggermente scuro */
+      position: fixed; /* Fissa la barra di benvenuto in cima alla pagina */
+      right: 0; /* Allinea la barra di benvenuto a destra */
+      top: 0; /* Allinea la barra di benvenuto in alto */
+      display: flex;
+      align-items: center;
+    }
+
+    /* Aggiunto un margine destro per separare il testo e l'immagine */
+    .welcome-bar img {
+      margin-right: 10px;
+    }
+
+    .new-container {
+      display: flex;
+      flex-direction: column;
+      margin-left: 5%;
+      width: 94%;
+      background-color: white;
+      border-radius: 10px;
+      height: 89vh;
+      margin-top: 5%;
+      position: relative; /* Aggiunto posizione relativa per posizionare gli elementi assoluti */
+    }
+
+    .search-bar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 10px;
+      position: relative;
+      width: 50%;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 1%;
+    }
+
+    #searchInput {
+      width: 100%;
+      outline: none;
+      font-size: 18px;
+      padding: 10px 15px;
+      border: 2px solid #3399FF;
+      border-radius: 25px;
+      transition: border-color 0.3s ease, color 0.3s ease;
+      padding-left: 5%;
+      margin-right: 10px;
+    }
+
+    #searchMittenteInput, #searchDestinatarioInput, #searchAddUserInput, #searchRemoveUserInpu, #addChannelsInput, #removeChannelsInput {
+      width: 100%;
+      outline: none;
+      font-size: 18px;
+      padding: 10px 15px;
+      border: 2px solid #3399FF;
+      border-radius: 25px;
+      transition: border-color 0.3s ease, color 0.3s ease;
+      padding-left: 5%;
+      margin-right: 10px;
+    }
+
+    #resetFiltersButton {
+      background-color: #ff5555;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 8px;
+      cursor: pointer;
+      position: absolute;
+      right: 3%;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+
+    .filter-button {
+    padding: 8px;
+    background-color: #3399FF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 5px;
+  }
+
+  .filter-button.clicked {
+    background-color: #3399FF;
+    color: white;
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    margin-left: 2%;
+  }
+
+
+    .title{
+        margin-left:35%;
+        margin-top: 10px;
+        font-size: 3rem;
+        color: #3399FF;
+        font: bold;
+    }
+
+    .filter-button#buttonReset {
+      margin-left: 0.5%;
+      background-color: transparent;
+      border: none;
+      font: bold;
+      color: black;
+    }
+
+    .squeals-container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      width: 90%;
+      margin-top: 30px;
+      max-height: 70vh; /* Altezza massima del container */
+      overflow-y: auto; /* Aggiunto overflow-y per abilitare lo scrolling verticale */
+      margin-left:8%;
+    }
+
+    .squeal-container {
+      background-color: white;
+      border: 1px solid #3399FF;
+      border-radius: 10px;
+      padding-left: 20px;
+      padding-top: 10px;
+      margin-bottom: 10px;
+      width: 60%; 
+      transition: transform 0.3s;
+      margin-right: 30%;
+      margin-left: 26%;
+      cursor: pointer;
+    }
+
+    .squeal-container:hover {
+      transform: scale(1.05);
+    }
+
+    .squeal-container img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+
+    .user-info {
+  display: flex;
+  align-items: center;
+  margin-top: 2%;
+}
+
+.user-info img {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.user-info p {
+  margin: 0;
+}
+    .squeal-text {
+      
+      margin-top: 5px;
+      margin-left: 10%;
+      max-width: 90%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .squeal-text img {
+      width: 120px;
+      height: 100px;
+      border-radius: 0;
+    }
+
+    .iconsContainer{
+        display: flex;
+        width: 100%;
+        margin-top: 20px;
+        padding-left: 50px;
+    }
+
+    .user-list-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+
+    }
+
+    .user-list-item img {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      margin-right: 20px;
+      border: 0.5px solid black;
+    }
+
+    .user-list-item:hover span {
+  font-weight: bold;
+  cursor: pointer;
+}
+
+
+  #mittenteModal, #destinatarioModal, #addUsersModal, #addChannelsModal, #removeUsersModal, #removeChannelsModal {
+      max-height: 70vh; /* Imposta l'altezza massima del modale a 70% dell'altezza della viewport */
+  }
+
+  #mittenteModal .modal-body, #destinatarioModal .modal-body , #addUsersModal .modal-body, #addChannelsModal .modal-body, #removeUsersModal .modal-body, #removeChannelsModal .modal-body{
+    max-height: 50vh;
+      overflow-y: auto; /* Abilita lo scrolling verticale quando supera la massima altezza */
+  }
+
+  #mittenteModal .modal-body input, #destinatarioModal .modal-body input, #addUsersModal .modal-body input, #addChannelsModal .modal-body input, #removeUsersModal .modal-body input, #removeChannelsModal .modal-body input{
+      margin-bottom: 15px; /* Aumenta la separazione tra la barra di ricerca e la lista utenti */
+  }
+
+  #mittenteModal .user-list-item, #destinatarioModal .user-list-item, #addUsersModal .user-list-item, #addChannelsModal .user-list-item, #removeUsersModal .user-list-item, #removeChannelsModal .user-list-item{
+      margin-bottom: 20px; /* Aumenta la separazione tra gli elementi della lista utenti */
+  }
+
+  .inputContainer{
+    width: 70%;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+    padding-left: 0.5rem;
+}
+
+.goBack-icon {
+    width: 25px;
+    height: 25px;
+    border-radius: 25%;
+    cursor: pointer;
+  }
+  .reaction-control {
+    color: #6c757d;
+    font-weight: bold;
+    font-size: 18px;
+    cursor: pointer;
+    margin: 0 5px; /* Aggiunto un margine tra i controlli */
+  }
+
+  .reaction-count {
+    font-weight: bold;
+    margin: 0 5px; /* Aggiunto un margine tra il conteggio e i controlli */
+  }
+
+  #deleteSquealBtn{
+    margin-left: 36%;
+    margin-top: 1%;
+  }
+
+
+  </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+</head>
+<body>
+
+  <div class="navigation-column">
+    <div class="titleContainer">
+      <img src="./images/squealer_logo.png" alt="logo" style="height: 60px; width: 60px;">
+      <p class="text-2xl font-bold section-label mt-3">Squealer</p>
+    </div>
+    
+    
+    <div class="navButtons">
+      <button id="btnAnalisi" class="navigation-button" onclick="redirectMainPage()" >
+        <img src="./images/trendw.png" alt="Analisi Icon" class="navigation-icon">
+        Analisi Dati
+      </button>
+      <button id="btnUtenti" class="navigation-button" onclick="redirectUser()">
+        <img src="./images/userw.png" alt="Utenti Icon" class="navigation-icon">
+        Utenti
+      </button>
+      <button id="btnCanaliUtente" class="navigation-button" onclick="handleUserChannels()">
+        <img src="./images/channelw.png" alt="Canali Icon" class="navigation-icon">
+        Canali Utente
+      </button>
+      <button id="btnCanliUfficiali" class="navigation-button" onclick="handleOfficialChannels()" >
+        <img src="./images/canaliufficialiw.png" alt="Crea Icon" class="navigation-icon">
+        Canali Ufficiali
+      </button>
+      <button id="btnCanliUfficiali" class="navigation-button" onclick="handleTemporaryChannels()" >
+        <img src="./images/temporaneiw.png" alt="Crea Icon" class="navigation-icon">
+        Canali Temporanei
+      </button>
+      <button id="btnSqueals" class="navigation-button" onclick="redirectSqueals()">
+        <img src="./images/messagew.png" alt="Squeals Icon" class="navigation-icon">
+        Squeals
+      </button>
+      <button id="btnSqueals" class="navigation-button" onclick="redirectPublish()">
+        <img src="./images/wirtew.png" alt="Squeals Icon" class="navigation-icon">
+        Pubblica
+      </button>
+      <button id="btnCrea" class="create-button mt-3" onclick="redirectCreateChannel()" >
+        <img src="./images/creacanalew.png" alt="Crea Icon" class="navigation-icon">
+        Crea canale
+      </button>
+      <button class="logout-button" onclick="logout()">
+        Logout
+      </button>
+
+    </div>
+  </div>
+
+  <div class="new-container">
+    <h1 class="title">Gestisci squeals</h1>
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Filtra gli squeals in base al testo...">
+    </div>
+    <div class="button-container">
+        <button class="filter-button" id="Data" data-bs-toggle="modal" data-bs-target="#dateModal">Data</button>
+        <button class="mittente-btn filter-button" onclick="openModal('mittenteModal', 'mittenteList')">Seleziona mittente</button>
+        <button class="destinatario-btn filter-button" onclick="openModal('destinatarioModal', 'destinatarioList')">Seleziona destinatario</button>
+        <button class="filter-button" id="Popolari">Popolari</button>
+        <button class="filter-button" id="impopolari">Impopolari</button>
+        <button class="filter-button" id="buttonReset">X</button>
+      </div>
+     <div class="squeals-container">
+     </div>
+  </div>
+
+  
+
+  <div class="welcome-bar">
+    <p class="mr-2 ">Bentornato, </p>
+    <img src="./images/userbase.png" alt="User Image" class="w-8 h-8">
+  </div>
+
+ 
+<!-- Modal per la selezione della data -->
+<div class="modal fade" id="dateModal" tabindex="-1" aria-labelledby="dateModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h5 class="modal-title font-weight-bold" id="mittenteModalLabel">Seleziona data</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <input type="date" id="datepicker" class="form-control" placeholder="Seleziona una data">
+      </div>
+      
+      <div class="modal-footer" style="height: 60px;"> <!-- Imposta l'altezza del footer -->
+        <button type="button" class="btn btn-primary rounded-pill mx-auto" id="confirmDate">Conferma</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="mittenteModal" tabindex="-1" role="dialog" aria-labelledby="mittenteModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h5 class="modal-title font-weight-bold" id="mittenteModalLabel">Seleziona il mittente</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- Barra di ricerca -->
+        <div class="flex items-center ml-4">
+          <input type="text" id="searchMittenteInput" class="inputContainer" placeholder="Cerca utenti...">
+        </div>
+        <!-- Lista utenti -->
+        <ul id="mittenteList" class="user-list mt-2"></ul>
+      </div>
+      <div class="modal-footer" style="height: 60px;"> <!-- Imposta l'altezza del footer -->
+        <button type="button" class="btn btn-primary rounded-pill mx-auto" id="confermaMittenteBtn">Conferma</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal per Aggiungere Utenti -->
+<div class="modal fade" id="addUsersModal" tabindex="-1" role="dialog" aria-labelledby="addUsersModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h5 class="modal-title font-weight-bold" id="addUsersModalLabel">Aggiungi utenti</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- Barra di ricerca -->
+        <div class="flex items-center ml-4">
+          <input type="text" id="searchAddUserInput" class="inputContainer" placeholder="Cerca utenti...">
+        </div>
+        <!-- Lista utenti -->
+        <ul id="addUsersList" class="user-list mt-2"></ul>
+      </div>
+      <div class="modal-footer" style="height: 60px;"> <!-- Imposta l'altezza del footer -->
+        <button type="button" class="btn btn-primary rounded-pill mx-auto" id="addUsersButton">Chiudi</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="removeUsersModal" tabindex="-1" role="dialog" aria-labelledby="removeUsersModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h5 class="modal-title font-weight-bold" id="removeUsersModalLabel">Rimuovi utenti</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- Barra di ricerca -->
+        <div class="flex items-center ml-4">
+          <input type="text" id="searchRemoveUserInpu" class="inputContainer" placeholder="Cerca utenti...">
+        </div>
+        <!-- Lista utenti -->
+        <ul id="removeUsersList" class="user-list mt-2"></ul>
+      </div>
+      <div class="modal-footer" style="height: 60px;"> <!-- Imposta l'altezza del footer -->
+        <button type="button" class="btn btn-primary rounded-pill mx-auto" id="removeUsersButton">Chiudi</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="addChannelsModal" tabindex="-1" role="dialog" aria-labelledby="addChannelsModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h5 class="modal-title font-weight-bold" id="addChannelsModalLabel">Aggiungi canali</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- Barra di ricerca -->
+        <div class="flex items-center ml-4">
+          <input type="text" id="addChannelsInput" class="inputContainer" placeholder="Cerca canali...">
+        </div>
+        <!-- Lista utenti -->
+        <ul id="addChannelsList" class="user-list mt-2"></ul>
+      </div>
+      <div class="modal-footer" style="height: 60px;"> <!-- Imposta l'altezza del footer -->
+        <button type="button" class="btn btn-primary rounded-pill mx-auto" id="addChannelsButton">Chiudi</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal per Rimuovere Canali -->
+<div class="modal fade" id="removeChannelsModal" tabindex="-1" role="dialog" aria-labelledby="removeChannelsModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h5 class="modal-title font-weight-bold" id="removeChannelsModalLabel">Rimuovi canali</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- Barra di ricerca -->
+        <div class="flex items-center ml-4">
+          <input type="text" id="removeChannelsInput" class="inputContainer" placeholder="Cerca canali...">
+        </div>
+        <!-- Lista utenti -->
+        <ul id="removeChannelsList" class="user-list mt-2"></ul>
+      </div>
+      <div class="modal-footer" style="height: 60px;"> <!-- Imposta l'altezza del footer -->
+        <button type="button" class="btn btn-primary rounded-pill mx-auto" id="removeChannelsButton">Chiudi</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="newModal" tabindex="-1" role="dialog" aria-labelledby="newModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title mx-auto font-bold" id="newModalLabel">Gestisci Squeal</h5>
+      </div>
+      <div class="modal-body">
+        <!-- Sezione 1: Modifica destinatari -->
+        <div class="mb-3">
+          <h5 class="text-center">Modifica destinatari</h6>
+          <div class="d-flex justify-content-around mt-4">
+            <button class="btn btn-outline-primary rounded-pill" id="addUsers">Aggiungi utenti</button>
+            <button class="btn btn-outline-primary rounded-pill " id="addChannels">Aggiungi canali</button>
+          </div>
+          <div class="d-flex justify-content-around mt-2">
+            <button class="btn btn-outline-danger rounded-pill" id="removeUsers">Rimuovi utenti</button>
+            <button class="btn btn-outline-danger rounded-pill" id="removeChannels">Rimuovi canali</button>
+          </div>
+        </div>
+        
+        <!-- Sezione 2: Modifica reaction -->
+        <div class="mb-3 mt-4">
+          <h5 class="text-center">Modifica reactions</h6>
+          <div class="d-flex justify-content-around mt-4">
+            <!-- Reaction positive -->
+            <div class="d-flex align-items-center">
+              <img src="./images/agree_emoji.png" style="width:30px; height:30px" alt="Positive Reaction">
+              <span class="reaction-control positive" onclick="decreaseReaction(this)">-</span>
+              <span class="reaction-count agree-count">0</span>
+              <span class="reaction-control positive" onclick="increaseReaction(this)">+</span>
+            </div>
+            <div class="d-flex align-items-center">
+              <img src="./images/emotional_emoji.png" style="width:30px; height:30px" alt="Positive Reaction">
+              <span class="reaction-control positive" onclick="decreaseReaction(this)">-</span>
+              <span class="reaction-count emotional-count">0</span>
+              <span class="reaction-control positive" onclick="increaseReaction(this)">+</span>
+            </div>
+            <div class="d-flex align-items-center">
+              <img src="./images/heart_emoji.png" style="width:30px; height:30px" alt="Positive Reaction">
+              <span class="reaction-control positive" onclick="decreaseReaction(this)">-</span>
+              <span class="reaction-count heart-count" >0</span>
+              <span class="reaction-control positive" onclick="increaseReaction(this)">+</span>
+            </div>
+            <div class="d-flex align-items-center">
+              <img src="./images/laugh_emoji.png" style="width:30px; height:30px" alt="Positive Reaction">
+              <span class="reaction-control positive" onclick="decreaseReaction(this)">-</span>
+              <span class="reaction-count laugh-count">0</span>
+              <span class="reaction-control positive" onclick="increaseReaction(this)">+</span>
+            </div>
+            <!-- Ripeti per le altre 3 reaction positive -->
+          </div>
+          <div class="d-flex justify-content-around mt-3">
+            <!-- Reaction negative -->
+            <div class="d-flex align-items-center">
+              <img src="./images/disagree copy.png" style="width:30px; height:30px" alt="Positive Reaction">
+              <span class="reaction-control negative" onclick="decreaseReaction(this)">-</span>
+              <span class="reaction-count disagree-count">0</span>
+              <span class="reaction-control negative" onclick="increaseReaction(this)">+</span>
+            </div>
+            <div class="d-flex align-items-center">
+              <img src="./images/inappropriate_emoji.png" style="width:30px; height:30px" alt="Positive Reaction">
+              <span class="reaction-control negative" onclick="decreaseReaction(this)">-</span>
+              <span class="reaction-count inappropiate-count">0</span>
+              <span class="reaction-control negative" onclick="increaseReaction(this)">+</span>
+            </div>
+            <div class="d-flex align-items-center">
+              <img src="./images/brokenheart_emoji.png" style="width:30px; height:30px" alt="Positive Reaction">
+              <span class="reaction-control negative" onclick="decreaseReaction(this)">-</span>
+              <span class="reaction-count brokenheart-count">0</span>
+              <span class="reaction-control negative" onclick="increaseReaction(this)">+</span>
+            </div>
+            <div class="d-flex align-items-center">
+              <img src="./images/angry_emoji.png" style="width:30px; height:30px" alt="Positive Reaction">
+              <span class="reaction-control negative" onclick="decreaseReaction(this)">-</span>
+              <span class="reaction-count angry-count">0</span>
+              <span class="reaction-control negative" onclick="increaseReaction(this)">+</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Sezione 3: Elimina Squeal -->
+        <div>
+          <h5 class="text-center mt-4">Elimina Squeal</h6>
+          <button class="btn btn-danger rounded-pill " id="deleteSquealBtn">Elimina Squeal</button>
+        </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary rounded-pill" data-dismiss="modal" id="closeModifyModal">Chiudi</button>
+        <button type="button" class="btn btn-primary rounded-pill" id="saveChangesBtn">Salva modifiche</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="destinatarioModal" tabindex="-1" role="dialog" aria-labelledby="destinatarioModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="mittenteModalLabel">Seleziona il destinatario</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- Barra di ricerca -->
+        <!-- Barra di ricerca -->
+        <div class="flex items-center ml-4">
+          <input type="text" id="searchDestinatarioInput" class="inputContainer" placeholder="Cerca utenti...">
+        </div>
+        <!-- Lista utenti -->
+        <ul id="destinatarioList" class="user-list mt-2"></ul>
+      </div>
+      <div class="modal-footer" style="height: 60px;"> <!-- Imposta l'altezza del footer -->
+        <button type="button" class="btn btn-primary rounded-pill mx-auto" id="confermaDestinatarioBtn">Conferma</button>
+      </div>
+  </div>
+</div>
+
+
+
+<script
+  src="https://code.jquery.com/jquery-3.6.4.min.js"
+  integrity="sha384-UG8ao2jwOWB7/oDdObZc6ItJmwUkR/PfMyt9Qs5AwX7PsnYn1CRKCTWyncPTWvaS"
+  crossorigin="anonymous"
+></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <script>
+     function redirectUser() {
+      window.location.href = '/mod/utenti';
+    }
+
+    function redirectSqueals() {
+      window.location.href = '/mod/squeals';
+    }
+
+    function redirectCreateChannel() {
+      window.location.href = '/mod/creaCanale';
+    }
+
+    function handleOfficialChannels() {
+      window.location.href = '/mod/canaliUfficiali';
+    }
+
+    function handleUserChannels(){
+      window.location.href = '/mod/canaliUtente';
+    }
+
+    function handleTemporaryChannels(){
+      window.location.href = '/mod/canaliTemporanei';
+    }
+
+    function redirectPublish(){
+      window.location.href = '/mod/pubblica';
+    }
+
+    function redirectMainPage(){
+      window.location.href = '/mod/analisi';
+    }
+    function logout() {
+      $.removeCookie('AccessTokenMod');
+      window.location.href = '/mod/';
+    }
+
+
+         function openModal(modalId, userListId) {
+              $(`#${modalId}`).modal('show');
+              updateButtonState();
+         }
+
+      function updateButtonState() {
+        if (selectedAddUsers.length > 0) {
+            $('#addUsers').addClass('active');
+        } else {
+            $('#addUsers').removeClass('active');
+        }
+        if (selectedAddChannels.length > 0) {
+            $('#addChannels').addClass('active');
+        } else {
+            $('#addChannels').removeClass('active');
+        }
+        if (selectedRemoveUsers.length > 0) {
+            $('#removeUsers').addClass('active');
+        } else {
+            $('#removeUsers').removeClass('active');
+        }
+        if (selectedRemoveChannels.length > 0) {
+            $('#removeChannels').addClass('active');
+        } else {
+            $('#removeChannels').removeClass('active');
+        }
+    }
+
+  $('#addUsers').on('click', function () {
+    $('#newModal').modal('hide');
+    getAllUserDestinatari();
+    displayUsers(allUsers, 'addUsersList');
+   
+     
+      
+    $('#addUsersModal').modal('show');
+  });
+
+  $('#closeModifyModal').on('click', function () {
+    $('input[type=checkbox]').prop('checked', false);
+
+    //remove class active
+    $('#addUsers').removeClass('active');
+    $('#addChannels').removeClass('active');
+    $('#removeUsers').removeClass('active');
+    $('#removeChannels').removeClass('active');
+
+    selectedAddChannels = [];
+    selectedAddUsers = [];
+    selectedRemoveChannels = [];
+    selectedRemoveUsers = [];
+
+    $('#newModal').modal('hide');
+  });
+
+  $('#removeUsers').on('click', function () {
+    getAllUserDestinatari();
+    $('#newModal').modal('hide');
+    $('#removeUsersModal').modal('show');
+  });
+
+  $('#addChannels').on('click', function () {
+    getAllChannels();
+    getAllChannelDestinatari();
+    displayUsers(allChannels, 'addChannelsList', true);
+    $('#newModal').modal('hide');
+    $('#addChannelsModal').modal('show');
+  });
+
+  $('#removeChannels').on('click', function () {
+    getAllChannelDestinatari();
+    $('#newModal').modal('hide');
+    $('#removeChannelsModal').modal('show');
+  });
+
+  
+
+
+
+  function displayUsers(users, userListId, isChannel = false) {
+    const userList = $(`#${userListId}`);
+    console.log('userList', userList);
+    userList.empty();
+  
+    users.forEach((user, index) => {
+        //if the user is in the 'destinatariInizialiUsers' don't display it
+        
+        if (userListId === 'addUsersList' && destinatariInizialiUsers.includes(user._id)) {
+            console.log('ciaoo')
+            return;
+        }
+
+        
+        if(userListId=== 'addChannelsList'){
+          
+          if (destinatariInizialiChannels.includes(user._id)) {
+            console.log('ciaoo')
+            return;
+        }
+          
+        }
+
+        const listItem = $('<li class="user-list-item ml-6"></li>');
+
+        const imgElement = $(`<img src="${isChannel ? user.channelImage || './images/channel.jpeg' : user.profileImage || './images/user_image.jpg'}" alt="${isChannel ? user.name : user.username}">`);
+        imgElement.css({
+            'width': '35px',
+            'height': '35px',
+            'border-radius': '50%',
+            'margin-right': '20px',
+            'border': '0.5px solid black'
+        });
+
+        const spanElement = $(`<span>${isChannel ? user.name : user.username}</span>`);
+
+        // Aggiungi una casella di controllo per selezionare l'utente/canale
+        const selectCheckboxId = `${userListId}_checkbox_${index}`;
+        const selectCheckbox = $(`<input class="form-check-input" type="checkbox" id="${selectCheckboxId}" value="" aria-label="..." >`);
+        selectCheckbox.css({
+            'margin-left': 'auto',
+            'margin-right': '7%',
+            'border': '2px solid #0D6EFD',
+        });
+        //check if the user is in the 'destinatariInizialiUsers' array
+       
+        listItem.append(imgElement);
+        listItem.append(spanElement);
+        listItem.append(selectCheckbox);
+
+        // Aggiungi gli stili per il cambio di stile al passaggio del mouse
+        listItem.hover(
+            function () {
+                spanElement.css({
+                    'font-weight': 'bold',
+                    'cursor': 'pointer'
+                });
+            },
+            function () {
+                spanElement.css({
+                    'font-weight': 'normal',
+                    'cursor': 'default'
+                });
+            }
+        );
+
+        // Gestisci il clic sulla casella di controllo per selezionare/deselezionare l'utente/canale
+        selectCheckbox.click(function () {
+            if (!$(this).prop('checked')) {
+                // Se la casella di controllo è stata deselezionata, rimuovi l'utente/canale dalle variabili
+                if (userListId === 'destinatarioList') {
+                  destionationUserUsername = null;
+                    console.log('destinatarioUser', destionationUserUsername);
+                } else if (userListId === 'mittenteList') {
+                    mittenteUsername = null;
+                    console.log('mittenteUser', mittenteUsername);
+                } else if (userListId === 'addUsersList') {
+                    const userIndex = isChannel ? selectedAddChannels.indexOf(user.name) : selectedAddUsers.indexOf(user.username);
+                    if (userIndex !== -1) {
+                        isChannel ? selectedAddChannels.splice(userIndex, 1) : selectedAddUsers.splice(userIndex, 1);
+                    }
+                    console.log(isChannel ? 'selectedChannels' : 'selectedUsers', isChannel ? selectedAddChannels : selectedAddUsers);
+                    updateButtonState();
+                } else if (userListId === 'removeUsersList') {
+                    const userIndex = isChannel ? selectedRemoveChannels.indexOf(user.name) : selectedRemoveUsers.indexOf(user.username);
+                    if (userIndex !== -1) {
+                        isChannel ? selectedRemoveChannels.splice(userIndex, 1) : selectedRemoveUsers.splice(userIndex, 1);
+                    }
+                    console.log(isChannel ? 'selectedChannels' : 'selectedUsers', isChannel ? selectedRemoveChannels : selectedRemoveUsers);
+                    updateButtonState();
+                } else if (userListId === 'addChannelsList') {
+                    const channelIndex = selectedAddChannels.indexOf(user.name);
+                    if (channelIndex !== -1) {
+                        selectedAddChannels.splice(channelIndex, 1);
+                    }
+                    console.log('selectedChannels', selectedAddChannels);
+                    updateButtonState();
+                } else if (userListId === 'removeChannelsList') {
+                    const channelIndex = selectedRemoveChannels.indexOf(user.name);
+                    if (channelIndex !== -1) {
+                        selectedRemoveChannels.splice(channelIndex, 1);
+                    }
+                    console.log('selectedChannels', selectedRemoveChannels);
+                    updateButtonState();
+                }
+            } else {
+                // Se la casella di controllo è stata selezionata, aggiorna le variabili
+                if (userListId === 'destinatarioList') {
+                  destionationUserUsername = isChannel ? null : user.username;
+                    $(`#${userListId} input[type=checkbox]`).not(this).prop('checked', false);
+                    
+                } else if (userListId === 'mittenteList') {
+                    mittenteUsername = isChannel ? null : user.username;
+                    console.log('mittenteUser', mittenteUsername);
+                    $(`#${userListId} input[type=checkbox]`).not(this).prop('checked', false);
+                   
+                } else if (userListId === 'addUsersList') {
+                    isChannel ? selectedAddChannels.push(user.name) : selectedAddUsers.push(user.username);
+                    console.log(isChannel ? 'selectedChannels' : 'selectedUsers', isChannel ? selectedAddChannels : selectedAddUsers);
+                    updateButtonState();
+                } else if (userListId === 'removeUsersList') {
+                    isChannel ? selectedRemoveChannels.push(user.name) : selectedRemoveUsers.push(user.username);
+                    console.log(isChannel ? 'selectedChannels' : 'selectedUsers', isChannel ? selectedRemoveChannels : selectedRemoveUsers);
+                    updateButtonState();
+                } else if (userListId === 'addChannelsList') {
+                    selectedAddChannels.push(user.name);
+                    console.log('selectedChannels', selectedAddChannels);
+                    updateButtonState();
+                } else if (userListId === 'removeChannelsList') {
+                    selectedRemoveChannels.push(user.name);
+                    console.log('selectedChannels', selectedRemoveChannels);
+                    updateButtonState();
+                }
+
+            }
+        });
+
+        userList.append(listItem);
+    });
+}
+
+
+  function getAllUserDestinatari() {
+    let userDocuments = [];
+    let promises = [];
+
+    destinatariInizialiUsers.forEach((user) => {
+        let promise = new Promise((resolve, reject) => {
+            $.ajax({
+                url: 'https://site222344.tw.cs.unibo.it/graphql',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    query: `
+                        query getUserById($userId: String!){
+                            getUserById(_id: $userId){
+                                __typename
+                                ...on BasicUser{
+                                    username
+                                    profileImage
+                                }
+                            }
+                        }
+                    `,
+                    variables: {
+                        userId: user,
+                    },
+                }),
+                success: function (response) {
+                    userDocuments.push(response.data.getUserById);
+                    resolve();
+                },
+                error: function (error) {
+                    console.error('Errore durante la query getUserById:', error);
+                    reject();
+                },
+            });
+        });
+
+        promises.push(promise);
+    });
+
+    // Attendere che tutte le chiamate AJAX siano completate prima di chiamare displayUsers
+    Promise.all(promises).then(() => {
+        destinatariInizialiUsers = userDocuments;
+        displayUsers(userDocuments, 'removeUsersList');
+    });
+    return userDocuments;
+}
+
+function getAllChannelDestinatari() {
+    let channelDocuments = [];
+    let promises = [];
+
+    destinatariInizialiChannels.forEach((channel) => {
+        let promise = new Promise((resolve, reject) => {
+            $.ajax({
+                url: 'https://site222344.tw.cs.unibo.it/graphql',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    query: `
+                    query getChannelById($_id: String!){
+                        getChannelById(_id: $_id){
+                          _id
+                          name
+                          channelImage
+                        }
+                      }
+                    `,
+                    variables: {
+                        _id: channel,
+                    },
+                }),
+                success: function (response) {
+                    channelDocuments.push(response.data.getChannelById);
+                    resolve();
+                },
+                error: function (error) {
+                    console.error('Errore durante la query getUserById:', error);
+                    reject();
+                },
+            });
+        });
+
+        promises.push(promise);
+    });
+
+    // Attendere che tutte le chiamate AJAX siano completate prima di chiamare displayUsers
+    Promise.all(promises).then(() => {
+        destinatariInizialiChannels = channelDocuments;
+        displayUsers(channelDocuments, 'removeChannelsList', true);
+    });
+}
+
+function getAllChannels() {
+    $.ajax({
+        url: 'https://site222344.tw.cs.unibo.it/graphql',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({
+            query: `
+                query getChannels{
+                    getChannels{
+                        name
+                        channelImage
+                    }
+                }
+            `,
+        }),
+        success: function (response) {
+            const channelDocuments = response.data.getChannels;
+            allChannels = channelDocuments;
+
+        },
+        error: function (error) {
+            console.error('Errore durante la query getChannels:', error);
+        },
+    });
+}
+
+
+
+function updateSquealsUI(squeals) {
+  const squealsContainer = $('.squeals-container');
+  squealsContainer.empty(); // Clear previous content
+
+  squeals.forEach((squeal) => {
+    const squealContainer = $('<div class="squeal-container" data-squeal-id="' + squeal.squeal._id + '"></div>');
+
+    const userInfo = $('<div class="user-info"></div>'); 
+    const profileImage = $('<img class="profile-image">').attr('src', squeal.user.profileImage || './images/user_image.jpg');
+    userInfo.append(profileImage);
+
+    const nameSurname = $('<p class="name-surname"></p>');
+    nameSurname.append(`<span class="font-bold">${squeal.user.nome} ${squeal.user.cognome}</span>`);
+    nameSurname.append(` <span style="color: grey;">@${squeal.user.username}</span>`);
+    userInfo.append(nameSurname);
+
+    squealContainer.append(userInfo);
+
+    const squealText = $('<div class="squeal-text"></div>');
+
+    let typeOfUpload = squeal.squeal.typeOfUpload;
+    if(typeOfUpload == "image" && squeal.squeal.uploadedFile){
+      squealText.append(`<img src="${squeal.squeal.uploadedFile}" style="margin-bottom: 10px;">`);
+    } else if(typeOfUpload == "video" && squeal.squeal.uploadedFile){
+      squealText.append(`<video width="320" height="240" controls>
+        <source src="${squeal.squeal.uploadedFile}" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>`);
+    } else if(squeal.squeal.geolocation){
+      //generate a random number to create a unique id for the map
+
+  const mapId = 'map' + Math.floor(Math.random() * 1000000);
+  squealText.empty().append(`<div id="${mapId}" style="height: 200px; width: 80%;"></div>`);
+  setTimeout(function() {
+    var map = L.map(mapId).setView([squeal.squeal.geolocation.latitude, squeal.squeal.geolocation.longitude], 15);
+            
+    // Add the OpenStreetMap tile layer
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+            
+    // Add a marker at the specified coordinates
+    L.marker([squeal.squeal.geolocation.latitude, squeal.squeal.geolocation.longitude]).addTo(map);
+  }, 0);
+} else if(squeal.squeal.text){
+      squealText.append(`<p style="margin-left: 0%">${squeal.squeal.text}</p>`);
+    }
+
+    squealContainer.append(squealText);
+
+    let posReaction = 0;
+    let negReaction = 0;
+
+    for (let i = 0; i < squeal.squeal.reactions.length; i++) {
+      if (squeal.squeal.reactions[i].type === 'agree' || squeal.squeal.reactions[i].type === 'emotional' || squeal.squeal.reactions[i].type === 'like' || squeal.squeal.reactions[i].type === 'laugh') {
+        posReaction++;
+      } else {
+        negReaction++;
+      }
+    }
+
+    const iconsContainer = $('<div class="iconsContainer"></div>');
+
+    const reactionsIcon = $('<img class="reactions-icon" style="width:20px; height:20px;">').attr('src', './images/like.png');
+    iconsContainer.append(reactionsIcon);
+    iconsContainer.append(`<p style="margin-right: 20px;">${posReaction}</p>`);
+    
+    const negReactionsIcon = $('<img class="reactions-icon" style="width:25px; height:25px">').attr('src', './images/dislike.png');
+    iconsContainer.append(negReactionsIcon);
+    iconsContainer.append(`<p style="margin-right: 20px;">${negReaction}</p>`);
+    
+    const commentsIcon = $('<img class="reactions-icon" style="width:25px; height:25px">').attr('src', './images/comment.png');
+    iconsContainer.append(commentsIcon);
+    iconsContainer.append(`<p style="margin-right: 20px;">${squeal.squeal.comments.length}</p>`);
+    
+    const viewsIcon = $('<img class="reactions-icon" style="width:25px; height:25px">').attr('src', './images/views.png');
+    iconsContainer.append(viewsIcon);
+    iconsContainer.append(`<p style="margin-right: 20px;">${squeal.squeal.views || 0}</p>`);
+    
+    squealContainer.append(iconsContainer);
+    squealsContainer.append(squealContainer);
+  });
+}
+
+function displayMapWithMarker(lat, lng) {
+            // Create a Leaflet map centered at the specified coordinates
+            const mapContainer = document.getElementById('map');
+        
+     
+        }
+
+let squealerId = null;
+
+function getAllSqueals(searchText = '') {
+  $.ajax({
+    url: 'https://site222344.tw.cs.unibo.it/graphql',
+    type: 'POST',
+    contentType: 'application/json',
+    data: JSON.stringify({
+      query: `
+        query getAllSqueals {
+          getAllSqueals {
+            __typename 
+            squeal {
+              _id
+              text
+              reactions {
+                type
+              }
+              views
+              comments {
+                text
+              }
+              publicationDate
+              uploadedFile
+              typeOfUpload
+              geolocation{
+                latitude
+                longitude
+              }
+            }
+            user {
+              username
+              profileImage
+              nome
+              cognome
+            }
+          }
+        }
+      `,
+    }),
+    success: function (response) {
+      //for each squeal take the ones with uploaded image
+      
+      let filteredSqueals;
+      if (searchText === '') {
+        filteredSqueals = response.data.getAllSqueals;
+      } else {
+        filteredSqueals = response.data.getAllSqueals.filter((squeal) => {
+          return squeal.squeal.text && squeal.squeal.text.toLowerCase().includes(searchText.toLowerCase());
+        });
+      }
+      updateSquealsUI(filteredSqueals);
+    },
+    error: function (error) {
+      console.error('Errore durante la query getAllSqueals:', error);
+    },
+  });
+}
+let allUsers = [];
+let destinatariInizialiUsers = [];
+let allChannels = [];
+let destinatariInizialiChannels = [];
+
+let mittenteUsername = null;
+        let destionationUserUsername = null;
+        let popular = null;
+        let unpopular = null;
+        let date = null;
+        let initialAgreeCount = 0;
+        let initialEmotionalCount = 0;
+        let initialLikeCount = 0;
+        let initialLaughCount = 0;
+        let initialDisagreeCount = 0;
+        let initialInappropiateCount = 0;
+        let initialDislikeCount = 0;
+        let initialAngryCount = 0;
+        let lastSquealId = null;
+        let selectedAddUsers = [];
+        let selectedRemoveUsers = [];
+        let selectedAddChannels = [];
+        let selectedRemoveChannels = [];
+
+    $(document).ready(function () {
+
+        getMyAccount();
+        getAllUserDestinatari();
+        getAllChannelDestinatari();
+        getAllChannels();
+      $('#Popolari').on('click', function () {
+        if($('#Popolari').hasClass('clicked')){
+          getAllSqueals();
+          return;
+        }
+        $('#impopolari').removeClass('clicked');
+        popular = true;
+        unpopular = false;
+        getFilteredUsers(popular = true);
+        
+      });
+
+      $('#addUsersButton').on('click', function () {
+        $('#addUsersModal').modal('hide');
+        $('#newModal').modal('show');
+      });
+
+      $('#removeUsersButton').on('click', function () {
+        $('#removeUsersModal').modal('hide');
+        $('#newModal').modal('show');
+      });
+
+      $('#addChannelsButton').on('click', function () {
+        $('#addChannelsModal').modal('hide');
+        $('#newModal').modal('show');
+      });
+
+      $('#removeChannelsButton').on('click', function () {
+        $('#removeChannelsModal').modal('hide');
+        $('#newModal').modal('show');
+      });
+
+
+
+      $('#buttonReset').on('click', function () {
+        $('#Popolari').removeClass('clicked');
+        $('#impopolari').removeClass('clicked');
+        mittenteUsername = null;
+        destionationUserUsername = null;
+        popular = false;
+        unpopular = false;
+        date = null;
+        getAllSqueals();
+      });
+
+      $('#impopolari').on('click', function () {
+        if($('#impopolari').hasClass('clicked')){
+          getAllSqueals();
+          return;
+        }
+        $('#Popolari').removeClass('clicked');
+        popular = false;
+        unpopular = true;
+        getFilteredUsers();
+      });
+
+      $('#searchMittenteInput').on('input', function () {
+          const keyword = $(this).val();
+          filterUsers(keyword, 'mittenteList', allUsers);
+      });
+
+      $('#searchAddUserInput').on('input', function () {
+          const keyword = $(this).val();
+          filterUsers(keyword, 'addUsersList', allUsers);
+      });
+
+      $('#searchRemoveUserInpu').on('input', function () {
+          const keyword = $(this).val();
+          filterUsers(keyword, 'removeUsersList', destinatariInizialiUsers);
+      });
+
+      $('#addChannelsInput').on('input', function () {
+          const keyword = $(this).val();
+          filterChannels(keyword, 'addChannelsList', allChannels);
+      });
+
+      $('#removeChannelsInput').on('input', function () {
+          const keyword = $(this).val();
+          filterChannels(keyword, 'removeChannelsList', destinatariInizialiChannels);
+      });
+      $('#confermaMittenteBtn').on('click', function () {
+          getFilteredUsers();
+          // Chiudi il modale
+          $('#mittenteModal').modal('hide');     
+      });
+
+      $('#searchDestinatarioInput').on('input', function () {
+          const keyword = $(this).val();
+          filterUsers(keyword, 'destinatarioList', allUsers);
+      });
+
+
+      $('#confermaDestinatarioBtn').on('click', function () {
+        if (destionationUserUsername) {
+          getFilteredUsers();
+          $('#destinatarioModal').modal('hide');
+        } else {
+          // Avvisa l'utente che deve selezionare un mittente
+          alert('Seleziona un destinatario prima di confermare.');
+        }
+      });
+
+      $('#confirmDate').on('click', function () {
+        // Ottieni la data selezionata
+        date = $('#datepicker').val();
+        // Esegui la query getFilteredUsers con la data selezionata
+        getFilteredUsers();
+
+        // Chiudi il modale
+        $('#dateModal').modal('hide');
+        $('#datepicker').val('');
+      });
+
+
+      getAllUsers();
+      
+
+      function getAllUsers() {
+        $.ajax({
+          url: 'https://site222344.tw.cs.unibo.it/graphql',
+          type: 'POST',
+          contentType: 'application/json',
+          data: JSON.stringify({
+            query: `
+              query {
+                getAllBasicUsers {
+                    _id
+                  nome
+                  cognome
+                  username
+                  profileImage
+                }
+                getAllSMMUsers {
+                    _id
+                  nome
+                  cognome
+                  username
+                }
+                getAllSquealerUsers {
+                    _id
+                  nome
+                  cognome
+                  username
+                }
+              }
+            `,
+          }),
+          success: function (response) {
+            allUsers = response.data.getAllBasicUsers;
+            displayUsers(allUsers, 'mittenteList');
+            displayUsers(allUsers, 'destinatarioList');
+            
+            
+          },
+          error: function (error) {
+            console.error('Errore durante la query:', error);
+          },
+        });
+
+      }
+
+    
+
+  $('#deleteSquealBtn').on('click', function () {
+    // Quando si clicca sul bottone 'Elimina Squeal'
+    if (confirm('Sei sicuro di voler eliminare questo Squeal?')) {
+      // Se l'utente conferma la cancellazione
+      const squealIdToDelete = lastSquealId; // Utilizza l'ID dell'ultimo Squeal visualizzato (puoi aggiornare questa logica in base alle tue esigenze)
+      
+      // Effettua la chiamata GraphQL per eliminare lo Squeal
+      $.ajax({
+        url: 'https://site222344.tw.cs.unibo.it/graphql',
+        type: 'POST',
+        contentType: 'application/json',
+        headers: {
+                Authorization: `Bearer ${$.cookie('accessToken')}`,
+            },
+        data: JSON.stringify({
+          query: `
+            mutation deleteSqueal($squealId: String!) {
+              deleteSqueal(squealId: $squealId)
+            }
+          `,
+          variables: {
+            squealId: squealIdToDelete,
+          },
+        }),
+        success: function (response) {
+          toastr.success('Squeal eliminato con successo');
+          getAllSqueals();
+          $('#newModal').modal('hide');
+          
+        },
+        error: function (error) {
+          console.error('Errore durante la mutation deleteSqueal:', error);
+
+          // Mostra un messaggio di errore in caso di problemi
+          toastr.error('Errore durante l\'eliminazione dello Squeal');
+        },
+      });
+    }
+  });
+
+
+function getFilteredUsers() {
+      $.ajax({
+        url: 'https://site222344.tw.cs.unibo.it/graphql',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({
+          query: `
+          query getUserSqueals($username: String, $popular: Boolean, $unpopular: Boolean, $date: String, $destionationUserUsername: String){
+              getUserSqueals(username: $username, popular: $popular, unpopular: $unpopular, date: $date, destionationUserUsername: $destionationUserUsername){
+                  __typename 
+                squeal{
+		_id
+                  text
+                  reactions{
+                    type
+                  }
+                  views
+                  comments{
+                    text
+                  }
+                  publicationDate
+                  uploadedFile
+                  typeOfUpload
+                  geolocation{
+                latitude
+                longitude
+              }
+                }
+                user {
+                  username
+                  profileImage
+                  nome
+                  cognome
+                }
+              }
+            }
+          `,
+          variables: {
+            username: mittenteUsername,
+            popular: popular,
+            unpopular: unpopular,
+            date: date,
+            destionationUserUsername: destionationUserUsername,
+          },
+        }),
+        success: function (response) {
+          updateSquealsUI(response.data.getUserSqueals);
+        },
+        error: function (error) {
+          console.error('Errore durante la query getAllSqueals:', error);
+        },
+      });
+    }
+
+
+
+
+
+
+        function filterUsers(keyword, userListId, list) {
+          const filteredUsers = list.filter(user => user.username.toLowerCase().includes(keyword.toLowerCase()));
+          displayUsers(filteredUsers, userListId);
+        }
+
+        function filterChannels(keyword, userListId, channelsArray) {
+          const filteredChannels = channelsArray.filter(channel => channel.name.toLowerCase().includes(keyword.toLowerCase()));
+          displayUsers(filteredChannels, userListId, true);
+        }
+
+
+      function getMyAccount() {
+        $.ajax({
+          url: 'https://site222344.tw.cs.unibo.it/graphql', // Sostituisci con l'URL effettivo del tuo server GraphQL
+          type: 'POST',
+          contentType: 'application/json',
+          headers: {
+            Authorization: `Bearer ${$.cookie('AccessTokenMod')}`,
+          },
+          data: JSON.stringify({
+            query: `
+              query {
+                getMyAccount {
+                  __typename
+                  ...on SquealerUser {
+                    _id
+                    nome
+                    cognome
+                    email
+                    username
+                  }
+                }
+              }
+            `,
+          }),
+          success: function (response) {
+            // Puoi gestire i dati qui e aggiornare la tua interfaccia utente
+            $('.welcome-bar p').text('Bentornato, ' + response.data.getMyAccount.nome);
+            squealerId = response.data.getMyAccount._id;
+          },
+          error: function (error) {
+            console.error('Errore durante la query:', error);
+          },
+        });
+      }
+
+
+    getAllSqueals();
+    $('#searchInput').on('input', function () {
+      const searchText = $(this).val();
+      getAllSqueals(searchText);
+    });
+
+    $('.filter-button').on('click', function () {
+        $(this).toggleClass('clicked');
+        if ($(this).attr('id') === 'buttonReset') {
+        $('.filter-button').removeClass('clicked');
+        }
+    });
+
+   
+
+  $('.filter-button').on('click', function () {
+    $(this).toggleClass('clicked');
+    if ($(this).attr('id') === 'buttonReset') {
+      $('.filter-button').removeClass('clicked');
+    }
+  });
+
+  $('#confirmDate').on('click', function () {
+    // Ottieni la data selezionata
+    var selectedDate = $('#datepicker').val();
+
+    // Esegui la query getFilteredUsers con la data selezionata
+    getFilteredUsers();
+
+    // Chiudi il modale
+    $('#dateModal').modal('hide');
+  });
+    
+
+    });
+
+    $('.squeals-container').on('click', '.squeal-container', function() {
+        const squealId = $(this).data('squeal-id');
+        lastSquealId = squealId;
+        $('#newModal').modal('show');
+        updateModalInfo(squealId); 
+    });
+
+    function updateModalInfo(squealId) {
+      $.ajax({
+        url: 'https://site222344.tw.cs.unibo.it/graphql',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({
+          query: `
+            query getSquealById($squealId: String!){
+              getSquealById(squealId: $squealId){
+                reactions{
+                  type
+                }
+                destinationUserIds
+                destinationChannels
+                uploadedFile
+                typeOfUpload
+                geolocation{
+                latitude
+                longitude
+              }
+              }
+            }
+          `,
+          variables: {
+            squealId: squealId
+          },
+        }),
+        success: function (response) {
+          const squeal = response.data.getSquealById;
+          destinatariInizialiUsers = squeal.destinationUserIds;
+          destinatariInizialiChannels = squeal.destinationChannels;
+
+          let posReaction = 0;
+          let negReaction = 0;
+          let agree = 0;
+          let disagree = 0;
+          let emotional = 0;
+          let inappropiate = 0;
+          let heart = 0;
+          let brokenheart = 0;
+          let laugh = 0;
+          let angry = 0;
+
+          for (let j = 0; j < squeal.reactions.length; j++) {
+              switch(squeal.reactions[j].type) {
+                  case 'agree':
+                      posReaction++;
+                      agree++;
+                      break;
+                  case 'disagree':
+                      negReaction++;
+                      disagree++;
+                      break;
+                  case 'emotional':
+                      posReaction++;
+                      emotional++;
+                      break;
+                  case 'inappropriate':
+                      negReaction++;
+                      inappropiate++;
+                      break;
+                  case 'like':
+                      posReaction++;
+                      heart++;
+                      break;
+                  case 'dislike':
+                      negReaction++;
+                      brokenheart++;
+                      break;
+                  case 'laugh':
+                      posReaction++;
+                      laugh++;
+                      break;
+                  case 'angry':
+                      negReaction++;
+                      angry++;
+                      break;
+              }
+          }
+          initialAgreeCount = agree;
+          initialEmotionalCount = emotional;
+          initialLikeCount = heart;
+          initialLaughCount = laugh;
+          initialDisagreeCount = disagree;
+          initialInappropiateCount = inappropiate;
+          initialDislikeCount = brokenheart;
+          initialAngryCount = angry;
+
+          const newModal = $('#newModal');
+          newModal.find('.agree-count').text(agree);
+          newModal.find('.disagree-count').text(disagree);
+          newModal.find('.emotional-count').text(emotional);
+          newModal.find('.inappropiate-count').text(inappropiate);
+          newModal.find('.heart-count').text(heart);
+          newModal.find('.brokenheart-count').text(brokenheart);
+          newModal.find('.laugh-count').text(laugh);
+          newModal.find('.angry-count').text(angry);
+         
+          
+        },
+        error: function (error) {
+          console.error('Errore durante la query getSquealById:', error);
+        },
+      });
+    }
+
+    
+    function increaseReaction(element) {
+            const countElement = $(element).siblings('.reaction-count');
+            let count = parseInt(countElement.text());
+            count++;
+            countElement.text(count);
+    }
+
+    function decreaseReaction(element) {
+      const countElement = $(element).siblings('.reaction-count');
+      let count = parseInt(countElement.text());
+      count = Math.max(0, count - 1); // Assicurati che il conteggio non vada sotto zero
+      countElement.text(count);
+    }
+
+    $('.squeals-container').on('click', '.reaction-control.positive', function() {
+      increaseReaction(this);
+    });
+
+    $('.squeals-container').on('click', '.reaction-control.negative', function() {
+      decreaseReaction(this);
+    });
+
+    // Funzione per chiamare la query GraphQL per aggiungere reazioni
+function addReactionToSqueal(squealId, reactionType, userId, numberOfReactions) {
+  $.ajax({
+    url: 'https://site222344.tw.cs.unibo.it/graphql',
+    type: 'POST',
+    contentType: 'application/json',
+    data: JSON.stringify({
+      query: `
+      mutation addNewReactionToSquealMod($squealId: String!, $reaction: String!, $userId: String!, $numberOfReactions: Float!){
+  addNewReactionToSquealMod(squealId: $squealId, reaction: $reaction, userId: $userId, numberOfReactions: $numberOfReactions){
+       __typename 
+    squeal{
+      text
+      reactions{
+        type
+      }
+      views
+      comments{
+        text
+      }
+      publicationDate
+      destinationUserIds
+      destinationChannels
+      uploadedFile
+      typeOfUpload
+      reactions{
+        type
+      }
+      geolocation{
+                latitude
+                longitude
+              }
+    }
+    user {
+      username
+      profileImage
+      nome
+      cognome
+    }
+  }
+}
+      `,
+      variables: {
+        squealId: squealId,
+        reaction: reactionType,
+        userId: userId,
+        numberOfReactions: numberOfReactions,
+      },
+    }),
+    success: function (response) {
+      // Aggiorna l'interfaccia utente, se necessario
+    },
+    error: function (error) {
+      console.error('Errore durante la mutation addNewReactionToSquealMod:', error);
+    },
+  });
+}
+
+// Funzione per chiamare la query GraphQL per rimuovere reazioni
+function removeReactionFromSqueal(squealId, reactionType, numberOfReactions) {
+  $.ajax({
+    url: 'https://site222344.tw.cs.unibo.it/graphql',
+    type: 'POST',
+    contentType: 'application/json',
+    data: JSON.stringify({
+      query: `
+        mutation removeReactionFromSquealMod($squealId: String!, $reaction: String!, $numberOfReactions: Float!){
+          removeReactionFromSquealMod(squealId: $squealId, reaction: $reaction, numberOfReactions: $numberOfReactions){
+            __typename 
+            squeal{
+              text
+              reactions{
+                type
+              }
+              views
+              comments{
+                text
+              }
+              publicationDate
+              destinationUserIds
+              destinationChannels
+              uploadedFile
+              typeOfUpload
+              geolocation{
+                latitude
+                longitude
+              }
+            }
+            user {
+              username
+              profileImage
+              nome
+              cognome
+            }
+          }
+        }
+      `,
+      variables: {
+        squealId: squealId,
+        reaction: reactionType,
+        numberOfReactions: numberOfReactions,
+      },
+    }),
+    success: function (response) {
+      // Aggiorna l'interfaccia utente, se necessario
+    },
+    error: function (error) {
+      console.error('Errore durante la mutation removeReactionFromSquealMod:', error);
+    },
+  });
+}
+
+function addDestinationToSqueal(squealId, destinationUsers, destinationChannels) {
+    $.ajax({
+        url: 'https://site222344.tw.cs.unibo.it/graphql',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({
+            query: `
+                mutation addDestinationToSqueal($squealId: String!, $destinationUsers: [String!]!, $destinationChannels: [String!]!){
+                  addDestinationToSqueal(squealId: $squealId, destinationUsers: $destinationUsers, destinationChannels: $destinationChannels){
+                      __typename 
+                    squeal{
+                      text
+                      reactions{
+                        type
+                      }
+                      views
+                      comments{
+                        text
+                      }
+                      publicationDate
+                      destinationUserIds
+                      destinationChannels
+                      uploadedFile
+                      typeOfUpload
+                      geolocation{
+                latitude
+                longitude
+              }
+                    }
+                    user {
+                      username
+                      profileImage
+                      nome
+                      cognome
+                    }
+                  }
+                }
+            `,
+            variables: {
+                squealId: squealId,
+                destinationUsers: destinationUsers,
+                destinationChannels: destinationChannels,
+            },
+        }),
+        success: function (response) {
+        },
+        error: function (error) {
+            console.error('Errore durante la mutation addDestinationToSqueal:', error);
+        },
+    });
+}
+
+function removeDestinationFromSqueal(squealId, destinationUsers, destinationChannels) {
+    $.ajax({
+        url: 'https://site222344.tw.cs.unibo.it/graphql',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({
+            query: `
+                mutation removeDestinationFromSqueal($squealId: String!, $destinationUsers: [String!]!, $destinationChannels: [String!]!){
+                  removeDestinationFromSqueal(squealId: $squealId, destinationUsers: $destinationUsers, destinationChannels: $destinationChannels){
+                      __typename 
+                    squeal{
+                      text
+                      reactions{
+                        type
+                      }
+                      views
+                      comments{
+                        text
+                      }
+                      publicationDate
+                      destinationUserIds
+                      destinationChannels
+                      uploadedFile
+                      typeOfUpload
+                      geolocation{
+                latitude
+                longitude
+              }
+                    }
+                    user {
+                      username
+                      profileImage
+                      nome
+                      cognome
+                    }
+                  }
+                }
+            `,
+            variables: {
+                squealId: squealId,
+                destinationUsers: destinationUsers,
+                destinationChannels: destinationChannels,
+            },
+        }),
+        success: function (response) {
+            // Puoi aggiornare l'UI o eseguire altre azioni se necessario
+        },
+        error: function (error) {
+            console.error('Errore durante la mutation removeDestinationFromSqueal:', error);
+            // Mostra un messaggio di errore in caso di problemi
+        },
+    });
+}
+
+$('#saveChangesBtn').on('click', function() {
+  // Ottieni i valori aggiornati delle reazioni dal tuo modale
+  const agreeCount = parseInt($('#newModal .agree-count').text());
+  const disagreeCount = parseInt($('#newModal .disagree-count').text());
+  const emotionalCount = parseInt($('#newModal .emotional-count').text());
+  const inappropiateCount = parseInt($('#newModal .inappropiate-count').text());
+  const heartCount = parseInt($('#newModal .heart-count').text());
+  const brokenheartCount = parseInt($('#newModal .brokenheart-count').text());
+  const laughCount = parseInt($('#newModal .laugh-count').text());
+  const angryCount = parseInt($('#newModal .angry-count').text());
+  const squealId = lastSquealId;
+  const userId = squealerId;
+
+  if (agreeCount !== initialAgreeCount) {
+    if (agreeCount > initialAgreeCount) {
+      addReactionToSqueal(squealId, 'agree', userId, agreeCount - initialAgreeCount);
+    } else {
+      removeReactionFromSqueal(squealId, 'agree', initialAgreeCount - agreeCount);
+    }
+  } 
+
+  if (disagreeCount !== initialDisagreeCount) {
+    if (disagreeCount > initialDisagreeCount) {
+      addReactionToSqueal(squealId, 'disagree', userId, disagreeCount - initialDisagreeCount);
+    } else {
+      removeReactionFromSqueal(squealId, 'disagree', initialDisagreeCount - disagreeCount);
+    }
+  }
+
+  if (emotionalCount !== initialEmotionalCount) {
+    if (emotionalCount > initialEmotionalCount) {
+      addReactionToSqueal(squealId, 'emotional', userId, emotionalCount - initialEmotionalCount);
+    } else {
+      removeReactionFromSqueal(squealId, 'emotional', initialEmotionalCount - emotionalCount);
+    }
+  }
+
+  if (inappropiateCount !== initialInappropiateCount) {
+    if (inappropiateCount > initialInappropiateCount) {
+      addReactionToSqueal(squealId, 'inappropriate', userId, inappropiateCount - initialInappropiateCount);
+    } else {
+      removeReactionFromSqueal(squealId, 'inappropriate', initialInappropiateCount - inappropiateCount);
+    }
+  }
+
+  if (heartCount !== initialLikeCount) {
+    if (heartCount > initialLikeCount) {
+      addReactionToSqueal(squealId, 'like', userId, heartCount - initialLikeCount);
+    } else {
+      removeReactionFromSqueal(squealId, 'like', initialLikeCount - heartCount);
+    }
+  }
+
+  if (brokenheartCount !== initialDislikeCount) {
+    if (brokenheartCount > initialDislikeCount) {
+      addReactionToSqueal(squealId, 'dislike', userId, brokenheartCount - initialDislikeCount);
+    } else {
+      removeReactionFromSqueal(squealId, 'dislike', initialDislikeCount - brokenheartCount);
+    }
+  }
+
+  if (laughCount !== initialLaughCount) {
+    if (laughCount > initialLaughCount) {
+      addReactionToSqueal(squealId, 'laugh', userId, laughCount - initialLaughCount);
+    } else {
+      removeReactionFromSqueal(squealId, 'laugh', initialLaughCount - laughCount);
+    }
+  }
+
+  if (angryCount !== initialAngryCount) {
+    if (angryCount > initialAngryCount) {
+      addReactionToSqueal(squealId, 'angry', userId, angryCount - initialAngryCount);
+    } else {
+      removeReactionFromSqueal(squealId, 'angry', initialAngryCount - angryCount);
+    }
+  }
+
+  if (selectedAddUsers.length > 0 || selectedAddChannels.length > 0) {
+    addDestinationToSqueal(squealId, selectedAddUsers, selectedAddChannels);
+  }
+
+  if (selectedRemoveUsers.length > 0 || selectedRemoveChannels.length > 0) {
+    removeDestinationFromSqueal(squealId, selectedRemoveUsers, selectedRemoveChannels);
+  }
+  toastr.success('Squeal modificato con successo');
+  selectedAddUsers = [];
+  selectedRemoveUsers = [];
+  selectedAddChannels = [];
+  selectedRemoveChannels = [];
+
+  // Chiudi il modale
+  getAllSqueals();
+  $('#newModal').modal('hide');
+
+});
+
+
+
+
+  </script>
+
+</body>
+</html>
+
+<div class="userChannelContainer">
+  <div class="user-list-container">
+    <ul id="userList" class="user-list mt-2"></ul>
+  </div>
+  <hr class="vertical-line">
+  <div class="channel-list-container">
+    <!-- Lista Canali -->
+    <ul id="channelList" class="user-list mt-2"></ul>
+  </div>
+</div>
