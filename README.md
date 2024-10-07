@@ -49,19 +49,6 @@ The backend is powered by **Node.js**, with a **GraphQL** API, and data is store
 
 ---
 
-## 🖥️ Screenshots
-
-### Main Platform:
-![Main Platform Screenshot](https://via.placeholder.com/900x500)
-
-### Admin Platform:
-![Admin Platform Screenshot](https://via.placeholder.com/900x500)
-
-### SMM Platform:
-![SMM Platform Screenshot](https://via.placeholder.com/900x500)
-
----
-
 ## 📽️ Demo Video
 
 Check out the video demo of Squaler in action!
