@@ -58,4 +58,4 @@ Check out the demo of Squaler in action at this [link](https://vimeo.com/manage/
 ## 👥 Contributors
 
 - [Osama Elatfi](https://github.com/Maphoz) - Co-Contributor
-- [Alberto Conocirone](https://github.com/conocirone) - Co-Contributor
+- [Cono Cirone](https://github.com/conocirone) - Co-Contributor
