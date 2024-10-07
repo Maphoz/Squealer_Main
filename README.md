@@ -51,6 +51,6 @@ The backend is powered by **Node.js**, with a **GraphQL** API, and data is store
 
 ## 📽️ Demo Video
 
-Check out the video demo of Squaler in action!
+Check out the demo of Squaler in action at this [link](https://vimeo.com/manage/videos/1017259917).
 
-[![Squaler Demo Video](https://github.com/Maphoz/Squealer_Main/blob/main/assets/locandina.jpeg)]([https://www.youtube.com/watch?v=your_video_id](https://vimeo.com/manage/videos/1017259917))
+![Squaler Demo Image](https://github.com/Maphoz/Squealer_Main/blob/main/assets/locandina.jpeg)
