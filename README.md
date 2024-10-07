@@ -1,9 +1,9 @@
 
 # Squaler - Social Media Platform 🧑‍🤝‍🧑
 
-![Main Platform Screenshot](https://via.placeholder.com/900x500) 
-![Admin Platform Screenshot](https://via.placeholder.com/900x500) 
-![Social Media Manager Screenshot](https://via.placeholder.com/900x500)
+![Main Platform Screenshot](https://github.com/Maphoz/Squealer_Main/blob/main/assets/main_app.jpeg)
+![Admin Platform Screenshot](https://github.com/Maphoz/Squealer_Main/blob/main/assets/smm.jpeg)
+![Social Media Manager Screenshot](https://github.com/Maphoz/Squealer_Main/blob/main/assets/admin.jpeg)
 
 > A feature-rich, cross-platform social media application built with multiple technologies, offering a complete social media experience for users, admins, and social media managers.
 
@@ -66,21 +66,4 @@ The backend is powered by **Node.js**, with a **GraphQL** API, and data is store
 
 Check out the video demo of Squaler in action!
 
-[![Squaler Demo Video](https://img.youtube.com/vi/your_video_id/maxresdefault.jpg)]([https://www.youtube.com/watch?v=your_video_id](https://vimeo.com/manage/videos/1017259917))
-
----
-
-## 🚀 Getting Started
-
-Follow the instructions below to set up the project on your local machine.
-
-### Prerequisites
-- **Node.js** and **npm** installed on your machine.
-- **MongoDB** running locally or on a cloud instance.
-
-### Installation
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/Maphoz/squaler.git
-   cd squaler
+[![Squaler Demo Video](https://github.com/Maphoz/Squealer_Main/blob/main/assets/locandina.jpeg)]([https://www.youtube.com/watch?v=your_video_id](https://vimeo.com/manage/videos/1017259917))
